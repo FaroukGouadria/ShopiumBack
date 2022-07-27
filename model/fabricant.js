@@ -24,8 +24,9 @@ const FabricantSchema = new mongoose.Schema({
         type:String,
     },
     products:{
-       type: mongoose.Schema.Types.ObjectId,
-       ref:'Products',
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'Products',
     }
 }, {
     timestamps: true

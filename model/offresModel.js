@@ -9,7 +9,7 @@ const offreSchema = new mongoose.Schema({
         type:String,
         trim:true,
     },
- condition:{
+    condition:{
         type:String,
         trim:true,
     },
@@ -25,15 +25,16 @@ const offreSchema = new mongoose.Schema({
         type:Number,
         trim:true
     },product:{
-       type: mongoose.Schema.Types.ObjectId,
+        type:String,
         ref:'Products'
     },
     isLiked:{
         type:Number,
+        default:0
     },
-    logo_fabricant:{
-        type:String,
-    }
+    // logo_fabricant:{
+    //     type:String,
+    // }
 
 },{
   timestamps: true //important

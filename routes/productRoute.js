@@ -3,7 +3,7 @@ const productCtrl = require("../controller/product");
 const multer = require('multer');
 const path = require('path');
 const bodyParser = require("body-parser");
-const { addProduct } = require("../controller/product");
+const { addProduct, getFabricantByProduct, getProducts } = require("../controller/product");
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
@@ -27,10 +27,12 @@ const storage =multer.diskStorage({
 });
 
 const upload = multer({storage:storage});
-router.route("/").get(productCtrl.getProducts).post(productCtrl.createProduct);
-
+router.post('/',productCtrl.getProducts);
+router.post('/ajouter',productCtrl.createProduct);
 router.route("/:id").delete(productCtrl.deleteProduct).put(productCtrl.updateProduct);
-
-
+router.delete('/delete',productCtrl.deleteProduct);
+router.post("/fabricantByproduct",productCtrl.getFabricantByProduct)
+router.post('/getofferByproduct',productCtrl.getOfferByProduct)
+router.post("/likeDislike",productCtrl.likeproduct);
 router.post('/add',upload.array('photo'),addProduct);
 module.exports = router;

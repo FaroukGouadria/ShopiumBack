@@ -9,102 +9,119 @@ const crypto = require("crypto");
 const multer = require("multer");
 const image = ('/images/user/photo_1652707413348_farouk.jpg');
 const referralCodes=require('referral-codes');
+
+
 exports.createUSer = async (req, res) => {
-  const {
-    nom,
-    prenom,
-    ville,
-    pays,
-    email,
-    password,
-  } = req.body;
-  const user = await User.findOne({email});
-  console.log({user})
-  if (user) {
-    return sendError(res, "This email is already exists!");
-  }
-  const token = jwt.sign({
-    userId:Math.random(10)
-  }, process.env.JWT_SECURE , {expiresIn: "1d"});
+  try {
+    const {
+      nom,
+      prenom,
+      ville,
+      pays,
+      email,
+      password,
+    } = req.body;
+    const user = await User.findOne({email});
+    console.log({user})
+    if (user) {
+      return  res.status(404).json({ res:"email existe déja !"});
+    }
+    const token = jwt.sign({
+      userId:Math.random(10)
+    }, process.env.JWT_SECURE , {expiresIn: "1d"});
+    
+    const code = referralCodes.generate({
+          count: 1,
+          length: 6,
+          charset: "0123456789"
+      });
+      let codepar=code[0];
   
-  const code = referralCodes.generate({
-        count: 1,
-        length: 6,
-        charset: "0123456789"
+    const newUser = new User({
+      nom,
+      prenom,
+      ville,
+      pays,
+      email,
+      password,
+      role: "subscriber",
+      photo:image,
+      cloudinary_id:"",
+      codeParrainage:codepar
     });
-    let codepar=code[0];
-
-  const newUser = new User({
-    nom,
-    prenom,
-    ville,
-    pays,
-    email,
-    password,
-    role: "subscriber",
-    photo:image,
-    cloudinary_id:"",
-    codeParrainage:codepar
-  });
-  const OTP = generateOTP();
-  console.log(OTP);
-  const verificationToken = new VerificationToken({owner: newUser._id, token: OTP});
-  await verificationToken.save();
-  await newUser.save();
-  console.log({newUser});
-  const msg = {
-    from: "appshopium@gmail.com", // sender address
-    to: newUser.email, // list of receivers
-    subject: "Verify your account ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: `<h1>${OTP}</h1>` // html body
-  };
-  await transporter.sendMail(msg);
-
-res.send({
-    success: true,
-    user: {
-      nom: newUser.nom,
-      email: newUser.email,
-      id: newUser._id,
-      verified: newUser.verified,
-      ville:newUser.ville,
-      pays:newUser.pays,
-      photo:newUser.photo,
-      codeParrainage:code
-    },
-  });
+    const OTP = generateOTP();
+    console.log(OTP);
+    const verificationToken = new VerificationToken({owner: newUser._id, token: OTP});
+    await verificationToken.save();
+    await newUser.save();
+    console.log({newUser});
+    const msg = {
+      from: "appshopium@gmail.com", // sender address
+      to: newUser.email, // list of receivers
+      subject: "Verify your account ✔", // Subject line
+      text: "Hello world?", // plain text body
+      html: `<h1>${OTP}</h1>` // html body
+    };
+    await transporter.sendMail(msg);
+  
+  res.send({
+      success: true,
+      user: {
+        nom: newUser.nom,
+        email: newUser.email,
+        id: newUser._id,
+        verified: newUser.verified,
+        ville:newUser.ville,
+        pays:newUser.pays,
+        photo:newUser.photo,
+        codeParrainage:code
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.signin = async (req, res) => {
-  const {email, password} = req.body;
-  if (!email.trim() || !password.trim()) {
-    return sendError(res, "email/password missing!");
+  try {
+    const {email, password} = req.body;
+    if (!email.trim() || !password.trim()) {
+      return res.status(500).json({msessage:"email/password missing!"});
+    }
+    const user = await User.findOne({email});
+    console.log(user.verified);
+    if (!user) {
+      return res.status(404).json({msessage: "USer NOt found"});
+
+    }
+    const isMatched = await user.comparePassword(password);
+    if (!isMatched) {
+       return res.status(404).json({msessage: "USer NOt found"});
+    }
+    if(user.verified==="false"){
+       return res.status(400).json({msessage: "please Verifed your account"});
+    }
+      const token = jwt.sign({
+        user: user,
+      }, process.env.JWT_SECURE, {expiresIn: "1d"});
+        res.json({
+          success: true,
+          user: {
+            name: user.name,
+            email: user.email,
+            id: user._id,
+            verified:user.verified,
+            token
+          },
+          id: user._id,
+          verified:user.verified,
+          token
+        });
+
+  } catch (error) {
+         return res.status(500).json({msessage: error});
+   
   }
-  const user = await User.findOne({email});
-  if (!user) {
-    return sendError(res, "User not found!");
-  }
-  const isMatched = await user.comparePassword(password);
-  if (!isMatched) {
-    return sendError(res, " email/password does not match!");
-  }
-const token = jwt.sign({
-  user: user,
-}, process.env.JWT_SECURE, {expiresIn: "1d"});
-  res.json({
-    success: true,
-    user: {
-      name: user.name,
-      email: user.email,
-      id: user._id,
-      verified:user.verified,
-      token
-    },
-    id: user._id,
-    verified:user.verified,
-    token
-  });
 };
 
 exports.verifyEmail = async (req, res) => {
@@ -201,7 +218,6 @@ exports.resetPassword = async (req, res) => {
   await transporter.sendMail(msg);
   res.json({success: true, message: "Password Reset Successfully"});
 };
-
 exports.getMe = async(req,res)=>{
   const token=req.body.token;
   console.log({token});
@@ -233,27 +249,6 @@ exports.Me = async(req,res)=>{
     return res.status(500).json({success:false, message:error});
   }
 };
-// const upload = multer({
-//     limits: {
-//         fileSize: 1000000
-//     },
-//     fileFilter(req, file, cb) {
-//         if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-//             return cb(new Error('Please upload an image'))
-//         }
-
-//         cb(undefined, true)
-//     }
-// })
-
-// exports.updateImageUser = async(req,res)=>{
-//   upload.single('avatar');
-//     req.user.avatar = req.file.buffer
-//     await req.user.save()
-//     res.send()
-// }, (error, req, res, next) => {
-//     res.status(400).send({ error: error.message })
-// }
 exports.updateProfile =  async (req , res) => {
     try {
         const 
@@ -263,19 +258,25 @@ exports.updateProfile =  async (req , res) => {
             ville= req.body.ville,
             pays= req.body.pays;
             console.log(req.body.id);
-    const user = await User.findById(req.body.id)
-        if(user){
-          user.nom=nom||user.nom
-          user.prenom=prenom||user.prenom
-          user.ville=ville||user.ville
-          user.pays = pays || user.pays;
+            console.log(req.body.nom);
+            console.log(req.body.prenom);
+            console.log(req.body.ville);
+            console.log(req.body.pays);
+      const CurrentUser = await User.findOne({id});
+        if(!CurrentUser){
+          return res.status(404).json({success:false,message:"User n existe pas"})
+        }else{
+          const UserModifier = await User.findByIdAndUpdate(id,{
+          nom:nom,
+          prenom:prenom,
+          ville:ville,
+          pays : pays 
+          })
+          return await  res.status(200).json({success: true, message: "update success for user", data: UserModifier});
         }
-        const updateUser = await user.save();
-      res.status(200).json({success:true,message:'update success for user',data:updateUser})
-
     }catch (error){
         console.log(error.message)
-        return res.status(500).json({msg :'server error'})
+        return res.status(500).json({msg :'server error',message:error})
     }
   }
   exports.sendRequestFriend = async (req,res)=>{

@@ -6,7 +6,7 @@ const { sendError } = require("../utils/helper");
 const FideliteContoller = {
         addFidelite : async (req,res) =>{
             try {
-                const {userId,data,format}=req.body;
+                const {userId,data}=req.body;
                 console.log({userId:userId});
                 console.log({data});
             const user = await User.findOne({userId});
@@ -22,12 +22,15 @@ const FideliteContoller = {
             const cartFidelite = new Fidelite({
                 data:data,
                 userId:userId,
-                format:"CODE128"
+                format:"CODE128",
+                // nom:'carrefour',
+
             });
             console.log(cartFidelite);
             await cartFidelite.save();
            await res.status(200).json({success:true,message:'Carte add successfully',data:cartFidelite})
             } catch (error) {
+                console.log(error)
                 return res.status(500).json({success:false,msg: error.message})
             }
 },

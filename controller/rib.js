@@ -50,3 +50,32 @@ exports.getRibByUser=async (req,res)=>{
         console.log(error)
     }
 }
+
+exports.modifier=async(req,res)=>{
+    try {
+        const userId = req.body.userId;
+        const {nom,numero,banque}=req.body;
+            const id=req.body._id;
+        console.log(userId)
+        console.log(id);
+        const user = await User.findOne({userId});
+        if(!user)
+        {
+             return res.status(404).json({success:false,message:"user not found"})
+        }
+        const ripUser = await Rib.find({id});
+        if(!ripUser){
+                return res.status(404).json({success:false,message:"Card Not found"})
+            }else {
+              const ribMod = await Rib.findByIdAndUpdate(id,{
+                    banque:banque,
+                    nom:nom,
+                    numero:numero
+                });
+               return await  res.status(200).json({succes:true,message:"votre rib a étè modifier avec success", rib:ribMod});
+            }
+    } catch (error) {
+         res.status(500).json({success:false,message:error})
+        console.log(error)
+    }
+}

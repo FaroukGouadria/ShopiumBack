@@ -23,10 +23,30 @@ const productSchema = new mongoose.Schema({
   },
   barcode:{
     type:String,
-    required:true
-  },fabricant:{
+  },
+  fabricant:{
     type: mongoose.Schema.Types.ObjectId,
-    ref:'Fabricant'
+    ref:'Fabricant',
+    trim:true,
+  },
+  offer:{
+    type:String, 
+    ref:'Offre',
+    trim:true
+  },
+  logo:{
+      type:String
+  },
+  isLiked:{
+    type:Boolean,
+    default:false,
+  },
+  isnew:{
+    type:Boolean,
+    default:false,
+  },
+  description:{
+    type:String,
   }
 }, {
   timestamps: true //important

@@ -11,6 +11,7 @@ const {isResetTokenValid} = require("../middleware/user");
 const { error } = require("console");
 const { body } = require("express-validator");
 const upload=require('../utils/multer');
+const { userUpdate } = require("../controller/user");
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
 router.post("/create",createUSer);
@@ -28,7 +29,7 @@ router.post("/parrainage",sendRequestFriend);
 router.post('/requestfriend',getFriendRequest);
 router.post("/sendrequest", getSendRequest);
 router.post("/accept", acceptFriend);
-
+router.post('/imageUpdate',userUpdate);
 router.post("/ami", getAmi);
 // const storage = multer.diskStorage({
 //   destination:(req,file,cb)=>{
