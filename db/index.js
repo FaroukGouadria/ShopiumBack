@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 //     // useCreateIndex:true,
 // }).then(()=>console.log('db is connected')).catch((err)=>{console.log(err)})
 
-mongoose.connect('mongodb+srv://farouk:Frouga1@pfe.di1sy.mongodb.net/pfe',{
+mongoose.connect(process.env.DATA_BASE,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
     // useCreateIndex:true,
