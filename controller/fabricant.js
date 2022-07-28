@@ -5,7 +5,8 @@ const ProductModel = require("../model/ProductModel");
 
 exports.add = async(req,res)=>{
     try {
-        const {name,email,password,logo,codeTVA,RIB,phone,products}=req.body;
+        const {name,email,password,logo,codeTVA,RIB,phone}=req.body;
+        let products=null;
         const fabricant = await Fabricant.findOne({email});
         console.log({ fabricant})
         if(fabricant)
@@ -18,7 +19,7 @@ exports.add = async(req,res)=>{
             codeTVA:codeTVA,
             RIB:RIB,
             phone:phone,
-            products:null
+            products,
         });
         await newFabricant.save();
         console.log({fab:newFabricant})
