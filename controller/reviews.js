@@ -15,7 +15,7 @@ exports.ajouterCommentaire=async(req,res)=>{
         console.log(_id)
         const user = await User.findById({userId});
         if (!user) {
-      return  res.status(404).json({ res:"user Not found !"});
+      return  res.status(404).json({ res:"user not  !"});
     }else{
         image=user.photo;
         console.log(image);
