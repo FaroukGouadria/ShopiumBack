@@ -5,8 +5,8 @@ const Reviews = require("../model/reviews");
 
 exports.ajouterCommentaire=async(req,res)=>{
     try {
-        var image;
-        var userName ;
+        let image;
+        let userName ;
         const{
             userId,text,rating,
         }=req.body;
