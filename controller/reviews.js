@@ -13,15 +13,16 @@ exports.ajouterCommentaire=async(req,res)=>{
         console.log(rating);
         const _id = req.body.productId;
         console.log(_id)
-        const user = await User.findById({userId});
+        const user = await User.findById(userId);
         if (!user) {
       return  res.status(404).json({ res:"user not  !"});
     }else{
         image=user.photo;
         console.log(image);
         userName=user.nom +' '+user.prenom
+        console.log(userName);  
     }   
-    const product = await Products.findOne({_id});
+    const product = await Products.findById(_id);
        if (!product) {
       return  res.send({ message:"product Not found !"});       
     }else{
@@ -32,7 +33,7 @@ exports.ajouterCommentaire=async(req,res)=>{
                 productID:_id,
                 text:text,
                 image:user.photo,
-                userName:userName,
+                userName:user.nom,
                 rating:rating,
         });
         await newReview.save();
