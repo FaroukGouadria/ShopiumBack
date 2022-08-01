@@ -8,7 +8,6 @@ const mongoose = require('mongoose')
 mongoose.connect( 'mongodb+srv://farouk:Frouga1@pfe.di1sy.mongodb.net/pfe',{
     useNewUrlParser:true,
     useUnifiedTopology:true,
-    // useCreateIndex:true,
 }).then(()=>console.log('db is connected successfully')).catch((err)=>{console.log(err)});
 
 

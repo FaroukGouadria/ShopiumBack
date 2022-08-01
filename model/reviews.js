@@ -19,7 +19,10 @@ const reviewsModel = mongoose.Schema({
         default:Date.now()
     },userName:{
         type:String
-    }
+    },
+    rating:{
+        type:Number,
+    },
 });
 
 module.exports = mongoose.model("Reviews", reviewsModel);

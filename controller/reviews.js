@@ -5,11 +5,12 @@ const Reviews = require("../model/reviews");
 
 exports.ajouterCommentaire=async(req,res)=>{
     try {
-        let image;
-        let userName ;
+        var image;
+        var userName ;
         const{
-            userId,text
+            userId,text,rating,
         }=req.body;
+        console.log(rating);
         const _id = req.body.productId;
         console.log(_id)
         const user = await User.findOne({userId});
@@ -31,7 +32,8 @@ exports.ajouterCommentaire=async(req,res)=>{
                 productID:_id,
                 text:text,
                 image:user.photo,
-                userName:userName
+                userName:userName,
+                rating:rating,
         });
         await newReview.save();
         return res.status(200).json({message:"success",data:newReview})
