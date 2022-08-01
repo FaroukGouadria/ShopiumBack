@@ -13,7 +13,7 @@ exports.ajouterCommentaire=async(req,res)=>{
         console.log(rating);
         const _id = req.body.productId;
         console.log(_id)
-        const user = await User.findOne({userId});
+        const user = await User.findById({userId});
         if (!user) {
       return  res.status(404).json({ res:"user Not found !"});
     }else{
