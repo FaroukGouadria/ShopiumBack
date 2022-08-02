@@ -13,10 +13,9 @@ const categorySchema = new mongoose.Schema({
         required:true,
         ref:'Product',
     }],
-}, {
-    timestamps: true
-},{
+}, 
+    timestamps: true,
     versionKey: false //here
-});
+);
 
 module.exports  = mongoose.model("Category", categorySchema)

@@ -165,7 +165,7 @@ const productCtrl = {
             }
             else
             {
-                const productList = await ProductModel.find(product.categoryId).populate('categoryId');
+                const productList = await ProductModel.find(product.categoryId)
                 return res.status(200).json({data:productList});
 
             }
