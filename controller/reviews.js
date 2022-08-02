@@ -33,7 +33,7 @@ exports.ajouterCommentaire=async(req,res)=>{
                 productID:_id,
                 text:text,
                 image:user.photo,
-                userName:user.nom,
+                userName:user.nom+''+user.prenom,
                 rating:rating,
         });
         await newReview.save();
