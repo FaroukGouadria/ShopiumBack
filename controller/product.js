@@ -156,16 +156,16 @@ const productCtrl = {
 
     getProductByCategory:async(req,res)=>{
         try {
-            const id= req.body.id;
+            const _id= req.body.id;
             console.log({id:id});
-    const product = await ProductModel.findById({_id: id});
+    const product = await ProductModel.findById(_id);
             if(!product)
             {
                 return res.status(404).json({message:"failed"});
             }
             else
             {
-                const productList = await ProductModel.find(product.categoryId)
+                const productList = await ProductModel.find({categoryId:product.categoryId})
                 return res.status(200).json({data:productList});
 
             }
