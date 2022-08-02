@@ -166,7 +166,7 @@ const productCtrl = {
             else
             {
                 const productList = await ProductModel.find(product.categoryId).populate('categoryId');
-                return res.status(200).json({message:"success",data:productList});
+                return res.status(200).json({data:productList});
 
             }
     } catch (error) {
