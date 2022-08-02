@@ -35,4 +35,5 @@ router.post("/fabricantByproduct",productCtrl.getFabricantByProduct)
 router.post('/getofferByproduct',productCtrl.getOfferByProduct)
 router.post("/likeDislike",productCtrl.likeproduct);
 router.post('/add',upload.array('photo'),addProduct);
+router.post('/getprodbycat',productCtrl.getProductByCategory)
 module.exports = router;

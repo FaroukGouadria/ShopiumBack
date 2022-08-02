@@ -152,6 +152,24 @@ const productCtrl = {
         } catch (error) {
             console.log(error);
         }
+    },
+
+    getProductByCategory:async(req,res)=>{
+        try {
+            const id= req.body.id;
+            console.log({id:id});
+    const product = await ProductModel.findById({_id: id});
+            if(!product)
+            {
+                return res.status(404).json({message:"failed"});
+            }
+            else
+            {
+                return res.status(200).json({message:"success",data:product.categoryId});
+            }
+    } catch (error) {
+            console.log(error);
+        }
     }
     
 }
