@@ -157,7 +157,7 @@ const productCtrl = {
     getProductByCategory:async(req,res)=>{
         try {
             const _id= req.body.id;
-            console.log({id:id});
+            console.log({id:_id});
     const product = await ProductModel.findById(_id);
             if(!product)
             {
