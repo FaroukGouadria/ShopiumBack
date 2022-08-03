@@ -10,7 +10,7 @@ const ticketSchema = mongoose.Schema({
     type:String
     },
     prixTotal:{
-        type:Double
+        type:Number
     },
     dateScan:{
         type:Date,
