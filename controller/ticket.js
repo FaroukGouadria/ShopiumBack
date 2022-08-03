@@ -12,8 +12,17 @@ const TicketController = {
                     if(!user){
                         return res.status(404).json({success:'false',message:'USer Not Found !'})
                     }else
-                        {
-                            return res.status(200).json({success:'true',data:{nom:user.nom,prenom:user.prenom}})
+                        {   
+                           const ticket = new Ticket({
+                                magazin:magasin,
+                                products:products,
+                                dateAchat:dateAchat,
+                                prixTotal:prixTotal,
+
+                           })
+
+                           await ticket.save();
+                           return res.status(200).json({ticket})
                         }
                     
                 } catch (error) {
