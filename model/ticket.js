@@ -4,8 +4,8 @@ const ticketSchema = mongoose.Schema({
     type:String,
    },
    Product:{
-    type:[],
-    },
+    type:[{pname:String,pquantity:Number,ptotal:Number,pupri:Number}]    
+},
     dateAchat:{
     type:String
     },

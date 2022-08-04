@@ -6,23 +6,22 @@ const TicketController = {
         AddTicket:async(req,res)=>{
                 try {
                     const _id=req.body.id
-                    const {magasin,products,dateAchat,prixTotal}=req.body
-                    console.log({userId:_id,magasin:magasin,products:products,proxTotal:prixTotal,dateAchat:dateAchat})
-                    const user =  await User.findById(_id);
+                    const recu=req.body.recu
+                    console.log({id:_id,recu:recu.products})
+                    const user =  await User.findById({_id});
                     if(!user){
-                        return res.status(404).json({success:'false',message:'USer Not Found !'})
+                        return res.status(404).json({success:'false',message:'User Not Found !'})
                     }else
                         {   
                            const ticket = new Ticket({
-                                magazin:magasin,
-                                products:products,
-                                dateAchat:dateAchat,
-                                prixTotal:prixTotal,
-
-                           })
+                                magazin:recu.name,
+                                Product:recu.products,
+                                dateAchat:recu.date,
+                                prixTotal:recu.total,
+                           });
 
                            await ticket.save();
-                           return res.status(200).json({ticket})
+                           return await res.status(200).json({ticket})
                         }
                     
                 } catch (error) {
@@ -32,7 +31,7 @@ const TicketController = {
         getUserTicket:async(req,res)=>{
             try {
                 const _id=req.body.id;
-                const user=await User.findById(_id);
+                const user=await User.findById({_id});
                 if(!user){
                     return res.status(404).json("user not found !!");
                 }else{
