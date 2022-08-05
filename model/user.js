@@ -54,6 +54,13 @@ const userSchema = new mongoose.Schema({
   sendRequest:{
       type:[{nom:String,prenom:String,id:String}],
       default:[],
+  },
+  date:{
+    type:String,
+    
+  },
+  genre:{
+    type:String,
   }
 }, {timestamps: true});
 

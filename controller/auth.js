@@ -20,6 +20,8 @@ exports.createUSer = async (req, res) => {
       pays,
       email,
       password,
+      date,
+      genre
     } = req.body;
     const user = await User.findOne({email});
     console.log({user})
@@ -47,7 +49,9 @@ exports.createUSer = async (req, res) => {
       role: "subscriber",
       photo:image,
       cloudinary_id:"",
-      codeParrainage:codepar
+      codeParrainage:codepar,
+      date,
+      genre
     });
     const OTP = generateOTP();
     console.log(OTP);
@@ -74,7 +78,9 @@ exports.createUSer = async (req, res) => {
         ville:newUser.ville,
         pays:newUser.pays,
         photo:newUser.photo,
-        codeParrainage:code
+        codeParrainage:code,
+        date:date,
+        genre:genre
       },
     });
   } catch (error) {
