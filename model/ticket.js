@@ -15,7 +15,8 @@ const ticketSchema = mongoose.Schema({
     dateScan:{
         type:Date,
         default:Date.now
-    }
+    },
+    idUser:{type:String,ref:"User"}
 });
 
 module.exports = mongoose.model('TicketModel',ticketSchema);

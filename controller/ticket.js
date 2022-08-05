@@ -14,10 +14,11 @@ const TicketController = {
                     }else
                         {   
                            const ticket = new Ticket({
-                                magazin:recu.name,
-                                Product:recu.products,
+                                magasin:recu.name,
+                                Product:recu.products,  
                                 dateAchat:recu.date,
                                 prixTotal:recu.total,
+                                idUser:_id
                            });
 
                            await ticket.save();
