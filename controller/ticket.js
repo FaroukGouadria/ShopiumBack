@@ -39,7 +39,9 @@ const TicketController = {
                     let nom = user.nom
                     let prenom=user.prenom
                     let email=user.email;
-                    return res.status(200).json({user:{nom,prenom,email}})
+                    let dateNaissance = user.date;
+                    let genre = user.genre
+                    return res.status(200).json({user:{nom,prenom,email,dateNaissance,genre}})
                 }
             } catch (error) {
                 console.log(error)
