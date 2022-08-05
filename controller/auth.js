@@ -117,6 +117,8 @@ exports.signin = async (req, res) => {
             email: user.email,
             id: user._id,
             verified:user.verified,
+            dateNaissance:user.date,
+            genre:user.genre,
             token
           },
           id: user._id,
