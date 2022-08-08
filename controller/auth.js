@@ -77,10 +77,11 @@ exports.createUSer = async (req, res) => {
         verified: newUser.verified,
         ville:newUser.ville,
         pays:newUser.pays,
-        photo:newUser.photo,
+        photo:'https://res.cloudinary.com/frouga/image/upload/v1659959078/profile_bkurim.png',
         codeParrainage:code,
         date:date,
-        genre:genre
+        genre:genre,
+        
       },
     });
   } catch (error) {
@@ -119,7 +120,8 @@ exports.signin = async (req, res) => {
             verified:user.verified,
             dateNaissance:user.date,
             genre:user.genre,
-            token
+            token,
+            photo:user.photo
           },
           id: user._id,
           verified:user.verified,
@@ -300,10 +302,10 @@ exports.updateProfile =  async (req , res) => {
      if(!me)
       return res.status(404).json({success:true,message:'User not found'});
     await User.updateOne({_id:user.id},{
-       $push:{friendRequest:{nom:me.nom, prenom:me.prenom, id:me._id}}
+       $push:{friendRequest:{nom:me.nom, prenom:me.prenom, id:me._id,photo:me.photo}}
      });
     await User.updateOne({_id:me.id},{
-       $push:{sendRequest:{nom:user.nom,prenom:user.prenom,id:user._id}}
+       $push:{sendRequest:{nom:user.nom,prenom:user.prenom,id:user._id,photo:user.photo}}
      });
    return res.status(200).json({success:true,user:user,me:me});
    } catch (error) {
@@ -358,13 +360,13 @@ exports.acceptFriend =async (req,res)=>{
       res.status(404).json({success:false,message:'User not found !!'})
     }
     await User.updateOne({_id:user.id},{
-       $push:{ami:{nom:friend.nom, prenom:friend.prenom, id:friend._id}},
+       $push:{ami:{nom:friend.nom, prenom:friend.prenom, id:friend._id,photo:friend.photo}},
      });
      await User.updateOne({_id:user.id},{
       $pull:{friendRequest:{}}
      });
     await User.updateOne({_id:friendId},{
-       $push:{ami:{nom:user.nom,prenom:user.prenom,id:user._id}},
+       $push:{ami:{nom:user.nom,prenom:user.prenom,id:user._id,photo:user.photo}},
      });
      await User.updateOne({_id:friendId},{
        $pull:{sendRequest:{}}
