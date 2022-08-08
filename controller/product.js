@@ -144,9 +144,11 @@ const productCtrl = {
             const product = await ProductModel.findById({_id:id});
                 if(!product)
                     return res.status(404).json({message:'product Not found !!!'});
-                like
-                ?product.isLiked = true
-                :product.isLiked =false;
+               if(product.like===true){
+                product.like=false
+               }else{
+                product.like =true
+               }
                 await product.save();
                 res.status(200).json(product);
         } catch (error) {
