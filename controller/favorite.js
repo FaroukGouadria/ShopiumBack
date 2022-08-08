@@ -23,18 +23,17 @@ const User = require("../model/user");
                 product:idProduct
               });
               await favorite.save();
+              await product.save();
+              return res.json({user:user,product:product,favorite:favorite})
             }else{
               product.isLiked = false
-              
+
             }
-            await product.save();
-            return res.json({user:user,product:product})
             
           }
 
         }
       } catch (error) {
-        console.log({error})
         return res.status(500).json({error})
       }
     }
