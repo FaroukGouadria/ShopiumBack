@@ -29,6 +29,8 @@ const User = require("../model/user");
               await favorite.save();
             }else{
               product.isLiked = false
+              const favor = await Favorite.findOneAndDelete({product:idProduct});
+              await favor.save();
             }
           }
           await product.save();
