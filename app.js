@@ -16,7 +16,8 @@ const FideliteRouter = require('./routes/fideliteRouter');
 const RibRouter = require('./routes/rib');
 const CompanyRouter = require("./routes/fabricant");
 const reviewsRouter = require('./routes/reviews');
-const RouterTicket = require('./routes/ticket')
+const RouterTicket = require('./routes/ticket');
+const routerFavorite = require('./routes/favorite');
 app.use(cors())
 app.use(express.json())
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use("/rib",RibRouter);
 app.use("/company",CompanyRouter);
 app.use('/reviews',reviewsRouter)
 app.use('/ticket',RouterTicket)
+app.use('/favorite',routerFavorite);
 const PORT =process.env.PORT || 8000
 
 app.listen(PORT,()=>{
