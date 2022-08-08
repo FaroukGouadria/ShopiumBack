@@ -18,9 +18,8 @@ exports.ajouterCommentaire=async(req,res)=>{
       return  res.status(404).json({ res:"user not  !"});
     }else{
         image=user.photo;
-        console.log(image);
         userName=user.nom +' '+user.prenom
-        console.log(userName);  
+        user.reviewsCount=+1;
     }   
     const product = await Products.findById(_id);
        if (!product) {
@@ -37,7 +36,7 @@ exports.ajouterCommentaire=async(req,res)=>{
                 rating:rating,
         });
         await newReview.save();
-        return res.status(200).json({message:"success",data:newReview})
+        return res.status(200).json({message:"success",data:newReview,user:user.reviewsCount})
     } catch (error) {
         return  res.status(500).json(error);
     }

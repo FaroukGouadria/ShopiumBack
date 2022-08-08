@@ -61,6 +61,10 @@ const userSchema = new mongoose.Schema({
   },
   genre:{
     type:String,
+  },
+  reviewsCount:{
+    type:Number,
+    default:0,
   }
 }, {timestamps: true});
 
