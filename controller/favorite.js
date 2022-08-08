@@ -11,12 +11,17 @@ const User = require("../model/user");
         if(user)
         {
           console.log({user})
-          const product  = await ProductModel.findById({_id:idProduct})
-          console.log({product})
+         return res.json({user})
         }
+          const product  = await ProductModel.findById({_id:idProduct})
+          if(product){
+            console.log({product})
+            return res.json({product})
+          }
         
       } catch (error) {
         console.log({error})
+        return res.status(500).json({error})
       }
     }
   };
