@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
   reviewsCount:{
     type:Number,
     default:0,
-  }
+  },
 }, {timestamps: true});
 
 userSchema.pre("save", async function (next) {

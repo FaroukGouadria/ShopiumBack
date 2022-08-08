@@ -81,7 +81,8 @@ exports.createUSer = async (req, res) => {
         codeParrainage:code,
         date:date,
         genre:genre,
-        
+        reviewsCount,
+
       },
     });
   } catch (error) {
@@ -121,7 +122,8 @@ exports.signin = async (req, res) => {
             dateNaissance:user.date,
             genre:user.genre,
             token,
-            photo:user.photo
+            photo:user.photo,
+            reviewsCount
           },
           id: user._id,
           verified:user.verified,
