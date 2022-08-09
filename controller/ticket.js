@@ -58,7 +58,7 @@ const TicketController = {
                     return res.status(404).json("ticket not found !!");
 
                 const productOfTicket = ticket.map(item=>item.Product)
-                const nameProductOfTicket = productOfTicket.map(item=>item.pname);
+                const nameProductOfTicket = productOfTicket.filter(item=>item.pname);
                     const product = await ProductModel.find();
                     return res.status(200).json({productOfTicket,nameProductOfTicket});
             } catch (error) {
