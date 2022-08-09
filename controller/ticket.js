@@ -50,8 +50,9 @@ const TicketController = {
         },
         getTicketByUser:async(req,res)=>{
             try {
-                 const _id=req.body.id;
-                const ticket=await Ticket.find({_id});
+                 const idUser=req.body.id;
+                 console.log(idUser)
+                const ticket= await Ticket.find({idUser});
                 if(!ticket){
                     return res.status(404).json("ticket not found !!");
                 }else{
