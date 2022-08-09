@@ -1,4 +1,5 @@
 const { compare } = require('bcrypt');
+const ProductModel = require('../model/ProductModel');
 const Ticket = require('../model/ticket');
 const User = require('../model/user');
 
@@ -53,11 +54,12 @@ const TicketController = {
                  const idUser=req.body.id;
                  console.log(idUser)
                 const ticket= await Ticket.find({idUser});
-                if(!ticket){
+                if(!ticket)
                     return res.status(404).json("ticket not found !!");
-                }else{
-                    return res.status(200).json({ticket});
-                }
+            const product = await ProductModel.find();
+
+                    return res.status(200).json({ticket,product});
+                
             } catch (error) {
                 return res.status(500).json({success:false,error:error});
             }
