@@ -16,7 +16,10 @@ const ticketSchema = mongoose.Schema({
         type:Date,
         default:Date.now
     },
-    idUser:{type:String,ref:"User"}
+    idUser:{
+        type:String
+        ,ref:"User"
+    }
 });
 
 module.exports = mongoose.model('TicketModel',ticketSchema);
