@@ -51,7 +51,8 @@ exports.createUSer = async (req, res) => {
       cloudinary_id:"",
       codeParrainage:codepar,
       date,
-      genre
+      genre,
+      reviewsCount:0,
     });
     const OTP = generateOTP();
     console.log(OTP);
@@ -112,6 +113,7 @@ exports.signin = async (req, res) => {
       const token = jwt.sign({
         user: user,
       }, process.env.JWT_SECURE, {expiresIn: "1d"});
+
         res.json({
           success: true,
           user: {
@@ -123,11 +125,12 @@ exports.signin = async (req, res) => {
             genre:user.genre,
             token,
             photo:user.photo,
-            reviewsCount
+            reviewsCount:user.reviewsCount
           },
           id: user._id,
           verified:user.verified,
           token
+
         });
 
   } catch (error) {
