@@ -57,8 +57,8 @@ const TicketController = {
                 if(!ticket)
                     return res.status(404).json("ticket not found !!");
             const product = await ProductModel.find();
-
-                    return res.status(200).json({ticket,product});
+                
+                    return res.status(200).json({productOfTicket:ticket.product,product});
                 
             } catch (error) {
                 return res.status(500).json({success:false,error:error});
