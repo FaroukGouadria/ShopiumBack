@@ -59,7 +59,7 @@ const TicketController = {
 
                     const product = await ProductModel.find();
                 
-                    return res.status(200).json({productOfTicket:ticket,product});
+                    return res.status(200).json({productOfTicket:ticket.magasin,product});
             } catch (error) {
                 return res.status(500).json({success:false,error:error});
             }
