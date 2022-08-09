@@ -59,7 +59,7 @@ const TicketController = {
                     return res.status(200).json({ticket});
                 }
             } catch (error) {
-                
+                return res.status(500).json({success:false,error:error});
             }
         }
 }
