@@ -1,15 +1,28 @@
-const subCategory = require("../model/subCategory")
+const Category = require("../model/category");
+const SubCategory = require("../model/subCategory");
+
 
 const createSubCategory = async(req,res)=>{
+    const name = req.body.name
+    const categoryID=req.body.categoryID
+    console.log(categoryID)
         try {
-            const newSub = new subCategory({
-                categoryId:req.body.categoryId,
-                subCategory:req.body.subCategory
-            });
-                const sub_data = await newSub.save();
-                 res.status(200).send({success:true,message:"sub added successfully",data:sub_data});
+            const Sub = await SubCategory.findOne({name})
+            if(Sub){
+                return res.json({message:"already exist !"})
+            }else{
+                const newSub = new SubCategory({
+                    name:name,
+                    categoryID:categoryID,
+                    products:[],
+                });
+                await newSub.save();
+                await Category.updateMany({"id":newSub.categoryID},{$push:{subCategory:newSub._id}})
+                res.status(200).send({success:true,message:"sub added successfully",data:newSub});
+            }
         } catch (error) {
-            res.status(400).send({success:false,message:error.message});
+            console.log({error})
+            res.status(500).send({success:false,message:error.message});
         }
 
 

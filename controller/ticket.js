@@ -1,3 +1,4 @@
+const { compare } = require('bcrypt');
 const Ticket = require('../model/ticket');
 const User = require('../model/user');
 
@@ -45,6 +46,19 @@ const TicketController = {
                 }
             } catch (error) {
                 console.log(error)
+            }
+        },
+        getTicketByUser:async(req,res)=>{
+            try {
+                 const _id=req.body.id;
+                const ticket=await Ticket.find({_id});
+                if(!ticket){
+                    return res.status(404).json("ticket not found !!");
+                }else{
+                    return res.status(200).json({ticket});
+                }
+            } catch (error) {
+                
             }
         }
 }

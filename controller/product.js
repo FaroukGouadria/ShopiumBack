@@ -1,8 +1,8 @@
-const Category = require('../model/category')
 const Fabricant = require('../model/fabricant')
 const OfferModel = require('../model/offresModel')
 const ProductModel = require('../model/ProductModel')
 const Products = require('../model/ProductModel')
+const SubCategory = require('../model/subCategory')
 const { updateCategory } = require('./category')
  
 const productCtrl = {
@@ -23,7 +23,7 @@ const productCtrl = {
             const { name, price ,barcode ,categoryId,fabricant,photo} = req.body;
             console.log(req.body)
             console.log({categoryId});
-            const categories = await Category.findOne({categoryId});
+            const categories = await SubCategory.findOne({categoryId});
             console.log({'categories':categories});
             if(!categories) return res.send({success:false,msg:'category not found ! '});
             const product = await Products.findOne({name:name})
@@ -46,7 +46,7 @@ const productCtrl = {
 
             await newProduct.save();
             //////////////////////////////// relation one To Many
-            await Category.updateMany({'id':newProduct.categoryId},{$push:{products:newProduct._id}})
+            await SubCategory.updateMany({'id':newProduct.categoryId},{$push:{products:newProduct._id}})
             ///////////////////////////////
             await Fabricant.updateMany({'id':newProduct.fabricant},{$push:{products:newProduct._id}})
             res.json({success:true,msg: "Created a product",data:newProduct})

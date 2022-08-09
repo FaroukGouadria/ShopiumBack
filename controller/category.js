@@ -1,12 +1,13 @@
+const Category = require('../model/category');
 const ProductModel = require('../model/ProductModel');
 
 const 
-    Category = require('../model/category'),
+    
     // Products = require('../model/productModel'), 
     categoryCtrl = {
         getCategories: async(req, res) =>{
             try {
-                const categories = await Category.find()
+                const categories = await category.find()
                 res.json(categories)
             } catch (err) {
                 return res.status(500).json({msg: err.message})
@@ -18,7 +19,7 @@ const
                 const {name} = req.body ;
                 const category = await Category.findOne({name})
                 if(category) return res.status(400).json({msg: "This category already exists."})
-                const newCategory = new Category({name})
+                const newCategory = new Category({name,subCategory:[]})
                 await newCategory.save()
                 res.json({success:true,msg: "Created a category",data:newCategory})
             } catch (err) {

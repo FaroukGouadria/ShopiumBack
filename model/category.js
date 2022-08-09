@@ -1,21 +1,15 @@
-const mongoose = require('mongoose')
-
-
-const categorySchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true
-    },
-    products:[{
-        type:mongoose.Schema.Types.ObjectId,
+const mongoose = require('mongoose');
+const categorySchema = mongoose.Schema({
+    name:{
+        type:String,
         required:true,
-        ref:'Product',
+        trim:true,
+    },
+    subCategory:[{
+        type:String,
+        required:true,
+        unique:true,
     }],
-}, 
-   { timestamps: true},
-    {versionKey: false }//here
-);
+});
 
-module.exports  = mongoose.model("Category", categorySchema)
+module.exports = mongoose.model('Category',categorySchema);
