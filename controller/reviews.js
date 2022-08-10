@@ -71,7 +71,7 @@ exports.countReviews = async (req, res) => {
   console.log({_id});
   try {
     const product = await Products.findById(_id);
-
+    console.log({product})
     const offreId=product.offer[0];
     const countReviews = (await Reviews.find({offreId})).length;
     const reviews = await Reviews.find({offreId: _id});
