@@ -1,6 +1,7 @@
 const User = require("../model/user");
 const Products=require('../model/ProductModel');
 const Reviews = require("../model/reviews");
+const ProductModel = require("../model/ProductModel");
 
 
 exports.ajouterCommentaire=async(req,res)=>{
@@ -42,7 +43,7 @@ exports.ajouterCommentaire=async(req,res)=>{
     } catch (error) {
         return  res.status(500).json(error);
     }
-}
+}   
 exports.toutCommentaires=async(req,res)=>{
      try {
             const reviews = await Reviews.find();
@@ -56,9 +57,13 @@ exports.getCommentaireByProduct=async(req,res)=>{
     try {
         const productID = req.body.productId;
         console.log({productID})
-        const reviews = await Reviews.find({productID})
-        console.log(reviews);
-        return res.status(200).json(reviews)
+        const product=await ProductModel.findById(productID);
+        if(product){
+            const offreId = product.offre;
+            const reviews = await Reviews.find({offreId})
+            console.log(reviews);
+            return res.status(200).json(reviews)
+        }
     } catch (error) {
         console.log(error);
         return res.json(error)
