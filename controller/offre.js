@@ -62,6 +62,23 @@ const offerCrtl ={
         } catch (error) {
             res.json(error)
         }
+},
+countViewsOffer:async(req,res)=>{ 
+    try {
+        const productID = req.body.productId;
+        const click = req.body.click;
+         const product = await Product.findById(productID);
+        console.log({product})
+    const offreId=product.offer[0];    
+    const offer = await offresModel.findById(offreId);
+    if(offer){
+        offer.views = offer.views+click
+        await offer.save();
+        res.status(200).json({view:offer.views})
+    }
+    } catch (error) {
+        res.status(500).json({message:error})
+    }
 }
 }
 module.exports = offerCrtl;

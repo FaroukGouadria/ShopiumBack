@@ -6,6 +6,6 @@ router.post('/add',offerCtrl.createOffer);
 router.get('/productbyoffer',offerCtrl.getProductByOffer);
 router.delete('/delete',offerCtrl.deleteOffre);
 router.post('/getall',offerCtrl.getOffers);
-
+router.post('/views',offerCtrl.countViewsOffer);
         
 module.exports = router;
