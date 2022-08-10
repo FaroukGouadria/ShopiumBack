@@ -1,6 +1,7 @@
 const User = require("../model/user");
 const Products = require("../model/ProductModel");
 const Reviews = require("../model/reviews");
+const { findById } = require("../model/ProductModel");
 
 exports.ajouterCommentaire = async (req, res) => {
   try {
@@ -66,16 +67,28 @@ exports.getCommentaireByProduct = async (req, res) => {
   }
 };
 exports.countReviews = async (req, res) => {
-  const id = req.body.id;
+  const _id = req.body.id;
   console.log({id});
   try {
-    const countReviews = (await Reviews.find({productID: id})).length;
+    const product = await Products.findById(_id);
+    const offerId=product.offer[0];
+    const countReviews = (await Reviews.find({offerId})).length;
     const reviews = await Reviews.find({productID: id});
     const SUMReviews = reviews.map(item => item.rating).reduce((prev, curr) => prev + curr, 0);
     console.log(SUMReviews);
     const AVGReviews = (SUMReviews / countReviews).toPrecision(1);
-    res.json({reviews: reviews, AVGReviews: AVGReviews, countReviews: countReviews});
+    const offer = await findById(offerId);
+    if(offer){
+        offer.avgReviews = AVGReviews;
+        await offer.save();
+        return res.status(200).json({reviews: reviews, AVGReviews: AVGReviews, countReviews: countReviews});
+    }else{
+           return res.status(404).json({message:'offer not found'});
+    }
+    
   } catch (error) {
     console.log({error});
+     return res.status(500).json({message: error});
   }
+  
 };

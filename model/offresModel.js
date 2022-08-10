@@ -32,10 +32,9 @@ const offreSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
-    // logo_fabricant:{
-    //     type:String,
-    // }
-
+    avgReviews:{
+        type:Number,
+    }
 },{
   timestamps: true //important
 });
