@@ -2,6 +2,7 @@ const User = require("../model/user");
 const Products = require("../model/ProductModel");
 const Reviews = require("../model/reviews");
 const { findById } = require("../model/ProductModel");
+const OffresModel = require("../model/offresModel");
 
 exports.ajouterCommentaire = async (req, res) => {
   try {
@@ -78,7 +79,7 @@ exports.countReviews = async (req, res) => {
     const SUMReviews = reviews.map(item => item.rating).reduce((prev, curr) => prev + curr, 0);
     console.log(SUMReviews);
     const AVGReviews = (SUMReviews / countReviews).toPrecision(1);
-    const offer = await findById(offreId);
+    const offer = await OffresModel.findById(offreId);
     if(offer){
         offer.avgReviews = AVGReviews;
         await offer.save();
