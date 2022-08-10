@@ -67,14 +67,14 @@ exports.getCommentaireByProduct = async (req, res) => {
   }
 };
 exports.countReviews = async (req, res) => {
-  const _id = req.body.id;
-  console.log({_id});
+  const productID = req.body.productId;
+  console.log({productID});
   try {
-    const product = await Products.findById(_id);
-    console.log({product})
+   const product = await Products.findById(productID);
+ console.log({product})
     const offreId=product.offer[0];
     const countReviews = (await Reviews.find({offreId})).length;
-    const reviews = await Reviews.find({offreId: _id});
+    const reviews = await Reviews.find({offreId: offreId});
     const SUMReviews = reviews.map(item => item.rating).reduce((prev, curr) => prev + curr, 0);
     console.log(SUMReviews);
     const AVGReviews = (SUMReviews / countReviews).toPrecision(1);
