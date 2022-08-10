@@ -68,7 +68,7 @@ exports.getCommentaireByProduct = async (req, res) => {
 };
 exports.countReviews = async (req, res) => {
   const _id = req.body.id;
-  console.log({id});
+  console.log({_id});
   try {
     const product = await Products.findById(_id);
     const offerId=product.offer[0];
@@ -79,7 +79,7 @@ exports.countReviews = async (req, res) => {
     const AVGReviews = (SUMReviews / countReviews).toPrecision(1);
     const offer = await findById(offerId);
     if(offer){
-        offer.avgReviews = AVGReviews;
+        offer.avgReviews = AVGReviews;z
         await offer.save();
         return res.status(200).json({reviews: reviews, AVGReviews: AVGReviews, countReviews: countReviews});
     }else{
