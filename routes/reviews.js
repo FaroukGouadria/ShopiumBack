@@ -8,5 +8,5 @@ router.use(bodyParser.urlencoded({extended: false}));
 router.post('/add',ajouterCommentaire);
 router.get("/getall",toutCommentaires);
 router.post('/reviewByproduct',getCommentaireByProduct);
-router.get('/countReviews',countReviews);
+router.post('/countReviews',countReviews);
 module.exports=router;
