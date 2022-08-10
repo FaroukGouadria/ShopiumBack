@@ -34,6 +34,10 @@ const offreSchema = new mongoose.Schema({
     },
     avgReviews:{
         type:Number,
+    },
+    views:{
+        type:Number,
+        default:0,
     }
 },{
   timestamps: true //important
