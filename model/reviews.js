@@ -5,9 +5,9 @@ const reviewsModel = mongoose.Schema({
         type:String,
        required:true
     },
-    productID:{
+    offreId:{
         type:String,
-        ref:'Product',
+        ref:'Offre',
     },
     text:{
         type:String,

@@ -60,7 +60,7 @@ const TicketController = {
 
                 const productOfTicket = ticket.map(item=>item.Product)
                 for(var i=0;i<productOfTicket.length;i++){
-                      nameProductOfTicket= productOfTicket[i].map(item=>item.pname);
+                      nameProductOfTicket= productOfTicket[0].map(item=>item.pname);
                 }
                 const product = await ProductModel.find();
                 const nameProduct =product.map(item=>item.name); 

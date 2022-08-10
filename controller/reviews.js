@@ -29,7 +29,7 @@ exports.ajouterCommentaire=async(req,res)=>{
     }
         const newReview = new Reviews({
                 userId:userId,
-                productID:_id,
+                offreId:product.offre,
                 text:text,
                 image:user.photo,
                 userName:user.nom+''+user.prenom,
