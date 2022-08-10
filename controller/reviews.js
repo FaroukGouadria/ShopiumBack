@@ -79,9 +79,9 @@ exports.countReviews = async (req, res) => {
     const AVGReviews = (SUMReviews / countReviews).toPrecision(1);
     const offer = await findById(offerId);
     if(offer){
-        offer.avgReviews = AVGReviews;z
+        offer.avgReviews = AVGReviews;
         await offer.save();
-        return res.status(200).json({reviews: reviews, AVGReviews: AVGReviews, countReviews: countReviews});
+        return res.status(200).json({reviews: reviews, AVGReviews: AVGReviews, countReviews: countReviews,offer:offer});
     }else{
            return res.status(404).json({message:'offer not found'});
     }
