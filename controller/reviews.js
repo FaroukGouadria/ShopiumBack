@@ -72,13 +72,13 @@ exports.countReviews = async (req, res) => {
   try {
     const product = await Products.findById(_id);
 
-    const offerId=product.offer[0];
-    const countReviews = (await Reviews.find({offerId})).length;
-    const reviews = await Reviews.find({offerId: _id});
+    const offreId=product.offer[0];
+    const countReviews = (await Reviews.find({offreId})).length;
+    const reviews = await Reviews.find({offreId: _id});
     const SUMReviews = reviews.map(item => item.rating).reduce((prev, curr) => prev + curr, 0);
     console.log(SUMReviews);
     const AVGReviews = (SUMReviews / countReviews).toPrecision(1);
-    const offer = await findById(offerId);
+    const offer = await findById(offreId);
     if(offer){
         offer.avgReviews = AVGReviews;
         await offer.save();
