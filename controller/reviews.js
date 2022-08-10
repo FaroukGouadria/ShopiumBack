@@ -60,6 +60,7 @@ exports.getCommentaireByProduct=async(req,res)=>{
         const product=await ProductModel.findById(productID);
         if(product){
             const offreId = product.offre;
+            console.log(offreId);
             const reviews = await Reviews.find({offreId})
             console.log(reviews);
             return res.status(200).json(reviews)

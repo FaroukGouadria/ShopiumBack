@@ -17,7 +17,8 @@ const reviewsModel = mongoose.Schema({
     },CreatedAt:{
         type:Date,
         default:Date.now()
-    },userName:{
+    },
+    userName:{
         type:String
     },
     rating:{
