@@ -23,12 +23,14 @@ exports.getwishlist = async (req, res) => {
     try {
         
         const userId = req.body.id;
+        console.log({userId})
         const list = await WishList.find({ userId});
           if(list)
               console.log(list)
-        res.json(list);
+       return  res.json({list});
     } catch (error) {
-        res.json(error)
+        console.log(error)
+        return res.json(error)
     }
 };
 
