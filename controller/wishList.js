@@ -27,7 +27,7 @@ exports.getwishlist = async (req, res) => {
         const list = await WishList.find({ userId});
           if(list)
               console.log(list)
-       return  res.json({list});
+       return  res.json({offer:list.offer});
     } catch (error) {
         console.log(error)
         return res.json(error)
