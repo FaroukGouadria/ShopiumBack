@@ -7,11 +7,20 @@ const wishListSchema = new mongoose.Schema({
         required:true,
         trim:true
     },
-    offer:{
-        type:Object,
-        required:true,
-        ref:'Product',
-    },
+        name:{
+            type:String
+        },
+        logo:{
+          type:String  
+        },
+        photo:{
+                type:Array,
+                required:true
+             },
+        descreption:{
+            type:String
+        }
+
 }
 );
 
