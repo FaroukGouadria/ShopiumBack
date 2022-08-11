@@ -22,8 +22,8 @@ exports.addToWishlist = async (req, res) => {
 exports.getwishlist = async (req, res) => {
     try {
         
-        const id = req.body.id;
-        const list = await WishList.find({userId: id});
+        const userId = req.body.id;
+        const list = await WishList.find({ userId});
           if(list)
               console.log(list)
         res.json(list);
