@@ -402,7 +402,7 @@ exports.getAmi=async(req,res)=>{
 };
     exports.addToWishlist = async (req, res) => {
       try {
-        const { productId } = req.body.productId;
+        const  productId  = req.body.productId;
         const id=req.body.id;
     
         const user = await User.findById(id);
