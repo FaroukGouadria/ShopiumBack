@@ -401,15 +401,21 @@ exports.getAmi=async(req,res)=>{
   }
 
     exports.addToWishlist = async (req, res) => {
-    const { productId } = req.body.productId;
-    const id=req.body.id;
-
-    const user = await User.findOneAndUpdate(
-      { _id:id },
-      { $push: { whishlist: productId } }
-    );
-      console.log(user);
-   return res.status(200).json({ ok: true,user:user });
+      try {
+        const { productId } = req.body.productId;
+        const id=req.body.id;
+    
+        const user = await User.findOneAndUpdate(
+          { _id:id },
+          { $push: { whishlist: productId } }
+        );
+          console.log(user);
+       return res.status(200).json({ ok: true,user:user });
+        
+      } catch (error) {
+        console.log(error)
+        res.status(500).json({error:error})
+      }
   };
 
   exports.wishlist = async (req, res) => {
