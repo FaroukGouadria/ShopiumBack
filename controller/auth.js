@@ -406,11 +406,12 @@ exports.getAmi=async(req,res)=>{
 
     const user = await User.findOneAndUpdate(
       { _id:id },
-      // { $addToSet: { whishlist: productId } }
+      { $push: { whishlist: productId } }
     );
-
-    res.json({ ok: true,user:user });
+      console.log(user);
+   return res.status(200).json({ ok: true,user:user });
   };
+
   exports.wishlist = async (req, res) => {
      const id=req.body.id;
   const list = await User.findOne({ _id:id })
