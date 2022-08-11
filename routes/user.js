@@ -34,7 +34,7 @@ router.post("/ami", getAmi);
 // wishlist
 router.post("/add", addToWishlist);
 router.post("/getWishlist",wishlist);
-router.put("/delete",removeFromWishlist);
+router.put("/delete",removeFromWishlist); 
 // const storage = multer.diskStorage({
 //   destination:(req,file,cb)=>{
 //       cb(null,'images/user')

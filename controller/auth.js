@@ -405,11 +405,11 @@ exports.getAmi=async(req,res)=>{
     const id=req.body.id;
 
     const user = await User.findOneAndUpdate(
-      { id },
+      { _id:id },
       { $addToSet: { whishlist: productId } }
     ).exec();
 
-    res.json({ ok: true });
+    res.json({ ok: true,user:user });
   };
   exports.wishlist = async (req, res) => {
      const id=req.body.id;
@@ -425,11 +425,12 @@ exports.removeFromWishlist = async (req, res) => {
     const { productId } = req.body.productId;
     const id=req.body.id;
   const user = await User.findOneAndUpdate(
-   { id },
+   { _id:id },
     { $pull: { whishlist: productId } }
+
   ).exec();
 
-  res.json({ ok: true });
+  res.json({ ok: true, user:user });
 };
 }
 
