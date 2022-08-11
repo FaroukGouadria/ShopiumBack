@@ -21,7 +21,9 @@ exports.addToWishlist = async (req, res) => {
 
 exports.wishlist = async (req, res) => {
   const id = req.body.id;
-  const list = await WishList.findOne({_id: id}).select("whishlist").populate("whishlist").exec();
+  const list = await WishList.find({userId: id});
+    if(list)
+        console.log(list)
 
   res.json(list);
 };
