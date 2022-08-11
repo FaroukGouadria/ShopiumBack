@@ -12,20 +12,24 @@ exports.addToWishlist = async (req, res) => {
         offer: product
     });
     await wishList.save();
-    return res.status(200).json({ok: true, wishList: WishList});
+    return res.status(200).json({ok: true, wishList: wishList});
   } catch (error) {
     console.log(error);
     res.status(500).json({error: error});
   } 
 };
 
-exports.wishlist = async (req, res) => {
-  const id = req.body.id;
-  const list = await WishList.find({userId: id});
-    if(list)
-        console.log(list)
-
-  res.json(list);
+exports.getwishlist = async (req, res) => {
+    try {
+        
+        const id = req.body.id;
+        const list = await WishList.find({userId: id});
+          if(list)
+              console.log(list)
+        res.json(list);
+    } catch (error) {
+        res.json(error)
+    }
 };
 
 exports.removeFromWishlist = async (req, res) => {
