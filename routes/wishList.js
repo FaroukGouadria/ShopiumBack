@@ -7,7 +7,7 @@ router.use(bodyParser.urlencoded({extended: false}));
 
 
 // wishlist
-router.post("/add", addToWishlist);
-router.post("/getWishlist", wishlist);
-router.put("/delete", removeFromWishlist);
+routerWishList.post("/add", addToWishlist);
+routerWishList.post("/getWishlist", wishlist);
+routerWishList.put("/delete", removeFromWishlist);
 module.exports = routerWishList;
