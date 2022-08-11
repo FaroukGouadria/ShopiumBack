@@ -12,7 +12,7 @@ exports.addToWishlist = async (req, res) => {
       $addToSet: {
         offer: product
       }
-    }).exec();
+    });
     await wishList.save();
     return res.status(200).json({ok: true, wishList: WishList});
   } catch (error) {
