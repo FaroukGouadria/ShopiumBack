@@ -405,12 +405,14 @@ exports.getAmi=async(req,res)=>{
         const { productId } = req.body.productId;
         const id=req.body.id;
     
-        const user = await User.findOneAndUpdate(
-          { _id:id },
-          { $push: { whishlist: productId } }
-        ).exec();
+        const user = await User.findById(id);
+
           console.log(user);
-       return res.status(200).json({ ok: true,user:user });
+          if(user){
+            user.whishlist = {$push:{whishlist:productId}}    
+            user.save();  
+            return res.status(200).json({ ok: true,user:user });
+          }
         
       } catch (error) {
         console.log(error)
