@@ -16,12 +16,12 @@ exports.addToWishlist = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({error: error});
-  }
+  } 
 };
 
 exports.wishlist = async (req, res) => {
   const id = req.body.id;
-  const list = await User.findOne({_id: id}).select("whishlist").populate("whishlist").exec();
+  const list = await WishList.findOne({_id: id}).select("whishlist").populate("whishlist").exec();
 
   res.json(list);
 };

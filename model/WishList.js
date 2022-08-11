@@ -7,11 +7,11 @@ const wishListSchema = new mongoose.Schema({
         required:true,
         trim:true
     },
-    offer:[{
+    offer:{
         type:Object,
         required:true,
         ref:'Product',
-    }],
+    },
 }
 );
 
