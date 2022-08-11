@@ -2,8 +2,8 @@ const routerWishList = require("express").Router();
 const bodyParser = require("body-parser");
 const { addToWishlist, wishlist, removeFromWishlist } = require("../controller/auth");
 const User = require("../model/user");
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({extended: false}));
+routerWishList.use(bodyParser.json());
+routerWishList.use(bodyParser.urlencoded({extended: false}));
 
 
 // wishlist
