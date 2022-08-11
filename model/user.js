@@ -65,6 +65,10 @@ const userSchema = new mongoose.Schema({
   reviewsCount:{
     type:Number,
   },
+  whishlist:[{
+    type:String,
+    ref:'Product'
+  }],
 }, {timestamps: true});
 
 userSchema.pre("save", async function (next) {
