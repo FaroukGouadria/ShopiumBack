@@ -18,6 +18,7 @@ const CompanyRouter = require("./routes/fabricant");
 const reviewsRouter = require('./routes/reviews');
 const RouterTicket = require('./routes/ticket');
 const routerFavorite = require('./routes/favorite');
+const routerWishList = require('./routes/wishList');
 app.use(cors())
 app.use(express.json())
 app.use(bodyParser.json());
@@ -33,6 +34,7 @@ app.use("/company",CompanyRouter);
 app.use('/reviews',reviewsRouter)
 app.use('/ticket',RouterTicket)
 app.use('/favorite',routerFavorite);
+app.use("/wishlist", routerWishList);
 const PORT =process.env.PORT || 8000
 
 app.listen(PORT,()=>{
