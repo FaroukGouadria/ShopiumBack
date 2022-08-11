@@ -9,6 +9,7 @@ const crypto = require("crypto");
 const multer = require("multer");
 const image = ('/images/user/photo_1652707413348_farouk.jpg');
 const referralCodes=require('referral-codes');
+const ProductModel = require("../model/ProductModel");
 
 
 exports.createUSer = async (req, res) => {
@@ -404,10 +405,10 @@ exports.getAmi=async(req,res)=>{
       try {
         const  productId  = req.body.productId;
         const id=req.body.id;
-    
+        const product = await ProductModel.findById(productId);
         const user = await User.findOneAndUpdate(
           { _id:id },
-          { $addToSet: { whishlist: productId } }
+          { $addToSet: { whishlist: product } }
         ).exec();
           console.log(user);
        return res.status(200).json({ ok: true,user:user });
