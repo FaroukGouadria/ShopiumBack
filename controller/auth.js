@@ -411,7 +411,7 @@ exports.getAmi=async(req,res)=>{
           { $addToSet: { whishlist: product } }
         ).exec();
           console.log(user);
-       return res.status(200).json({ ok: true,user:user });
+       return res.status(200).json({ ok: true,whishlist:whishlist});
         
       } catch (error) {
         console.log(error)
