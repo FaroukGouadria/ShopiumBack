@@ -422,7 +422,7 @@ exports.getAmi=async(req,res)=>{
 };
 
 exports.removeFromWishlist = async (req, res) => {
-    const { productId } = req.body.productId;
+    const { productId } = req.body.productId; 
     const id=req.body.id;
   const user = await User.findOneAndUpdate(
    { _id:id },
