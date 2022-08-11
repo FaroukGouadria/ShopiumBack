@@ -407,8 +407,8 @@ exports.getAmi=async(req,res)=>{
     
         const user = await User.findOneAndUpdate(
           { _id:id },
-          { $push: { whishlist: productId } }
-        );
+          { $addToSet: { whishlist: productId } }
+        ).exec();
           console.log(user);
        return res.status(200).json({ ok: true,user:user });
         
