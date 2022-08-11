@@ -7,11 +7,9 @@ exports.addToWishlist = async (req, res) => {
     const productId = req.body.productId;
     const id = req.body.id;
     const product = await ProductModel.findById(productId);
-    const wishList = await new WishList({
-      userId: id,
-      $addToSet: {
+    const wishList = new WishList({
+        userId: id,
         offer: product
-      }
     });
     await wishList.save();
     return res.status(200).json({ok: true, wishList: WishList});
