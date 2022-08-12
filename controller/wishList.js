@@ -7,8 +7,8 @@ exports.addToWishlist = async (req, res) => {
     const productId = req.body.productId;
     const id = req.body.id
     const product = await ProductModel.findById(productId);
-    const wish = await WishList.findOne({name:product.name})
-    if(wish && wish.userId===id){
+    const wish = await WishList.findOne({productId:productId})
+    if(wish.productId===productId && wish.userId===id){
       return res.status(404).json({message:"offer exist deja "})
     }
     const wishList = new WishList({
