@@ -44,8 +44,13 @@ exports.removeFromWishlist = async (req, res) => {
     try {
       const id = req.body._id;
       const wishlist = await WishList.findOneAndDelete({_id: id})
-      res.json("supprimer avec Success");
+      if(wishlist){
+        
+        return res.json("supprimer avec Success");
+      }else{
+        return  res.json("supprission a échoué")
+      }
     } catch (error) {
-      res.json("supprission a échoué")
+     return  res.json({error})
     }
 };
