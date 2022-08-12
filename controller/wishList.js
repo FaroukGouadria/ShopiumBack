@@ -41,15 +41,11 @@ exports.getwishlist = async (req, res) => {
 };
 
 exports.removeFromWishlist = async (req, res) => {
-  const productId = req.body.productId;
-  const id = req.body.id;
-  const wishlist = await WishList.findOneAndUpdate({
-    _id: id
-  }, {
-    $pull: {
-      whishlist: productId
+    try {
+      const id = req.body._id;
+      const wishlist = await WishList.findOneAndDelete({_id: id})
+      res.json("supprimer avec Success");
+    } catch (error) {
+      res.json("supprission a échoué")
     }
-  }).exec();
-
-  res.json({ok: true, user: user});
 };
