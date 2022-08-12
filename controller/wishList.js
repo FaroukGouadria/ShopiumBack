@@ -42,9 +42,9 @@ exports.getwishlist = async (req, res) => {
 
 exports.removeFromWishlist = async (req, res) => {
     try {
-      const id = req.body;
+      const id = req.body.id;
       console.log({id})
-      const wishlist = await WishList.findByIdAndDelete(id)
+      const wishlist = await WishList.findByIdAndDelete({_id:id})
       console.log({wishlist})
       if(wishlist){
         
