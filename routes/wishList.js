@@ -10,5 +10,5 @@ routerWishList.use(bodyParser.urlencoded({extended: false}));
 // wishlist
 routerWishList.post("/add", addToWishlist);
 routerWishList.post("/getWishlist", getwishlist);
-routerWishList.delete("/delete", removeFromWishlist);
+routerWishList.post("/delete", removeFromWishlist);
 module.exports = routerWishList;
