@@ -6,9 +6,10 @@ exports.addToWishlist = async (req, res) => {
   try {
     const productId = req.body.productId;
     const id = req.body.id;
+    const userId = req.body.userId;
     const product = await ProductModel.findById(productId);
     const wish = await WishList.findOne({name:product.name})
-    if(wish){
+    if(wish && wish.userId===userId){
       return res.status(404).json({message:"offer exist deja "})
     }
     const wishList = new WishList({
@@ -40,9 +41,9 @@ exports.getwishlist = async (req, res) => {
 };
 
 exports.removeFromWishlist = async (req, res) => {
-  const {productId} = req.body.productId;
+  const productId = req.body.productId;
   const id = req.body.id;
-  const user = await User.findOneAndUpdate({
+  const wishlist = await WishList.findOneAndUpdate({
     _id: id
   }, {
     $pull: {
