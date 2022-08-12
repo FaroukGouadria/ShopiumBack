@@ -8,18 +8,19 @@ exports.addToWishlist = async (req, res) => {
     const id = req.body.id
     const product = await ProductModel.findById(productId);
     const wish = await WishList.findOne({productId:productId})
-    if(wish.productId===productId && wish.userId===id){
+    if(wish && wish.productId===productId && wish.userId===id){
       return res.status(404).json({message:"offer exist deja "})
+    }else{
+      const wishList = new WishList({
+          userId: id,
+          productId:productId,
+          name: product.name,
+          logo:product.logo,
+          photo:product.photo[0],
+      });
+      await wishList.save();
+      return res.status(200).json({ok: true, wishList: wishList});
     }
-    const wishList = new WishList({
-        userId: id,
-        productId:productId,
-        name: product.name,
-        logo:product.logo,
-        photo:product.photo[0],
-    });
-    await wishList.save();
-    return res.status(200).json({ok: true, wishList: wishList});
   } catch (error) {
     console.log(error);
     res.status(500).json({error: error});
