@@ -19,6 +19,10 @@ const wishListSchema = new mongoose.Schema({
              },
         descreption:{
             type:String
+        },productId:{
+            type:String,
+            trim:true,
+            required:true,
         }
 
 }

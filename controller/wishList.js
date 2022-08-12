@@ -5,15 +5,15 @@ const WishList = require("../model/WishList");
 exports.addToWishlist = async (req, res) => {
   try {
     const productId = req.body.productId;
-    const id = req.body.id;
-    const userId = req.body.userId;
+    const id = req.body.id
     const product = await ProductModel.findById(productId);
     const wish = await WishList.findOne({name:product.name})
-    if(wish && wish.userId===userId){
+    if(wish && wish.userId===id){
       return res.status(404).json({message:"offer exist deja "})
     }
     const wishList = new WishList({
         userId: id,
+        productId:productId,
         name: product.name,
         logo:product.logo,
         photo:product.photo[0],
