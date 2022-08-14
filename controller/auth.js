@@ -435,15 +435,18 @@ exports.addToWish = async (req, res) => {
     const id = req.body.id;
     const product = await ProductModel.findById(productId);
     const offer = await Offer.findById(product.offer);
-    // const user = await User.findOneAndUpdate({
-    //   _id: id
-    // }, {
-    //   $addToSet: {
-    //     whishlist: product
-    //   }
-    // }).exec();
-    // console.log(user);
-    return res.status(200).json({ok: true, offer: offer});
+    const user = await User.findOneAndUpdate({
+      _id: id
+    }, {
+      $addToSet: {
+        offerId:offer._id,
+        productName:product.name,
+        photo : product.photo[0],
+        avgReviews :offer.avgReviews
+      }
+    }).exec();
+    console.log(user);
+    return res.status(200).json({ok: true, user: user});
   } catch (error) {
     console.log(error);
     res.status(500).json({error: error});
