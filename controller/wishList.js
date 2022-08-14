@@ -8,7 +8,8 @@ exports.addToWishlist = async (req, res) => {
     const id = req.body.id
     const product = await ProductModel.findById(productId);
     const wish = await WishList.findOne({productId:productId})
-    if(wish && wish.productId===productId && wish.userId===id){
+    if(wish && wish.productId===productId && wish.userId===id)
+    {
       return res.status(404).json({message:"offer exist deja "})
     }else{
       const wishList = new WishList({

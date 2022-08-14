@@ -66,8 +66,8 @@ const userSchema = new mongoose.Schema({
     type:Number,
   },
   whishlist:[{
-    type:Object,
-    ref:'Product'
+    id:String,
+    
   }],
 }, {timestamps: true});
 
