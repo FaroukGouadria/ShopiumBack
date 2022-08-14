@@ -10,7 +10,7 @@ const multer = require("multer");
 const image = "/images/user/photo_1652707413348_farouk.jpg";
 const referralCodes = require("referral-codes");
 const ProductModel = require("../model/ProductModel");
-
+const Offer  = require('../model/offresModel');
 exports.createUSer = async (req, res) => {
   try {
     const {
@@ -434,7 +434,7 @@ exports.addToWish = async (req, res) => {
     const productId = req.body.productId;
     const id = req.body.id;
     const product = await ProductModel.findById(productId);
-    const offer = await offer.findById(product.offer);
+    const offer = await Offer.findById(product.offer);
     // const user = await User.findOneAndUpdate({
     //   _id: id
     // }, {
