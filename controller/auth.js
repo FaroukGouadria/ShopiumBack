@@ -442,7 +442,7 @@ exports.addToWish = async (req, res) => {
     //     whishlist: product
     //   }
     // }).exec();
-    console.log(user);
+    // console.log(user);
     return res.status(200).json({ok: true, offer: offer});
   } catch (error) {
     console.log(error);
