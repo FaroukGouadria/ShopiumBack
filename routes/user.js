@@ -4,7 +4,7 @@ const { sendError } = require("../utils/helper");
 const router = require("express").Router();
 const multer = require("multer");
 const path = require("path");
-const {createUSer, signin, verifyEmail, forgotPassword, resetPassword,getMe, Me, updateImageUser, updateProfile, sendRequestFriend, getFriendRequest, acceptFriend, getAmi, getSendRequest, addToWishlist, wishlist, removeFromWishlist} = require("../controller/auth")
+const {createUSer, signin, verifyEmail, forgotPassword, resetPassword,getMe, Me, updateImageUser, updateProfile, sendRequestFriend, getFriendRequest, acceptFriend, getAmi, getSendRequest, addToWishlist, wishlist, removeFromWishlist, addToWish} = require("../controller/auth")
 const cloudinary = require("../utils/cloudinary");
 const {isAuth, auth} = require("../middleware/isAuth");
 const {isResetTokenValid} = require("../middleware/user");
@@ -31,7 +31,7 @@ router.post("/sendrequest", getSendRequest);
 router.post("/accept", acceptFriend);
 router.post('/imageUpdate',userUpdate);
 router.post("/ami", getAmi);
-
+router.post('/wish',addToWish)
 // const storage = multer.diskStorage({
 //   destination:(req,file,cb)=>{
 //       cb(null,'images/user')

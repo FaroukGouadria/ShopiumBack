@@ -429,7 +429,7 @@ exports.getAmi = async (req, res) => {
     res.status(500).json({success: true, message: "success", error: error});
   }
 };
-exports.addToWishlist = async (req, res) => {
+exports.addToWish = async (req, res) => {
   try {
     const productId = req.body.productId;
     const id = req.body.id;
