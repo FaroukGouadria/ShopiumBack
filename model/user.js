@@ -74,6 +74,9 @@ const userSchema = new mongoose.Schema({
    views:Number,
    dateCreation:String
   }],
+  achat:{
+    type:Number
+  }
 }, {timestamps: true});
 
 userSchema.pre("save", async function (next) {
