@@ -76,10 +76,10 @@ const TicketController = {
     
                 const ticket = await Ticket.find({idUser:id})
                 const sumachat = ticket.length
-                const user= await User.findById(id)
-                if(user){
-                    user.achat=sumachat
-                    await user.save();
+                const user= await User.findByIdAndUpdate({_id:id},{
+                    achat:sumachat
+                }).exec();
+                if(user.achat==!0){
                     return res.status(200).json({user:user.achat})
                 }else{
                     return res.status(404).json('user not found !!!')
