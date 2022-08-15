@@ -9,15 +9,13 @@ const TicketController = {
                 try {
                     const _id=req.body.id
                     const recu=req.body.recu
-                    const count = req.body.count
-                    console.log({count});
                     console.log({id:_id,recu:recu.products})
                     const user =  await User.findById({_id});
                     if(!user){
                         return res.status(404).json({success:'false',message:'User Not Found !'})
                     }else
                         {   
-                            user.achat++; 
+
                            const ticket = new Ticket({
                                 magasin:recu.name,
                                 Product:recu.products,  
@@ -25,8 +23,12 @@ const TicketController = {
                                 prixTotal:recu.total,
                                 idUser:_id
                            });
+
                            await ticket.save();
-                           await user.save();
+                          const tickett = await Ticket.find({idUser:id})
+                         const sumachat = tickett.length
+                         user.achat=sumachat
+                         user.save();
                            return await res.status(200).json({ticket})
                         }
                     
