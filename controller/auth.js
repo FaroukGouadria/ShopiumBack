@@ -453,7 +453,7 @@ exports.addToWish = async (req, res) => {
   }
 };
 
-exports.wishlist = async (req, res) => {
+exports.getWishlist = async (req, res) => {
   const id = req.body.id;
   const list = await User.findOne({_id: id}).select("wishlist").populate("wishlist").exec();
 
