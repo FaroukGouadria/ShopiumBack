@@ -31,8 +31,8 @@ router.post("/sendrequest", getSendRequest);
 router.post("/accept", acceptFriend);
 router.post('/imageUpdate',userUpdate);
 router.post("/ami", getAmi);
-router.post('/wish',addToWish)
-router.post('/getwish',getWishlist)
+router.post('/wish',addToWish);
+router.post('/getwish',getWishlist);
 // const storage = multer.diskStorage({
 //   destination:(req,file,cb)=>{
 //       cb(null,'images/user')
