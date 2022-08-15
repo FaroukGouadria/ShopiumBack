@@ -469,15 +469,19 @@ exports.getWishlist = async (req, res) => {
 };
 
 exports.removeWishlist = async (req, res) => {
-  const offerId = req.body.offerId;
-  const id = req.body.id;
-  const user = await User.findOneAndUpdate({
-    _id: id
-  }, {
-    $pull: {
-      wishlist: offerId
+  try {
+    
+    const offerIdRemoved = req.body.offerId;
+    const id = req.body.id;
+    const user = await User.findById(id);
+    if(user){
+      const wishlistitem = user.wishlist.filter((item)=>item.offerId===offerIdRemoved);
+      await user.save()
+    return  res.status(200).json({ok: true, user: wishlistitem});
     }
-  }).exec();
+  
+  } catch (error) {
+   return res.status(500).json({error});
+  }
 
-  res.json({ok: true, user: user});
 };
