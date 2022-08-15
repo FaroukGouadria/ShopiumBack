@@ -468,7 +468,7 @@ exports.getWishlist = async (req, res) => {
   res.json(list);
 };
 
-exports.removeFromWishlist = async (req, res) => {
+exports.removeWishlist = async (req, res) => {
   const offerId = req.body.offerId;
   const id = req.body.id;
   const user = await User.findOneAndUpdate({
