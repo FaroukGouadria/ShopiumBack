@@ -475,8 +475,8 @@ exports.removeWishlist = async (req, res) => {
     const id = req.body.id;
     const user = await User.findById(id);
     if(user){
-      const wishlistitem = user.wishlist.filter((item)=>item.offerId===offerIdRemoved);
-      await user.save()
+      const wishlistitem = user.wishlist.filter((item)=>item.offerId===!offerIdRemoved);
+      await user.wishlist.save()
     return  res.status(200).json({ok: true, user: wishlistitem});
     }
   
