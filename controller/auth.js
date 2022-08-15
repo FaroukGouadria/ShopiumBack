@@ -438,7 +438,7 @@ exports.addToWish = async (req, res) => {
     const user = await User.findOneAndUpdate({
       _id: id
     }, {
-      $addToSet: {offer:{
+      $addToSet: {wishlist:{
         offerId:offer._id,
         productName:product.name,
         photo : product.photo[0],
