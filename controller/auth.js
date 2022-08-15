@@ -11,6 +11,7 @@ const image = "/images/user/photo_1652707413348_farouk.jpg";
 const referralCodes = require("referral-codes");
 const ProductModel = require("../model/ProductModel");
 const Offer  = require('../model/offresModel');
+const Category = require('../model/category');
 exports.createUSer = async (req, res) => {
   try {
     const {
@@ -434,6 +435,7 @@ exports.addToWish = async (req, res) => {
     const productId = req.body.productId;
     const id = req.body.id;
     const product = await ProductModel.findById(productId);
+    const category = await Category.findById(product.categoryId)
     const offer = await Offer.findById(product.offer);
     const user = await User.findOneAndUpdate({
       _id: id
@@ -442,7 +444,10 @@ exports.addToWish = async (req, res) => {
         offerId:offer._id,
         productName:product.name,
         photo : product.photo[0],
-        avgReviews :offer.avgReviews
+        avgReviews :offer.avgReviews,
+        categoryName:category.name,
+        views:offer.views
+
       }}
     }).exec();
     console.log(user);

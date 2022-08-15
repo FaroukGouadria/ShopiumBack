@@ -70,6 +70,8 @@ const userSchema = new mongoose.Schema({
    photo:String,
    productName:String,
    avgReviews:Number,
+   categoryName:String,
+   views:Number
   }],
 }, {timestamps: true});
 
