@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
   reviewsCount:{
     type:Number,
   },
-  whishlist:[{
+  wishlist:[{
    offer:Object
   }],
 }, {timestamps: true});
