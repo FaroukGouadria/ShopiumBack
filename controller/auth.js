@@ -475,7 +475,7 @@ exports.removeWishlist = async (req, res) => {
     const id = req.body.id;
     const user = await User.findById(id);
     if(user){
-      user.wishlist.splice(((item)=>item.offerId === offerIdRemoved),1);
+      user.wishlist.splice(((item)=>item.offerId ===! offerIdRemoved),1);
       await user.save()
     return  res.status(200).json({ok: true, user: user});
     }
