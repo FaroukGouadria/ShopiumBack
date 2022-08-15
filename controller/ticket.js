@@ -9,6 +9,7 @@ const TicketController = {
                 try {
                     const _id=req.body.id
                     const recu=req.body.recu
+                    const count = req.body.count
                     console.log({id:_id,recu:recu.products})
                     const user =  await User.findById({_id});
                     if(!user){
@@ -22,8 +23,9 @@ const TicketController = {
                                 prixTotal:recu.total,
                                 idUser:_id
                            });
-
+                            user.achat = user.achat+count;
                            await ticket.save();
+                           await user.save();
                            return await res.status(200).json({ticket})
                         }
                     
