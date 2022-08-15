@@ -12,6 +12,7 @@ const referralCodes = require("referral-codes");
 const ProductModel = require("../model/ProductModel");
 const Offer  = require('../model/offresModel');
 const Category = require('../model/category');
+const offresModel = require("../model/offresModel");
 exports.createUSer = async (req, res) => {
   try {
     const {
@@ -437,6 +438,7 @@ exports.addToWish = async (req, res) => {
     const product = await ProductModel.findById(productId);
     const category = await Category.findById(product.categoryId)
     const offer = await Offer.findById(product.offer);
+
     const user = await User.findOneAndUpdate({
       _id: id
     }, {
@@ -467,13 +469,13 @@ exports.getWishlist = async (req, res) => {
 };
 
 exports.removeFromWishlist = async (req, res) => {
-  const {productId} = req.body.productId;
+  const offerId = req.body.offerId;
   const id = req.body.id;
   const user = await User.findOneAndUpdate({
     _id: id
   }, {
     $pull: {
-      wishlist: productId
+      wishlist: offerId
     }
   }).exec();
 
