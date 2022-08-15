@@ -66,12 +66,7 @@ const userSchema = new mongoose.Schema({
     type:Number,
   },
   whishlist:[{
-    offerId:String,
-    productName:String,
-    photo:[{
-    type:String,
-  }],
-    avgReviews:Number
+   offer:Object
   }],
 }, {timestamps: true});
 
