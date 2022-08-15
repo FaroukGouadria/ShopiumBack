@@ -472,6 +472,7 @@ exports.removeWishlist = async (req, res) => {
   try {
     
     const offerIdRemoved = req.body.offerId;
+    console.log(offerIdRemoved)
     const id = req.body.id;
     const user = await User.findById(id);
     if(user){
