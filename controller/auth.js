@@ -431,6 +431,8 @@ exports.getAmi = async (req, res) => {
     res.status(500).json({success: true, message: "success", error: error});
   }
 };
+
+//////wishList add/get/delete
 exports.addToWish = async (req, res) => {
   try {
     const productId = req.body.productId;

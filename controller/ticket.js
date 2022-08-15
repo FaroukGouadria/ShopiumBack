@@ -71,7 +71,26 @@ const TicketController = {
             } catch (error) {
                 return res.status(500).json({success:false,error:error});
             }
-        }
+        },
+         sommeAchat:async(req,res)=>{
+            try {
+                const id=req.body.id
+    
+                const ticket = await Ticket.find({idUser:id})
+                const sumachat = ticket.length
+                const user= await User.findById(id)
+                if(user){
+                    user.achat=sumachat
+                    await user.save();
+                    return res.status(200).json({user:user.achat})
+                }else{
+                    return res.status(404).json('user not found !!!')
+                }
+            } catch (error) {
+                console.log(error)
+                   return res.status(500).json({errorAchat:error})
+            }
+         }
 }
 
 module.exports = TicketController
