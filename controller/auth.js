@@ -446,7 +446,8 @@ exports.addToWish = async (req, res) => {
         photo : product.photo[0],
         avgReviews :offer.avgReviews,
         categoryName:category.name,
-        views:offer.views
+        views:offer.views,
+        dateCreation:offer.startDate
 
       }}
     }).exec();

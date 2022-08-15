@@ -71,7 +71,8 @@ const userSchema = new mongoose.Schema({
    productName:String,
    avgReviews:Number,
    categoryName:String,
-   views:Number
+   views:Number,
+   dateCreation:String
   }],
 }, {timestamps: true});
 
