@@ -25,10 +25,6 @@ const TicketController = {
                            });
 
                            await ticket.save();
-                          const tickett = await Ticket.find({idUser:id})
-                         const sumachat = tickett.length
-                         user.achat=sumachat
-                         user.save();
                            return await res.status(200).json({ticket})
                         }
                     
