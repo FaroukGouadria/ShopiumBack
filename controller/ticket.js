@@ -67,8 +67,9 @@ const TicketController = {
                 const product = await ProductModel.find();
                 console.log(product)
                 const nameProduct =product.map(item=>item.name);
-                 
-                return res.status(200).json({productOfTicket,nameProduct,productTicket});
+                const intersection = productTicket.filter(element=>nameProduct.includes(element));
+                console.log({intersection})
+                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection});
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
