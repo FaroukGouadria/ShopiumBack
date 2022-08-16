@@ -82,9 +82,10 @@ const TicketController = {
                  const detailTicket = productOfTicket.map((item,i)=>{
                   productTicketDetail =item.filter((element)=>element.pname===intersection);
                  })
-                 const productTicketDetailJson = JSON.parse( JSON.stringify(productTicketDetail))
+                 const productTicketDetailJson = Object.fromEntries(productTicketDetail)
                  console.log({productTicketDetailJson})
                 return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetailJson});
+                const montantARembourser = offer.percentage* ;
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
