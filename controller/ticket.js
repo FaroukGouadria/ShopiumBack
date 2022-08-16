@@ -74,7 +74,7 @@ const TicketController = {
                 console.log({name})
                 const checkProduct = await ProductModel.findOne({name:intersection});
                 console.log({checkProduct: checkProduct})
-                const offerId=checkproduct.offer;
+                const offerId=checkProduct.offer;
                 console.log({offerId})
                 const offer = await OfferModel.findById(offerId);
                  console.log({condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage})
