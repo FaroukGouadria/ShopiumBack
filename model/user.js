@@ -76,6 +76,13 @@ const userSchema = new mongoose.Schema({
   }],
   achat:{
     type:Number
+  },
+  cagnotte:{
+    type:Number
+  },
+  Historique:{
+    offerId:String,
+    montant:Number
   }
 }, {timestamps: true});
 
