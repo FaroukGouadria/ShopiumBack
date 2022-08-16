@@ -70,6 +70,7 @@ const TicketController = {
                  
                 return res.status(200).json({productOfTicket,nameProduct,productTicket});
             } catch (error) {
+                console.log({error})
                 return res.status(500).json({success:false,error:error});
             }
         },
