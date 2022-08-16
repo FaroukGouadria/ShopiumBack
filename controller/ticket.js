@@ -63,6 +63,7 @@ const TicketController = {
                     return res.status(404).json("ticket not found !!");
 
                 const productOfTicket = ticket.map((item)=>item.Product)
+                console.log({productOfTicket})
                 const ticketProduct   = productOfTicket.map((item,i)=>{
                     productTicket= item.map((i)=>i.pname)  
                 })
