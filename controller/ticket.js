@@ -51,7 +51,7 @@ const TicketController = {
             }
         },
         getTicketByUser:async(req,res)=>{
-            let nameProductOfTicket;
+           const productTicket=[];
             try {
                 const idUser=req.body.id;
                 console.log(idUser)
@@ -61,14 +61,14 @@ const TicketController = {
 
                 const productOfTicket = ticket.map((item)=>item.Product)
                 const ticketProduct   = productOfTicket.map((item,i)=>{
-                     item.map((i)=>i.pname)  
+                    productTicket= item.map((i)=>i.pname)  
                 })
                 console.log({ticketProduct})
                 const product = await ProductModel.find();
                 console.log(product)
                 const nameProduct =product.map(item=>item.name);
                  
-                return res.status(200).json({productOfTicket,nameProduct,ticketProduct});
+                return res.status(200).json({productOfTicket,nameProduct,productTicket});
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
