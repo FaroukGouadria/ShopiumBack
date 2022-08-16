@@ -60,12 +60,11 @@ const TicketController = {
                 console.log(idUser)
                 const ticket= await Ticket.find({idUser});
                 console.log({ticket})
-                if(!ticket){
+                if(ticket.length===0){
                     return res.status(404).json("ticket not found !!");
                 }
                 else
                 {
-
                     const productOfTicket = ticket.map((item)=>item.Product)
                     console.log({productOfTicket})
                     const ticketProduct   = productOfTicket.map((item,i)=>{
