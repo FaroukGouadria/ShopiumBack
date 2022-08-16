@@ -89,11 +89,11 @@ const TicketController = {
                         console.log(item)
                          montantARembourser = (offer.percentage/100)*item.pquantity*item.pupri;
                      })
-                     console.log({montantARembourser})
+                     console.log({typeOf(montantARembourser)})
                      const user = await User.findById(idUser)
                      if(user){
                         user.historique ={offerId:offerId,mantant:montantARembourser}
-                        user.cagnotte = offer.cagnotte+montantARembourser
+                        user.cagnotte = user.cagnotte + montantARembourser
                      }
                      user.save();
                     return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail,montantARembourser,user});
