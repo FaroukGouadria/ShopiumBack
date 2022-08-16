@@ -90,10 +90,14 @@ const TicketController = {
                         montantARembourser = (offer.percentage/100)*item.pquantity*item.pupri;
                     })
                     console.log(typeof(montantARembourser))
+                    const userbeforeUpdate= await User.findById(idUser);
                     const user = await User.findByIdAndUpdate(idUser,{
-                        cagnotte:user.cagnotte + montantARembourser,
+                        cagnotte:userbeforeUpdate.cagnotte+montantARembourser,
                         $addToSet:{
-                            historique:{offerId,montantARembourser}
+                            historique:{
+                                offerId:offerId,
+                                montantARembourser:montantARembourser
+                            }
                         }
 
                     }).exec()
