@@ -64,7 +64,7 @@ const TicketController = {
                 const ticketProduct   = productOfTicket.map((item,i)=>{
                     productTicket= item.map((i)=>i.pname)  
                 })
-                console.log({ticketProduct})
+                // console.log({ticketProduct})
                 const product = await ProductModel.find();
                 console.log(product)
                 const nameProduct =product.map(item=>item.name);
@@ -73,10 +73,12 @@ const TicketController = {
                 const name = intersection.toString()
                 console.log({name})
                 const ckeckproduct = await ProductModel.findOne({name:name});
+                console.log({ckeckproduct})
                 const offerId=checkproduct.offer;
+                console.log({offerId})
                 const offer = await offresModel.findById(offerId);
-                 
-                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage}});
+                 console.log({condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage})
+                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer});
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
