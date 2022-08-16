@@ -59,6 +59,7 @@ const TicketController = {
                 const idUser=req.body.id;
                 console.log(idUser)
                 const ticket= await Ticket.find({idUser});
+                console.log({ticket})
                 if(!ticket)
                     return res.status(404).json("ticket not found !!");
 
