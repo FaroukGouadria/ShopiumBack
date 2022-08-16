@@ -99,7 +99,7 @@ const TicketController = {
                             cagnotte:userbeforeUpdate.cagnotte + montantARembourser,
                             historique:{
                                 offerId:offerId,
-                                montantARembourser:montantARembourser
+                                montant:montantARembourser
                             }
                         }
 
