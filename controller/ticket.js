@@ -85,7 +85,7 @@ const TicketController = {
                  const productTicketDetailJson = Object.fromEntries(productTicketDetail)
                  console.log({productTicketDetailJson})
                 return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetailJson});
-                const montantARembourser = offer.percentage* ;
+                const montantARembourser = offer.percentage;
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
