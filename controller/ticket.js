@@ -96,7 +96,7 @@ const TicketController = {
                         _id:idUser
                     },{
                         cagnotte:userbeforeUpdate.cagnotte + montantARembourser,
-                        $addToSet:{
+                        $push:{
                             historique:{
                                 offerId:offerId,
                                 montant:montantARembourser
