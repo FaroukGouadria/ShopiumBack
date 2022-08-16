@@ -90,12 +90,13 @@ const TicketController = {
                         montantARembourser = (offer.percentage/100)*item.pquantity*item.pupri;
                     })
                     console.log(typeof(montantARembourser))
-                    const user = await User.findById(idUser)
-                    if(user){
-                        user.historique= {$push:{offerId,montantARembourser}}
-                        user.cagnotte = user.cagnotte + montantARembourser
-                    }
-                    user.save();
+                    const user = await User.findByIdAndUpdate(idUser,{
+                        cagnotte:cagnotte + montantARembourser,
+                        $addToSet:{
+                            historique:{offerId,montantARembourser}
+                        }
+
+                    }).exec()
                     return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail,montantARembourser,user});
                 }else{
                     return res.status(404).json({message:"aucun offer dans votre ticket"})
