@@ -54,6 +54,7 @@ const TicketController = {
         getTicketByUser:async(req,res)=>{
            let productTicket;
            let productTicketDetail;
+           let montantARembourser ;
             try {
                 const idUser=req.body.id;
                 console.log(idUser)
@@ -82,10 +83,13 @@ const TicketController = {
                  const detailTicket = productOfTicket.map((item,i)=>{
                   productTicketDetail =item.filter((element)=>element.pname===intersection);
                  })
-                 const productTicketDetailJson = Object.fromEntries(productTicketDetail)
-                 console.log({productTicketDetailJson})
-                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetailJson});
-                const montantARembourser = offer.percentage;
+
+                 console.log({productTicketDetail})
+                 productTicketDetail.map((item)=>{
+                     montantARembourser = (offer.percentage/100)*item.quantity*item.pupri;
+                 })
+                 console.log({montantARembourser})
+                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail,montantARembourser});
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
