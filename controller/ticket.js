@@ -66,30 +66,25 @@ const TicketController = {
                 const ticketProduct   = productOfTicket.map((item,i)=>{
                     productTicket= item.map((i)=>i.pname)  
                 })
-                // console.log({ticketProduct})
+                console.log({productTicket})
                 const product = await ProductModel.find();
-                console.log(product)
                 const nameProduct =product.map(item=>item.name);
                 const intersection = productTicket.filter(element=>nameProduct.includes(element)).toString();
                 if(!intersection){
                     return res.status(404).json("pas de offer ")
                 }
-                        console.log({intersection})
-                const name = intersection.toString()
-                console.log({name})
+                 console.log({intersection})
                 const checkProduct = await ProductModel.findOne({name:intersection});
                 console.log({checkProduct: checkProduct})
                 const offerId=checkProduct.offer.toString();
                 console.log({offerId})
                 const offer = await OfferModel.findById(offerId);
-                console.log({condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage})
                 const detailTicket = productOfTicket.map((item,i)=>{
                 productTicketDetail =item.filter((element)=>element.pname===intersection);
-                })
+                });
                 if(productTicketDetail){
                     console.log({productTicketDetail})
                     productTicketDetail.map((item)=>{
-                        console.log(item)
                         montantARembourser = (offer.percentage/100)*item.pquantity*item.pupri;
                     })
                     console.log(typeof(montantARembourser))
