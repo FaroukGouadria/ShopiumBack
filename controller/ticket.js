@@ -61,7 +61,7 @@ const TicketController = {
 
                 const productOfTicket = ticket.map((item)=>item.Product)
                 const nameproduct   =productOfTicket.map((item,i)=>{
-                    console.log(item)
+                    console.log(item.pname)
                 })
                 // const product = await ProductModel.find();
                 // const nameProduct =product.map(item=>item.name); 
