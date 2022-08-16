@@ -51,7 +51,7 @@ const TicketController = {
             }
         },
         getTicketByUser:async(req,res)=>{
-           const productTicket=[];
+           let productTicket;
             try {
                 const idUser=req.body.id;
                 console.log(idUser)
