@@ -52,9 +52,9 @@ const TicketController = {
             }
         },
         getTicketByUser:async(req,res)=>{
-           let productTicket;
-           let productTicketDetail;
-           let montantARembourser ;
+        let productTicket;
+        let productTicketDetail;
+        let montantARembourser ;
             try {
                 const idUser=req.body.id;
                 console.log(idUser)
@@ -71,7 +71,7 @@ const TicketController = {
                 console.log(product)
                 const nameProduct =product.map(item=>item.name);
                 const intersection = productTicket.filter(element=>nameProduct.includes(element)).toString();
-                               console.log({intersection})
+                        console.log({intersection})
                 const name = intersection.toString()
                 console.log({name})
                 const checkProduct = await ProductModel.findOne({name:intersection});
@@ -79,27 +79,27 @@ const TicketController = {
                 const offerId=checkProduct.offer;
                 console.log({offerId})
                 const offer = await OfferModel.findById(offerId);
-                 console.log({condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage})
-                 const detailTicket = productOfTicket.map((item,i)=>{
-                  productTicketDetail =item.filter((element)=>element.pname===intersection);
-                 })
-                 if(productTicketDetail){
-                     console.log({productTicketDetail})
-                     productTicketDetail.map((item)=>{
+                console.log({condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage})
+                const detailTicket = productOfTicket.map((item,i)=>{
+                productTicketDetail =item.filter((element)=>element.pname===intersection);
+                })
+                if(productTicketDetail){
+                    console.log({productTicketDetail})
+                    productTicketDetail.map((item)=>{
                         console.log(item)
-                         montantARembourser = (offer.percentage/100)*item.pquantity*item.pupri;
-                     })
-                     console.log({typeOf(montantARembourser)})
-                     const user = await User.findById(idUser)
-                     if(user){
+                        montantARembourser = (offer.percentage/100)*item.pquantity*item.pupri;
+                    })
+                    console.log(typeof(montantARembourser))
+                    const user = await User.findById(idUser)
+                    if(user){
                         user.historique ={offerId:offerId,mantant:montantARembourser}
                         user.cagnotte = user.cagnotte + montantARembourser
-                     }
-                     user.save();
+                    }
+                    user.save();
                     return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail,montantARembourser,user});
-                 }else{
+                }else{
                     return res.status(404).json({message:"aucun offer dans votre ticket"})
-                 }
+                }
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
