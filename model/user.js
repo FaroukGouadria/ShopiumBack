@@ -80,10 +80,10 @@ const userSchema = new mongoose.Schema({
   cagnotte:{
     type:Number
   },
-  Historique:{
+  historique:[{
     offerId:String,
     montant:Number
-  }
+  }]
 }, {timestamps: true});
 
 userSchema.pre("save", async function (next) {
