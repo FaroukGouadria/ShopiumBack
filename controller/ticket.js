@@ -91,16 +91,19 @@ const TicketController = {
                     })
                     console.log(typeof(montantARembourser))
                     const userbeforeUpdate= await User.findById(idUser);
-                    const user = await User.findByIdAndUpdate(idUser,{
-                        cagnotte:userbeforeUpdate.cagnotte+montantARembourser,
+                    console.log(userbeforeUpdate.cagnotte);
+                    const user = await User.findByIdAndUpdate({
+                        _id:idUser
+                    },{
                         $addToSet:{
+                            cagnotte:userbeforeUpdate.cagnotte + montantARembourser,
                             historique:{
                                 offerId:offerId,
                                 montantARembourser:montantARembourser
                             }
                         }
 
-                    }).exec()
+                    }).exec();
                     return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail,montantARembourser,user});
                 }else{
                     return res.status(404).json({message:"aucun offer dans votre ticket"})
