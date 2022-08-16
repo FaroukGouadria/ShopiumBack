@@ -26,7 +26,7 @@ const TicketController = {
                            });
 
                            await ticket.save();
-                           return await res.status(200).json({ticket})
+                           return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                         }
                     
                 } catch (error) {
@@ -83,14 +83,17 @@ const TicketController = {
                  const detailTicket = productOfTicket.map((item,i)=>{
                   productTicketDetail =item.filter((element)=>element.pname===intersection);
                  })
-
-                 console.log({productTicketDetail})
-                 productTicketDetail.map((item)=>{
-                    console.log(item)
-                     montantARembourser = (offer.percentage/100)*item.pquantity*item.pupri;
-                 })
-                 console.log({montantARembourser})
-                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail,montantARembourser});
+                 if(productTicketDetail){
+                     console.log({productTicketDetail})
+                     productTicketDetail.map((item)=>{
+                        console.log(item)
+                         montantARembourser = (offer.percentage/100)*item.pquantity*item.pupri;
+                     })
+                     console.log({montantARembourser})
+                    return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail,montantARembourser});
+                 }else{
+                    return res.status(404).json({message:"aucun offer dans votre ticket"})
+                 }
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
