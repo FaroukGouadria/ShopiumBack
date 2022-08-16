@@ -75,7 +75,8 @@ const TicketController = {
                     const nameProduct =product.map(item=>item.name);
                     const intersection = productTicket.filter(element=>nameProduct.includes(element)).toString();
                     if(!intersection){
-                        return res.status(404).json("pas de offer ")
+                        return res.status(404).json("pas de offer dans votre ticket ")
+                        
                     }else{
 
                         console.log({intersection})
