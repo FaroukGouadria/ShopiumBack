@@ -92,7 +92,7 @@ const TicketController = {
                     console.log(typeof(montantARembourser))
                     const user = await User.findById(idUser)
                     if(user){
-                        user.historique.$push({offerId:offerId},{mantant:montantARembourser})
+                        user.historique= {$push:{offerId,montantARembourser}}
                         user.cagnotte = user.cagnotte + montantARembourser
                     }
                     user.save();
