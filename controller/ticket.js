@@ -60,15 +60,15 @@ const TicketController = {
                     return res.status(404).json("ticket not found !!");
 
                 const productOfTicket = ticket.map((item)=>item.Product)
-                const nameproduct   = productOfTicket.map((item,i)=>{
-                    const productTicket = item.map((i)=>i.pname)
-                    console.log({namee});    
+                const ticketProduct   = productOfTicket.map((item,i)=>{
+                     item.map((i)=>i.pname)  
                 })
+                console.log({ticketProduct})
                 const product = await ProductModel.find();
                 console.log(product)
                 const nameProduct =product.map(item=>item.name);
                  
-                return res.status(200).json({productOfTicket,nameProduct,productTicket});
+                return res.status(200).json({productOfTicket,nameProduct,ticketProduct});
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
