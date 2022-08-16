@@ -86,6 +86,7 @@ const TicketController = {
 
                  console.log({productTicketDetail})
                  productTicketDetail.map((item)=>{
+                    console.log(item)
                      montantARembourser = (offer.percentage/100)*item.quantity*item.pupri;
                  })
                  console.log({montantARembourser})
