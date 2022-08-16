@@ -80,10 +80,11 @@ const TicketController = {
                 const offer = await OfferModel.findById(offerId);
                  console.log({condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage})
                  const detailTicket = productOfTicket.map((item,i)=>{
-                  productTicketDetail =item.filter((element)=>element.pname===intersection).toString();
+                  productTicketDetail =item.filter((element)=>element.pname===intersection);
                  })
-                 console.log({productTicketDetail})
-                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail});
+                 const productTicketDetailJson = JSON.stringify(productTicketDetail)
+                 console.log({productTicketDetailJson})
+                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetailJson});
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
