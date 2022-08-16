@@ -1,4 +1,5 @@
 const { compare } = require('bcrypt');
+const offresModel = require('../model/offresModel');
 const ProductModel = require('../model/ProductModel');
 const Ticket = require('../model/ticket');
 const User = require('../model/user');
@@ -71,7 +72,11 @@ const TicketController = {
                                console.log({intersection})
                 const name = intersection.toString()
                 console.log({name})
-                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection});
+                const ckeckproduct = await ProductModel.findOne({name:name});
+                const offerId=checkproduct.offer;
+                const offer = await offresModel.findById(offerId);
+                 
+                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage}});
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
