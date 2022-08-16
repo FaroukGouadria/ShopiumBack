@@ -53,6 +53,7 @@ const TicketController = {
         },
         getTicketByUser:async(req,res)=>{
            let productTicket;
+           let productTicketDetail;
             try {
                 const idUser=req.body.id;
                 console.log(idUser)
@@ -78,7 +79,11 @@ const TicketController = {
                 console.log({offerId})
                 const offer = await OfferModel.findById(offerId);
                  console.log({condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage})
-                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer});
+                 const detailTicket = productOfTicket.map((item,i)=>{
+                  productTicketDetail =item.filter((element)=>element.pname===intersection).toString();
+                 })
+                 console.log({productTicketDetail})
+                return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail});
             } catch (error) {
                 console.log({error})
                 return res.status(500).json({success:false,error:error});
