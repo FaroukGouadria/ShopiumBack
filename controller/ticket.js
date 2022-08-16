@@ -61,12 +61,14 @@ const TicketController = {
 
                 const productOfTicket = ticket.map((item)=>item.Product)
                 const nameproduct   = productOfTicket.map((item,i)=>{
-                    const namee = item.map((i)=>i.pname)
+                    const productTicket = item.map((i)=>i.pname)
                     console.log({namee});    
                 })
-                // const product = await ProductModel.find();
-                // const nameProduct =product.map(item=>item.name); 
-                return res.status(200).json({productOfTicket:productOfTicket,nameproduct:namee});
+                const product = await ProductModel.find();
+                console.log(product)
+                const nameProduct =product.map(item=>item.name);
+                 
+                return res.status(200).json({productOfTicket,nameProduct,productTicket});
             } catch (error) {
                 return res.status(500).json({success:false,error:error});
             }
