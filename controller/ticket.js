@@ -91,7 +91,7 @@ const TicketController = {
                     })
                     console.log(typeof(montantARembourser))
                     const user = await User.findByIdAndUpdate(idUser,{
-                        cagnotte:cagnotte + montantARembourser,
+                        cagnotte:user.cagnotte + montantARembourser,
                         $addToSet:{
                             historique:{offerId,montantARembourser}
                         }
