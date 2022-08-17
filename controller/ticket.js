@@ -49,11 +49,13 @@ const TicketController = {
                             console.log({checkProduct: checkProduct})
                              productTicketDetail = product.filter((elementt)=>elementt.pname===element);
                             if(productTicketDetail){
-                                console.log({te:productTicketDetail[0].pquantity})
+                                console.log({te:productTicketDetail[0]})
                                 montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
                                 console.log({montantARembourser})
+
                                 const userbeforeUpdate= await User.findById(_id);
                                 console.log(userbeforeUpdate.cagnotte);
+                                
                                 const user = await User.findByIdAndUpdate({
                                     _id:_id
                                 },{
@@ -67,11 +69,12 @@ const TicketController = {
                                     }
             
                                 }).exec();
+                                console.log({user})
                             }else{
                                 return res.status(404).json({message:"aucun offer dans votre ticket"})
                             }
                         });  
-                        return res.status(200).json({productOfTicket,nameProduct,intersection,offer:{condition:checkProduct.condition,quantite:checkProduct.quantity,percentage:checkProduct.percentage},productTicketDetail,montantARembourser,user});
+                        return res.status(200).json({productOfTicket,nameProduct,intersection,productTicketDetail,montantARembourser,user});
                     }}
                         //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                 } catch (error) {
