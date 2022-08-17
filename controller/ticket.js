@@ -9,7 +9,7 @@ const TicketController = {
         AddTicket:async(req,res)=>{
                 try {
                     let productTicketDetail
-                    let userafterUpdate;
+                    let monanatTotal;
                     let checkProduct;
                     const _id=req.body.id
                     const recu=req.body.recu
@@ -53,28 +53,24 @@ const TicketController = {
                                    ///////calculer montant a rembourser/////////:
                                  let  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
                                    console.log({montantARembourser})
-                                   user.cagnotte = user.cagnotte+montantARembourser,
-                                   user.historique = {offerId:checkProduct._id,productName:checkProduct.productName,
-                                    montant:montantARembourser};
-                                    await user.save();
-                                    console.log({user})
-                                    //////update user historique and cagnotte////////:
-                                 //    userafterUpdate = await User.findByIdAndUpdate({
-                                 //        _id:_id
-                                 //    },{
-                                 //        cagnotte:user.cagnotte + montantARembourser,
-                                 //        $push:{
-                                 //            historique:{
-                                 //                offerId:checkProduct._id,
-                                 //                productName:checkProduct.productName,
-                                 //                montant:montantARembourser
-                                 //            }
-                                 //        }
-                                 //     });
+                                   monanatTotal=monanatTotal+montantARembourser;
+                                   console.log({monanatTotal})
+                                    ////update user historique and cagnotte////////:
+                                    userafterUpdate = await User.findByIdAndUpdate({
+                                        _id:_id
+                                    },{
+                                        cagnotte:user.cagnotte + monanatTotal,
+                                        $push:{
+                                            historique:{
+                                                offerId:checkProduct._id,
+                                                productName:checkProduct.productName,
+                                                montant:montantARembourser
+                                            }
+                                        }
+                                     });
                                }else{
                                    return res.status(404).json({message:"aucun offer dans votre ticket"})
                                }
-
                             }else{
                                 console.log("error")
                             }
