@@ -54,8 +54,8 @@ const TicketController = {
                                  let  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
                                    console.log({montantARembourser})
                                    user.cagnotte = user.cagnotte+montantARembourser,
-                                   user.historique = $push({offerId:checkProduct._id,productName:checkProduct.productName,
-                                    montant:montantARembourser});
+                                   user.historique = {offerId:checkProduct._id,productName:checkProduct.productName,
+                                    montant:montantARembourser};
                                     await user.save();
                                     console.log({user})
                                     //////update user historique and cagnotte////////:
