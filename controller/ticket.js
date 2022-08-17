@@ -32,7 +32,7 @@ const TicketController = {
                            console.log({ticket})
 //::::::::::::::::::::::::::::::: block verification if product in ticket had offer or not ::::::::::::::::::::::::::::::::::::::: 
                            console.log("block verification if product in ticket had offer or not")
-                    const productOfTicket = ticket.map((item)=>item.Product)
+                    const productOfTicket = recu.map((item)=>item.Product)
                     console.log({productOfTicket})
                     const ticketProduct   = productOfTicket.map((item,i)=>{
                         productTicket= item.map((i)=>i.pname)  
@@ -78,10 +78,8 @@ const TicketController = {
                        }else{
                            return res.status(404).json({message:"aucun offer dans votre ticket"})
                        }
-                    }
+                    }}
                         //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
-                        }
-                    
                 } catch (error) {
                     console.log({error})
                     res.status(500).json({success:'false',message:error})
