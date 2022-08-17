@@ -48,8 +48,8 @@ const TicketController = {
                             console.log({checkProduct: checkProduct})
                             const productTicketDetail = product.filter((elementt)=>elementt.pname===element);
                             if(productTicketDetail){
-                                console.log({productTicketDetail})
-            montantARembourser = (checkProduct.percentage/100)*(productTicketDetail[0].pquantity)*(productOfTicket[0].pupri);
+                                console.log({te:productTicketDetail[0].pquantity})
+            montantARembourser = (checkProduct.percentage/100)*(productTicketDetail[0].pquantity)*(productTicketDetail[0].pupri);
                                 console.log({montantARembourser})
 
                             }else{
