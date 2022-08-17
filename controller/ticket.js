@@ -9,7 +9,7 @@ const TicketController = {
         AddTicket:async(req,res)=>{
                 try {
                     let productTicketDetail
-                    // let montantARembourser = 0 ;
+                    let userafterUpdate;
                     let checkProduct;
                     const _id=req.body.id
                     const recu=req.body.recu
@@ -47,34 +47,36 @@ const TicketController = {
                         intersection.forEach(async (element) => {  
                             checkProduct = await OfferModel.findOne({productName:element});
                             console.log({checkProduct: checkProduct})
-                             productTicketDetail = product.filter((elementt)=>elementt.pname===element);
-                            if(productTicketDetail){
-                                console.log({te:productTicketDetail[0]})
-                              const  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
-                                console.log({montantARembourser})
+                            if(checkProduct){
+                                productTicketDetail = product.filter((elementt)=>elementt.pname===element);
+                               if(productTicketDetail){
+                                   console.log({te:productTicketDetail[0]})
+                                 const  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
+                                   console.log({montantARembourser})
+                                   
+                                   userafterUpdate = await User.findByIdAndUpdate({
+                                       _id:_id
+                                   },{
+                                       cagnotte:user.cagnotte + montantARembourser,
+                                       $push:{
+                                           historique:{
+                                               offerId:checkProduct._id,
+                                               productName:checkProduct.productName,
+                                               montant:montantARembourser
+                                           }
+                                       }
+               
+                                   }).exec();
+                                   console.log({user})
+                               }else{
+                                   return res.status(404).json({message:"aucun offer dans votre ticket"})
+                               }
 
-                                const userbeforeUpdate= await User.findById(_id);
-                                console.log(userbeforeUpdate.cagnotte);
-                                
-                                const user = await User.findByIdAndUpdate({
-                                    _id:_id
-                                },{
-                                    cagnotte:userbeforeUpdate.cagnotte + montantARembourser,
-                                    $push:{
-                                        historique:{
-                                            offerId:checkProduct._id,
-                                            productName:checkProduct.productName,
-                                            montant:montantARembourser
-                                        }
-                                    }
-            
-                                }).exec();
-                                console.log({user})
                             }else{
-                                return res.status(404).json({message:"aucun offer dans votre ticket"})
+                                console.log("error")
                             }
+                            return res.status(200).json({productOfTicket,nameProduct,intersection,productTicketDetail,userafterUpdate});
                         });  
-                        return res.status(200).json({productOfTicket,nameProduct,intersection,productTicketDetail,user});
                     }}
                         //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                 } catch (error) {
