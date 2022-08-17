@@ -82,7 +82,8 @@ const userSchema = new mongoose.Schema({
   },
   historique:[{
     offerId:String,
-    montant:Number
+    montant:Number,
+    productName:String
   }]
 }, {timestamps: true});
 

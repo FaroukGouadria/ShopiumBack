@@ -61,6 +61,7 @@ const TicketController = {
                                     $push:{
                                         historique:{
                                             offerId:checkProduct._id,
+                                            productName:checkProduct.productName,
                                             montant:montantARembourser
                                         }
                                     }
