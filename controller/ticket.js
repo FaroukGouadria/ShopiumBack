@@ -42,7 +42,7 @@ const TicketController = {
                     }else{
 
                         console.log({intersection})
-                       const checkProduct = await OfferModel.findOne({productName:intersection});
+                       const checkProduct = await OfferModel.find({productName:intersection});
                        console.log({checkProduct: checkProduct})
                        const productTicketDetail = product.filter((element)=>element.pname===intersection);
                        if(productTicketDetail){
