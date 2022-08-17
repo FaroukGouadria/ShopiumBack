@@ -74,6 +74,7 @@ const TicketController = {
                     ////a verifier offer toul 
                     const ProductOffer = await OfferModel.find();
                     const nameProduct =ProductOffer.map(item=>item.productName);
+                    console.log({nameProduct})
                     const intersection = productTicket.filter(element=>nameProduct.includes(element)).toString();
                     if(!intersection){
                         return res.status(404).json("pas de offer dans votre ticket ")
