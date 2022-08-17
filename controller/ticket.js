@@ -50,9 +50,9 @@ const TicketController = {
                             if(productTicketDetail){
                                 console.log({productTicketDetail})
                                 productTicketDetail.map((item)=>{
-                                    montantARembourser = Math.round( montantARembourser + (checkProduct.percentage)*item.pquantity*item.pupri);
+                                   const montantARembourser = (checkProduct.percentage/100)*item.pquantity*item.pupri;
+                                   console.log(parseInt(montantARembourser))
                                 })
-                                console.log({math:parseInt(montantARembourser)})
                             }else{
                                 return res.status(404).json({message:"aucun offer dans votre ticket"})
                             }
