@@ -59,7 +59,7 @@ const TicketController = {
                                montantARembourser = (checkProduct.percentage/100)*item.pquantity*item.pupri;
                            })
                            console.log(typeof(montantARembourser))
-                           const userbeforeUpdate= await User.findById(idUser);
+                           const userbeforeUpdate= await User.findById(_id);
                            console.log(userbeforeUpdate.cagnotte);
                            const user = await User.findByIdAndUpdate({
                                _id:_id
