@@ -33,11 +33,6 @@ const TicketController = {
                    const product = ticket.Product
                    console.log({product})
                     const productOfTicket = product.map((item)=>item.pname)
-                    console.log({productOfTicket})
-                    const ticketProduct   = productOfTicket.map((item,i)=>{
-                        productTicket= item.map((i)=>i.pname)  
-                    });
-                    console.log({productTicket})
                     ////a verifier offer toul 
                     const ProductOffer = await OfferModel.find();
                     const nameProduct =ProductOffer.map(item=>item.productName);
@@ -51,7 +46,7 @@ const TicketController = {
                         console.log({intersection})
                        const checkProduct = await OfferModel.findOne({productName:intersection});
                        console.log({checkProduct: checkProduct})
-                       const detailTicket = productOfTicket.map((item,i)=>{
+                       const detailTicket = product.map((item,i)=>{
                        productTicketDetail =item.filter((element)=>element.pname===intersection);
                        });
                        if(productTicketDetail){
