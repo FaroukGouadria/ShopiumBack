@@ -8,8 +8,6 @@ const TicketController = {
     
         AddTicket:async(req,res)=>{
                 try {
-                    let productTicket;
-                    let productTicketDetail;
                     let montantARembourser ;
                     const _id=req.body.id
                     const recu=req.body.recu
@@ -41,15 +39,12 @@ const TicketController = {
                     const intersection = productOfTicket.filter(element=>nameProduct.includes(element)).toString();
                     if(!intersection){
                         return res.status(404).json("pas de offer dans votre ticket ")
-                        
                     }else{
 
                         console.log({intersection})
                        const checkProduct = await OfferModel.findOne({productName:intersection});
                        console.log({checkProduct: checkProduct})
-                       const detailTicket = product.map((item,i)=>{
-                       productTicketDetail =item.filter((element)=>element.pname===intersection);
-                       });
+                       const productTicketDetail = product.map((item,i)=>item.filter((element)=>element.pname===intersection));
                        if(productTicketDetail){
                            console.log({productTicketDetail})
                            productTicketDetail.map((item)=>{
