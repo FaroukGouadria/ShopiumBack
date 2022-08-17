@@ -82,7 +82,7 @@ const TicketController = {
                     }else{
 
                         console.log({intersection})
-                       const checkProduct = await OfferModel.findOne({name:intersection});
+                       const checkProduct = await OfferModel.findOne({productName:intersection});
                        console.log({checkProduct: checkProduct})
                     //    const offerId=checkProduct.offer.toString();
                     //    console.log({offerId})
