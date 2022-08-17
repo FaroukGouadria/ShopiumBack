@@ -42,8 +42,7 @@ const TicketController = {
                     }else{
 
                         console.log({intersection})
-                        intersection.forEach(async element => {
-                            
+                        intersection.forEach(async (element) => {  
                             const checkProduct = await OfferModel.find({productName:element});
                             console.log({checkProduct: checkProduct})
                             const productTicketDetail = product.filter((elementt)=>elementt.pname===element);
@@ -52,7 +51,7 @@ const TicketController = {
                                 productTicketDetail.map((item)=>{
                                     montantARembourser = (checkProduct.percentage/100)*item.pquantity*item.pupri;
                                 })
-                                console.log(typeof(montantARembourser))
+                                console.log({montantARembourser})
                                 const userbeforeUpdate= await User.findById(_id);
                                 console.log(userbeforeUpdate.cagnotte);
                                 const user = await User.findByIdAndUpdate({
