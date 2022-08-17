@@ -26,6 +26,7 @@ const TicketController = {
                            });
 
                            await ticket.save();
+                           console.log({ticket})
                            return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                         }
                     
@@ -84,9 +85,6 @@ const TicketController = {
                         console.log({intersection})
                        const checkProduct = await OfferModel.findOne({productName:intersection});
                        console.log({checkProduct: checkProduct})
-                    //    const offerId=checkProduct.offer.toString();
-                    //    console.log({offerId})
-                    //    const offer = await OfferModel.findById(offerId);
                        const detailTicket = productOfTicket.map((item,i)=>{
                        productTicketDetail =item.filter((element)=>element.pname===intersection);
                        });
