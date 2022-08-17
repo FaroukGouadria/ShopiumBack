@@ -30,7 +30,8 @@ const TicketController = {
 
                            await ticket.save();
 //::::::::::::::::::::::::::::::: block verification if product in ticket had offer or not ::::::::::::::::::::::::::::::::::::::: 
-                   const product = ticket.product
+                   const product = ticket.Product
+                   console.log({product})
                     const productOfTicket = product.map((item)=>item.pname)
                     console.log({productOfTicket})
                     const ticketProduct   = productOfTicket.map((item,i)=>{
