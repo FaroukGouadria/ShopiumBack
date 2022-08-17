@@ -78,7 +78,7 @@ const userSchema = new mongoose.Schema({
     type:Number
   },
   cagnotte:{
-    type:Number
+    type:mongoose.Schema.Types.Decimal128
   },
   historique:[{
     offerId:String,
