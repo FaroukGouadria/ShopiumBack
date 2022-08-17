@@ -29,10 +29,9 @@ const TicketController = {
                            });
 
                            await ticket.save();
-                           console.log({ticket})
 //::::::::::::::::::::::::::::::: block verification if product in ticket had offer or not ::::::::::::::::::::::::::::::::::::::: 
-                           console.log("block verification if product in ticket had offer or not")
-                    const productOfTicket = recu.map((item)=>item.Product)
+                   const product = ticket.product
+                    const productOfTicket = product.map((item)=>item.pname)
                     console.log({productOfTicket})
                     const ticketProduct   = productOfTicket.map((item,i)=>{
                         productTicket= item.map((i)=>i.pname)  
