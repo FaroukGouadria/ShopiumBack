@@ -10,6 +10,7 @@ const TicketController = {
                 try {
                     let productTicketDetail
                     let checkProduct;
+                    const monanatTotal=0;
                     const _id=req.body.id
                     const recu=req.body.recu
                     console.log({id:_id,recu:recu.products})
@@ -52,7 +53,7 @@ const TicketController = {
                                    ///////calculer montant a rembourser/////////:
                                  let  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
                                    console.log({montantARembourser})
-                                 const monanatTotal=monanatTotal + montantARembourser;
+                                monanatTotal=monanatTotal + montantARembourser;
                                    console.log({monanatTotal})
                                     ////update user historique and cagnotte////////:
                                     userafterUpdate = await User.findByIdAndUpdate({
