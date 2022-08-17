@@ -10,7 +10,7 @@ const TicketController = {
                 try {
                     let productTicketDetail
                     let checkProduct;
-                    const monanatTotal=0;
+                    let monanatTotal=0;
                     const _id=req.body.id
                     const recu=req.body.recu
                     console.log({id:_id,recu:recu.products})
