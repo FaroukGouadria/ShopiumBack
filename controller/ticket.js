@@ -8,6 +8,7 @@ const TicketController = {
     
         AddTicket:async(req,res)=>{
                 try {
+                    let taille;
                     let productTicketDetail
                     let checkProduct;
                     let monanatTotal=0;
@@ -39,6 +40,8 @@ const TicketController = {
                     const nameProduct =ProductOffer.map(item=>item.productName);
                     console.log({nameProduct})
                     const intersection = productOfTicket.filter(element=>nameProduct.includes(element));
+                    taille=intersection.length;
+                    console.log({taille})
                     if(!intersection){
                         return res.status(404).json("pas de offer dans votre ticket ")
                     }else{
@@ -75,7 +78,7 @@ const TicketController = {
                                 console.log("error")
                             }
                         });  
-                        return res.status(200).json({productOfTicket,nameProduct,intersection,productTicketDetail});
+                        return res.status(200).json({message:` vous avez ${taille} dans votre ticket`});
                     }}
                         //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                 } catch (error) {
