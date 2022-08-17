@@ -59,7 +59,7 @@ const TicketController = {
                                 const user = await User.findByIdAndUpdate({
                                     _id:_id
                                 },{
-                                    cagnotte:user.cagnotte + montantARembourser,
+                                    cagnotte:userbeforeUpdate.cagnotte + montantARembourser,
                                     $push:{
                                         historique:{
                                             offerId:checkProduct._id,
