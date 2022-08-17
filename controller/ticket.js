@@ -9,6 +9,7 @@ const TicketController = {
         AddTicket:async(req,res)=>{
                 try {
                     var montantARembourser = 0 ;
+                    let checkProduct;
                     const _id=req.body.id
                     const recu=req.body.recu
                     console.log({id:_id,recu:recu.products})
@@ -43,7 +44,7 @@ const TicketController = {
 
                         console.log({intersection})
                         intersection.forEach(async (element) => {  
-                            const checkProduct = await OfferModel.find({productName:element});
+                            checkProduct = await OfferModel.find({productName:element});
                             console.log({checkProduct: checkProduct})
                             const productTicketDetail = product.filter((elementt)=>elementt.pname===element);
                             if(productTicketDetail){
@@ -51,7 +52,7 @@ const TicketController = {
                                 productTicketDetail.map((item)=>{
                                     montantARembourser = Math.round( montantARembourser + (checkProduct.percentage/100)*item.pquantity*item.pupri);
                                 })
-                                console.log({math:Math.floor(montantARembourser)})
+                                console.log({math:parseInt(montantARembourser)})
                             }else{
                                 return res.status(404).json({message:"aucun offer dans votre ticket"})
                             }
