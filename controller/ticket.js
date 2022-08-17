@@ -8,8 +8,7 @@ const TicketController = {
     
         AddTicket:async(req,res)=>{
                 try {
-                    let productTicketDetail;
-                    let montantARembourser = 0 ;
+                    var montantARembourser = 0 ;
                     let checkProduct;
                     const _id=req.body.id
                     const recu=req.body.recu
@@ -46,12 +45,12 @@ const TicketController = {
                         console.log({intersection})
                         intersection.forEach(async (element) => {  
                             checkProduct = await OfferModel.find({productName:element});
-                            console.log({checkProduct: checkProduct.percentage})
-                             productTicketDetail = product.filter((elementt)=>elementt.pname===element);
+                            console.log({checkProduct: checkProduct})
+                            let productTicketDetail = product.filter((elementt)=>elementt.pname===element);
                             if(productTicketDetail){
                                 console.log({te:productTicketDetail[0].pquantity})
-                                // montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
-                                // console.log({montantARembourser})
+                                montantARembourser = productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
+                                console.log({montantARembourser})
 
                             }else{
                                 return res.status(404).json({message:"aucun offer dans votre ticket"})
@@ -62,7 +61,7 @@ const TicketController = {
                         const user = await User.findByIdAndUpdate({
                             _id:_id
                         },{
-                            cagnotte:userbeforeUpdate.cagnotte + 1000,
+                            cagnotte:userbeforeUpdate.cagnotte + montantARembourser,
                             $push:{
                                 historique:{
                                     offerId:checkProduct._id,
