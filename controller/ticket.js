@@ -33,7 +33,7 @@ const TicketController = {
                    const product = ticket.Product
                    console.log({product})
                     const productOfTicket = product.map((item)=>item.pname)
-                    ////a verifier offer toul 
+                    ////a verifier offer toul ////////////////
                     console.log({productOfTicket})
                     const ProductOffer = await OfferModel.find();
                     const nameProduct =ProductOffer.map(item=>item.productName);
@@ -42,7 +42,6 @@ const TicketController = {
                     if(!intersection){
                         return res.status(404).json("pas de offer dans votre ticket ")
                     }else{
-
                         console.log({intersection})
                         intersection.forEach(async (element) => {  
                             checkProduct = await OfferModel.findOne({productName:element});
@@ -51,9 +50,10 @@ const TicketController = {
                                 productTicketDetail = product.filter((elementt)=>elementt.pname===element);
                                if(productTicketDetail){
                                    console.log({te:productTicketDetail[0]})
+                                   ///////calculer montant a rembourser/////////:
                                  const  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
                                    console.log({montantARembourser})
-                                   
+                                   //////update user historique and cagnotte////////:
                                    userafterUpdate = await User.findByIdAndUpdate({
                                        _id:_id
                                    },{
@@ -65,9 +65,10 @@ const TicketController = {
                                                montant:montantARembourser
                                            }
                                        }
-               
-                                   }).exec();
-                                   console.log({user})
+                                    });
+
+                                   await userafterUpdate.save();
+                                    console.log({userafterUpdate})
                                }else{
                                    return res.status(404).json({message:"aucun offer dans votre ticket"})
                                }
