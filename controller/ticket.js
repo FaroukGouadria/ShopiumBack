@@ -8,7 +8,8 @@ const TicketController = {
     
         AddTicket:async(req,res)=>{
                 try {
-                    var montantARembourser = 0 ;
+                    let productTicketDetail;
+                    let montantARembourser = 0 ;
                     let checkProduct;
                     const _id=req.body.id
                     const recu=req.body.recu
@@ -46,7 +47,7 @@ const TicketController = {
                         intersection.forEach(async (element) => {  
                             checkProduct = await OfferModel.find({productName:element});
                             console.log({checkProduct: checkProduct.percentage})
-                            const productTicketDetail = product.filter((elementt)=>elementt.pname===element);
+                             productTicketDetail = product.filter((elementt)=>elementt.pname===element);
                             if(productTicketDetail){
                                 console.log({te:productTicketDetail[0].pquantity})
                                 // montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
