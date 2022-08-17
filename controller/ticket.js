@@ -50,7 +50,7 @@ const TicketController = {
                             if(productTicketDetail){
                                 console.log({productTicketDetail})
                                 productTicketDetail.map((item)=>{
-                                    montantARembourser = Math.round( montantARembourser + (checkProduct.percentage/100)*item.pquantity*item.pupri);
+                                    montantARembourser = Math.round( montantARembourser + (checkProduct.percentage)*item.pquantity*item.pupri);
                                 })
                                 console.log({math:parseInt(montantARembourser)})
                             }else{
