@@ -79,10 +79,11 @@ const TicketController = {
                            return res.status(404).json({message:"aucun offer dans votre ticket"})
                        }
                     }
-                           return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
+                        //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                         }
                     
                 } catch (error) {
+                    console.log({error})
                     res.status(500).json({success:'false',message:error})
                 }
         },
