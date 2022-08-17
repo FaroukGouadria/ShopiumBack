@@ -44,7 +44,7 @@ const TicketController = {
 
                         console.log({intersection})
                         intersection.forEach(async (element) => {  
-                            checkProduct = await OfferModel.find({productName:element});
+                            checkProduct = await OfferModel.findOne({productName:element});
                             console.log({checkProduct: checkProduct})
                             let productTicketDetail = product.filter((elementt)=>elementt.pname===element);
                             if(productTicketDetail){
