@@ -38,6 +38,9 @@ const offreSchema = new mongoose.Schema({
     views:{
         type:Number,
         default:0,
+    },
+    productName:{
+        type:String,
     }
 },{
   timestamps: true //important

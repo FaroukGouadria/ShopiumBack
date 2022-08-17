@@ -71,8 +71,9 @@ const TicketController = {
                         productTicket= item.map((i)=>i.pname)  
                     })
                     console.log({productTicket})
-                    const product = await ProductModel.find();
-                    const nameProduct =product.map(item=>item.name);
+                    ////a verifier offer toul 
+                    const ProductOffer = await OfferModel.find();
+                    const nameProduct =ProductOffer.map(item=>item.productName);
                     const intersection = productTicket.filter(element=>nameProduct.includes(element)).toString();
                     if(!intersection){
                         return res.status(404).json("pas de offer dans votre ticket ")
@@ -80,18 +81,18 @@ const TicketController = {
                     }else{
 
                         console.log({intersection})
-                       const checkProduct = await ProductModel.findOne({name:intersection});
+                       const checkProduct = await OfferModel.findOne({name:intersection});
                        console.log({checkProduct: checkProduct})
-                       const offerId=checkProduct.offer.toString();
-                       console.log({offerId})
-                       const offer = await OfferModel.findById(offerId);
+                    //    const offerId=checkProduct.offer.toString();
+                    //    console.log({offerId})
+                    //    const offer = await OfferModel.findById(offerId);
                        const detailTicket = productOfTicket.map((item,i)=>{
                        productTicketDetail =item.filter((element)=>element.pname===intersection);
                        });
                        if(productTicketDetail){
                            console.log({productTicketDetail})
                            productTicketDetail.map((item)=>{
-                               montantARembourser = (offer.percentage/100)*item.pquantity*item.pupri;
+                               montantARembourser = (checkProduct.percentage/100)*item.pquantity*item.pupri;
                            })
                            console.log(typeof(montantARembourser))
                            const userbeforeUpdate= await User.findById(idUser);
@@ -102,13 +103,13 @@ const TicketController = {
                                cagnotte:userbeforeUpdate.cagnotte + montantARembourser,
                                $push:{
                                    historique:{
-                                       offerId:offerId,
+                                       offerId:checkProduct._id,
                                        montant:montantARembourser
                                    }
                                }
        
                            }).exec();
-                           return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:offer.condition,quantite:offer.quantity,percentage:offer.percentage},productTicketDetail,montantARembourser,user});
+                           return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:checkProduct.condition,quantite:checkProduct.quantity,percentage:checkProduct.percentage},productTicketDetail,montantARembourser,user});
                        }else{
                            return res.status(404).json({message:"aucun offer dans votre ticket"})
                        }

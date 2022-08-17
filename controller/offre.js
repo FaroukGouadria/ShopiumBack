@@ -22,7 +22,8 @@ const offerCrtl ={
                 quantity,
                 percentage,
                 product,
-                isLiked:0
+                isLiked:0,
+                productName:checkproduct.name
                 });
 
             await newOffer.save();
