@@ -34,10 +34,11 @@ const TicketController = {
                    console.log({product})
                     const productOfTicket = product.map((item)=>item.pname)
                     ////a verifier offer toul 
+                    console.log({productOfTicket})
                     const ProductOffer = await OfferModel.find();
                     const nameProduct =ProductOffer.map(item=>item.productName);
                     console.log({nameProduct})
-                    const intersection = productTicket.filter(element=>nameProduct.includes(element)).toString();
+                    const intersection = productOfTicket.filter(element=>nameProduct.includes(element)).toString();
                     if(!intersection){
                         return res.status(404).json("pas de offer dans votre ticket ")
                         
@@ -69,7 +70,7 @@ const TicketController = {
                                }
        
                            }).exec();
-                           return res.status(200).json({productOfTicket,nameProduct,productTicket,intersection,offer:{condition:checkProduct.condition,quantite:checkProduct.quantity,percentage:checkProduct.percentage},productTicketDetail,montantARembourser,user});
+                           return res.status(200).json({productOfTicket,nameProduct,intersection,offer:{condition:checkProduct.condition,quantite:checkProduct.quantity,percentage:checkProduct.percentage},productTicketDetail,montantARembourser,user});
                        }else{
                            return res.status(404).json({message:"aucun offer dans votre ticket"})
                        }
