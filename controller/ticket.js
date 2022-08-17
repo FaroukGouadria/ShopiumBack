@@ -45,7 +45,7 @@ const TicketController = {
                         console.log({intersection})
                         intersection.forEach(async (element) => {  
                             checkProduct = await OfferModel.find({productName:element});
-                            console.log({checkProduct: checkProduct})
+                            console.log({checkProduct: checkProduct.percentage})
                             const productTicketDetail = product.filter((elementt)=>elementt.pname===element);
                             if(productTicketDetail){
                                 console.log({te:productTicketDetail[0].pquantity})
