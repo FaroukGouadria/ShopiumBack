@@ -8,7 +8,7 @@ const TicketController = {
     
         AddTicket:async(req,res)=>{
                 try {
-                    const montantARembourser = 0 ;
+                    var montantARembourser = 0 ;
                     const _id=req.body.id
                     const recu=req.body.recu
                     console.log({id:_id,recu:recu.products})
