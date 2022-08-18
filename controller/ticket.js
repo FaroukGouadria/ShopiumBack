@@ -43,7 +43,7 @@ const TicketController = {
                     taille=intersection.length;
                     console.log({taille})
                     if(!intersection){
-                        return res.status(404).json("pas de offer dans votre ticket ")
+                        return res.status(404).json({message:"pas de offer dans votre ticket "})
                     }else{
                         console.log({intersection})
                         intersection.forEach(async (element) => {  
@@ -51,13 +51,13 @@ const TicketController = {
                             console.log({checkProduct: checkProduct})
                             if(checkProduct){
                                 productTicketDetail = product.filter((elementt)=>elementt.pname===element);
-                               if(productTicketDetail){
-                                   console.log({te:productTicketDetail[0]})
+                            if(productTicketDetail){
+                                console.log({te:productTicketDetail[0]})
                                    ///////calculer montant a rembourser/////////:
-                                 let  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
-                                   console.log({montantARembourser})
+                                let  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
+                                console.log({montantARembourser})
                                 monanatTotal=monanatTotal + montantARembourser;
-                                   console.log({monanatTotal})
+                                console.log({monanatTotal})
                                     ////update user historique and cagnotte////////:
                                     userafterUpdate = await User.findByIdAndUpdate({
                                         _id:_id
