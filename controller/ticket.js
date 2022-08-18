@@ -41,6 +41,7 @@ const TicketController = {
                     console.log({nameProduct})
                     const intersection = productOfTicket.filter(element=>nameProduct.includes(element));
                     taille=intersection.length;
+                    console.log({inter:intersection.toString()})
                     console.log({taille})
                     if(!intersection){
                         return res.status(404).json({message:"pas de offer dans votre ticket "})
