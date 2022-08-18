@@ -79,7 +79,8 @@ const TicketController = {
                                 console.log("error")
                             }
                         });  
-                        return res.status(200).json({ticket,message:` vous avez ${taille} offres dans votre ticket. \n
+                        return res.status(200).json({ticket,message:` vous avez ${taille} offres dans votre ticket. 
+                            \n\n
                              produits: ${intersection.toString()}`});
                     }}
                         //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
