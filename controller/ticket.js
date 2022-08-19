@@ -28,8 +28,8 @@ const TicketController = {
                                 prixTotal:recu.total,
                                 idUser:_id
                            }); 
-                           
-                           if(ticket.product.length<= 0)
+
+                           if(ticket.Product.length <= 0)
                            {
                             return res.status(205).send({message:" SVP scanner votre ticket correctement, ticket non enregistrer"})
                            }else{
