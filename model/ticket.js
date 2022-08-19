@@ -19,6 +19,10 @@ const ticketSchema = mongoose.Schema({
     idUser:{
         type:String
         ,ref:"User"
+    },
+    etat:{
+        type:String,
+        default:'En Cours'
     }
 });
 
