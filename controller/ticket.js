@@ -47,38 +47,38 @@ const TicketController = {
                         return res.status(404).json({message:"pas de offer dans votre ticket "})
                     }else{
                         console.log({intersection})
-                        intersection.forEach(async (element) => {  
-                            checkProduct = await OfferModel.findOne({productName:element});
-                            console.log({checkProduct: checkProduct})
-                            if(checkProduct){
-                                productTicketDetail = product.filter((elementt)=>elementt.pname===element);
-                            if(productTicketDetail){
-                                console.log({te:productTicketDetail[0]})
-                                   ///////calculer montant a rembourser/////////:
-                                let  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
-                                console.log({montantARembourser})
-                                monanatTotal=monanatTotal + montantARembourser;
-                                console.log({monanatTotal})
-                                    ////update user historique and cagnotte////////:
-                                    userafterUpdate = await User.findByIdAndUpdate({
-                                        _id:_id
-                                    },{
-                                        cagnotte:user.cagnotte + monanatTotal,
-                                        $push:{
-                                            historique:{
-                                                offerId:checkProduct._id,
-                                                productName:checkProduct.productName,
-                                                montant:montantARembourser
-                                            }
-                                        }
-                                     });
-                               }else{
-                                   return res.status(404).json({message:"aucun offer dans votre ticket"})
-                               }
-                            }else{
-                                console.log("error")
-                            }
-                        });  
+                        // intersection.forEach(async (element) => {  
+                        //     checkProduct = await OfferModel.findOne({productName:element});
+                        //     console.log({checkProduct: checkProduct})
+                        //     if(checkProduct){
+                        //         productTicketDetail = product.filter((elementt)=>elementt.pname===element);
+                        //     if(productTicketDetail){
+                        //         console.log({te:productTicketDetail[0]})
+                        //            ///////calculer montant a rembourser/////////:
+                        //         let  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
+                        //         console.log({montantARembourser})
+                        //         monanatTotal=monanatTotal + montantARembourser;
+                        //         console.log({monanatTotal})
+                        //             ////update user historique and cagnotte////////:
+                        //             userafterUpdate = await User.findByIdAndUpdate({
+                        //                 _id:_id
+                        //             },{
+                        //                 cagnotte:user.cagnotte + monanatTotal,
+                        //                 $push:{
+                        //                     historique:{
+                        //                         offerId:checkProduct._id,
+                        //                         productName:checkProduct.productName,
+                        //                         montant:montantARembourser
+                        //                     }
+                        //                 }
+                        //              });
+                        //        }else{
+                        //            return res.status(404).json({message:"aucun offer dans votre ticket"})
+                        //        }
+                        //     }else{
+                        //         console.log("error")
+                        //     }
+                        // });  
                         return res.status(200).json({ticket,message:` vous avez ${taille} offres dans votre ticket.\nproduits: ${intersection.toString()}`});
                     }}
                         //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
