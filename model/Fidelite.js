@@ -12,9 +12,9 @@ const FideliteSchema = mongoose.Schema({
     format:{
         type:String,
     },
-    // nom:{
-    //     type:String,
-    // }
+    magasin:{
+        type:String,
+    }
 });
 
 module.exports = mongoose.model('Fidelite',FideliteSchema);

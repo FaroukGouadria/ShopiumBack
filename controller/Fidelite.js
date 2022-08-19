@@ -6,9 +6,10 @@ const { sendError } = require("../utils/helper");
 const FideliteContoller = {
         addFidelite : async (req,res) =>{
             try {
-                const {userId,data}=req.body;
+                const {userId,data,magasin}=req.body;
                 console.log({userId:userId});
                 console.log({data});
+                 console.log({magasin});
             const user = await User.findOne({userId});
             if(!user){
                 return res.status(400).json({success:false,msg:'user not found'});
@@ -23,7 +24,7 @@ const FideliteContoller = {
                 data:data,
                 userId:userId,
                 format:"CODE128",
-                // nom:'carrefour',
+                magasin:magasin,
 
             });
             console.log(cartFidelite);
