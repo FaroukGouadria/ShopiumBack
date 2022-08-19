@@ -7,4 +7,6 @@ const TicketController = require("../controller/ticket");
 RouterTicket.post("/getUserInfo",TicketController.getUserTicket );
 RouterTicket.post('/getTicketByUser',TicketController.getTicketByUser);
 RouterTicket.post('/sommeAchat',TicketController.sommeAchat);
+RouterTicket.post("/getalltickets", TicketController.getAllTicketByUser);
+
 module.exports = RouterTicket;
