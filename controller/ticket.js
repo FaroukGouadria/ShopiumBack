@@ -28,14 +28,8 @@ const TicketController = {
                                 prixTotal:recu.total,
                                 idUser:_id
                            }); 
-
-                           if(ticket.Product.length <= 0)
-                           {
-                            return res.status(205).send({message:" SVP scanner votre ticket correctement, ticket non enregistrer"})
-                           }else{
-
                                await ticket.save();
-                           }
+
 //::::::::::::::::::::::::::::::: block verification if product in ticket had offer or not ::::::::::::::::::::::::::::::::::::::: 
                    const product = ticket.Product
                    console.log({product})
