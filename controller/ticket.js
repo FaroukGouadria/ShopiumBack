@@ -191,7 +191,25 @@ const TicketController = {
                 console.log(error)
                    return res.status(500).json({errorAchat:error})
             }
+         },
+
+         getAllTicketByUser:async(req,res)=>{
+            try {
+                const id = req.body.userId
+                    console.log({id});
+                const tickets = await Ticket.find({idUser:id})
+                if(tickets){
+                    console.log({tickets})
+                    return res.status(200).json(tickets)
+                }else{
+                    return res.status(404).json({message:'tickets not found !!! '})
+                }
+            } catch (error) {
+                console.log({error})
+                    res.status(500).json({error:error})
+            }
          }
+
 }
 
 module.exports = TicketController
