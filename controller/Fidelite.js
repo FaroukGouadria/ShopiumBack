@@ -16,7 +16,7 @@ const FideliteContoller = {
             }
             const carte  = await Fidelite.findOne({data:data});
             console.log({carte:carte});
-            if(carte){
+            if(carte){  
                 return res.status(400).json({success:false,msg:'carte deja exist'})
             }
 

@@ -47,6 +47,8 @@ const TicketController = {
                         return res.status(404).json({message:"pas de offer dans votre ticket "})
                     }else{
                         console.log({intersection})
+                        //make this feature automatically after 24 hours
+                        
                         // intersection.forEach(async (element) => {  
                         //     checkProduct = await OfferModel.findOne({productName:element});
                         //     console.log({checkProduct: checkProduct})
