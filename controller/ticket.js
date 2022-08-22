@@ -220,12 +220,14 @@ const TicketController = {
                 const tickets = await Ticket.find({idUser:id}) 
                 console.log({tickets})
                 const intersection = tickets.filter(element=>element.etat==='En Cours');
-                const prod = intersection.map((item=>item.Product))
-                console.log({prod})
+                intersection.forEach(async(element)=>{
+                    const prod = element.map((item)=>item.Product)
+                    console.log({prod})
+                })
                 res.json({intersection})
-                     const productOfTicket = prod.map((item)=>item.pname);
-                    ////a verifier offer toul ////////////////
-                    console.log({productOfTicket})
+                    //  const productOfTicket = prod.map((item)=>item.pname);
+                    // ////a verifier offer toul ////////////////
+                    // console.log({productOfTicket})
                     const ProductOffer = await OfferModel.find();
                     const nameProduct =ProductOffer.map(item=>item.productName);
                     console.log({nameProduct})
