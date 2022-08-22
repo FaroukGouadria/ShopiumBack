@@ -229,7 +229,9 @@ const TicketController = {
                     const ProductOffer = await OfferModel.find();
                     const nameProduct =ProductOffer.map(item=>item.productName);
                     console.log({nameProduct})
-                    
+                    const inter = prodName.filter((elem)=>nameProduct.includes(elem))
+                    console.log({inter})
+
                 });
               
                 // res.json({prodTicket,prodName})
