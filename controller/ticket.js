@@ -220,13 +220,16 @@ const TicketController = {
                 console.log({tickets})
                 const intersection = tickets.filter(element=>element.etat==='En Cours');
                 res.json({intersection})
-                     const productOfTicket = intersection.map((item)=>item.Product.pname)
+                     const productOfTicket = intersection.map((item)=>{
+                        let prodTicket = item.Product.map((prod)=>prod.pname)
+                        console.log(prodTicket)
+                     });
                     ////a verifier offer toul ////////////////
                     console.log({productOfTicket})
                     const ProductOffer = await OfferModel.find();
                     const nameProduct =ProductOffer.map(item=>item.productName);
                     console.log({nameProduct})
-                    const intersections = productOfTicket.filter(element=>nameProduct.includes(element));
+                    const intersections = prodTicket.filter(element=>nameProduct.includes(element));
                     taille=intersection.length;
                     console.log({inter:intersections.toString()})
                     console.log({taille})
