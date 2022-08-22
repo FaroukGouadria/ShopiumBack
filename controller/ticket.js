@@ -265,6 +265,7 @@ const TicketController = {
                                 console.log('inter boucle to check details of product in ticket')
                                 console.log({elemnt})
                                 checkProduct = element
+                                console.log({checkProduct})
 
                             });
 
