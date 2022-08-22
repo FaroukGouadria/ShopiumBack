@@ -224,18 +224,18 @@ const TicketController = {
                 const intersection = tickets.filter(element=>element.etat==='En Cours');
                 intersection.forEach(async(element)=>{
                         prod = element.Product;
+                        prodName = prod.map(item=>item.pname)
                     console.log(prod.map(item=>item.pname));
+                    const ProductOffer = await OfferModel.find();
+                    const nameProduct =ProductOffer.map(item=>item.productName);
+                    console.log({nameProduct})
+                    
                 });
-                prodTicket = intersection.map(item=>item.Product);
-                prodName = prodTicket.map((item)=>item.pname)
-                console.table({prodTicket});
+              
                 // res.json({prodTicket,prodName})
                     //  const productOfTicket = prod.map((item)=>item.pname);
                     // ////a verifier offer toul ////////////////
                     // console.log({productOfTicket})
-                    const ProductOffer = await OfferModel.find();
-                    const nameProduct =ProductOffer.map(item=>item.productName);
-                    console.log({nameProduct})
                     // const intersections = prodTicket.filter(element=>nameProduct.includes(element));
                     // taille=intersection.length;
                     // console.log({inter:intersections.toString()})
