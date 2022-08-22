@@ -264,12 +264,14 @@ const TicketController = {
                             inter.forEach(async(elemnt)=>{
                                 console.log('inter boucle to check details of product in ticket')
                                 console.log({elemnt})
+                                checkProduct = element
+
                             });
 
                         }
 
                 });
-                    res.json({product})
+                    res.json({product,checkProduct})
                 // res.json({prodTicket,prodName})
                     //  const productOfTicket = prod.map((item)=>item.pname);
                     // ////a verifier offer toul ////////////////
