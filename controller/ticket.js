@@ -223,6 +223,8 @@ const TicketController = {
                 console.log({user})
                 const tickets = await Ticket.find({idUser:id}) 
                 console.log({tickets})
+                const product = tickets.Product;
+                console.log({product}) 
                 const intersection = tickets.filter(element=>element.etat === 'En Cours');
                 intersection.forEach(async(element)=>{
                         prod = element.Product;
@@ -253,7 +255,7 @@ const TicketController = {
                     })
 
                 });
-              
+                    res.json({product})
                 // res.json({prodTicket,prodName})
                     //  const productOfTicket = prod.map((item)=>item.pname);
                     // ////a verifier offer toul ////////////////
