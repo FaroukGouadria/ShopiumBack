@@ -224,12 +224,12 @@ const TicketController = {
                 const intersection = tickets.filter(element=>element.etat==='En Cours');
                 intersection.forEach(async(element)=>{
                         prod = element.Product;
-                        prodName = prod.map(item=>item.pname)
-                    console.log(prod.map(item=>item.pname));
+                    const prodName = prod.map(item=>item.pname)
+                    console.log({prodName});
                     const ProductOffer = await OfferModel.find();
                     const nameProduct =ProductOffer.map(item=>item.productName);
                     console.log({nameProduct})
-                    const inter = prodName.filter((elem)=>nameProduct.includes(elem))
+                    const inter = prodName.filter(elem=>nameProduct.includes(elem))
                     console.log({inter})
 
                 });
