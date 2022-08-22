@@ -213,29 +213,29 @@ const TicketController = {
          },
         changeStatusTicket:async(req,res)=>{
             try {
+                let prodTicket;
                 const id = req.body.id;
                 const user = await User.findById(id);
                 console.log({user})
                 const tickets = await Ticket.find({idUser:id}) 
                 console.log({tickets})
                 const intersection = tickets.filter(element=>element.etat==='En Cours');
+                const prod = intersection.filter((element=>element.Product))
+                console.log({prod})
                 res.json({intersection})
-                     const productOfTicket = intersection.map((item)=>{
-                        let prodTicket = item.Product.map((prod)=>prod.pname)
-                        console.log(prodTicket)
-                     });
+                     const productOfTicket = prod.map((item)=>item.pname);
                     ////a verifier offer toul ////////////////
                     console.log({productOfTicket})
                     const ProductOffer = await OfferModel.find();
                     const nameProduct =ProductOffer.map(item=>item.productName);
                     console.log({nameProduct})
-                    const intersections = prodTicket.filter(element=>nameProduct.includes(element));
-                    taille=intersection.length;
-                    console.log({inter:intersections.toString()})
-                    console.log({taille})
-                    intersections.forEach(async (element) => {  
+                    // const intersections = prodTicket.filter(element=>nameProduct.includes(element));
+                    // taille=intersection.length;
+                    // console.log({inter:intersections.toString()})
+                    // console.log({taille})
+                    // intersections.forEach(async (element) => {  
                            
-                        });  
+                    //     });  
             } catch (error) {
                 console.log({error})
                 res.json({error})
