@@ -249,7 +249,7 @@ const TicketController = {
                                     elementt.pname === elemn;
                                 });
                             if(productTicketDetail){
-                                console.log({te:prodTicket})
+                                console.log({te:productTicketDetail})
                             }else{
                                 console.error('why why')
                             }
