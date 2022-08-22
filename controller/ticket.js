@@ -213,9 +213,11 @@ const TicketController = {
          },
         changeStatusTicket:async(req,res)=>{
             try {
+                let checkProduct;
                 let prod;
                 let prodTicket;
                 let prodName;
+                let productTicketDetail;
                 const id = req.body.id;
                 const user = await User.findById(id);
                 console.log({user})
@@ -231,6 +233,16 @@ const TicketController = {
                     console.log({nameProduct})
                     const inter = prodName.filter(elem=>nameProduct.includes(elem))
                     console.log({inter})
+                    inter.forEach(async (elemn)=>{
+                         checkProduct = await OfferModel.findOne({productName:elemn});
+                            console.log({checkProduct: checkProduct})
+                            if(checkProduct){
+                                productTicketDetail = prod.filter((elementt)=>elementt.pname===elemn);
+                            if(productTicketDetail){
+                                console.log({te:productTicketDetail[0]})
+                            }
+                        }
+                    })
 
                 });
               
