@@ -241,6 +241,7 @@ const TicketController = {
                     console.log({nameProduct})
                      console.log("intersection")
                     const inter = prodName.filter(elem=>nameProduct.includes(elem))
+                    //intersection
                     console.log({inter})
                     // inter.forEach(async (elemn)=>{
                     //      checkProduct = await OfferModel.findOne({productName:elemn});
