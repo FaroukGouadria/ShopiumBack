@@ -261,7 +261,7 @@ const TicketController = {
                             res.json('pas de offer in this ticket')
                         }else{
                             inter.forEach((elemnt)=>{
-                                console.log('inter boucle to check ')
+                                console.log('inter boucle to check details of product in ticket')
                                 console.log({elemnt})
                             });
 
