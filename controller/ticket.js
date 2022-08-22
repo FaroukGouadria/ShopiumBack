@@ -237,7 +237,8 @@ const TicketController = {
                          checkProduct = await OfferModel.findOne({productName:elemn});
                             console.log({checkProduct: checkProduct})
                             if(checkProduct){
-                                productTicketDetail = prod.filter((elementt)=>elementt.pname===elemn);
+                                console.log({elemn})
+                                productTicketDetail = prod.filter((elementt)=>elementt.pname === elemn);
                             if(productTicketDetail){
                                 console.log({te:productTicketDetail})
                             }else{
