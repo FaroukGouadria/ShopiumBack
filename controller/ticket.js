@@ -229,30 +229,34 @@ const TicketController = {
                 const product = intersection.map(item=>item.Product);
                 console.log({product})
                 product.forEach(async(element)=>{
+                    console.log("product of product")
                         prod = element;
                         console.log({prod})
+                         console.log("Nameproduct of product")
                     const prodName = prod.map(item=>item.pname)
                     console.log({prodName});
                     const ProductOffer = await OfferModel.find();
+                     console.log("product Name of productOffer")
                     const nameProduct =ProductOffer.map(item=>item.productName);
                     console.log({nameProduct})
+                     console.log("intersection")
                     const inter = prodName.filter(elem=>nameProduct.includes(elem))
                     console.log({inter})
-                    inter.forEach(async (elemn)=>{
-                         checkProduct = await OfferModel.findOne({productName:elemn});
-                            console.log({checkProduct: checkProduct})
-                            if(checkProduct){
-                                console.log({elemn})
-                                console.log({prod})
-                                productTicketDetail = prod.filter((elementt)=>
-                                    elementt.pname == elemn);
-                            if(productTicketDetail){
-                                console.log({te:productTicketDetail})
-                            }else{
-                                console.error('why why')
-                            }
-                        }
-                    })
+                    // inter.forEach(async (elemn)=>{
+                    //      checkProduct = await OfferModel.findOne({productName:elemn});
+                    //         console.log({checkProduct: checkProduct})
+                    //         if(checkProduct){
+                    //             console.log({elemn})
+                    //             console.log({prod})
+                    //             productTicketDetail = prod.filter((elementt)=>
+                    //                 elementt.pname == elemn);
+                    //         if(productTicketDetail){
+                    //             console.log({te:productTicketDetail})
+                    //         }else{
+                    //             console.error('why why')
+                    //         }
+                    //     }
+                    // })
 
                 });
                     res.json({product})
