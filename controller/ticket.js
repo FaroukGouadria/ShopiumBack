@@ -218,6 +218,7 @@ const TicketController = {
                 console.log({user})
                 const tickets = await Ticket.find({idUser:id}) 
                 console.log({tickets})
+                res.json({tickets})
 
             } catch (error) {
                 console.log({error})
