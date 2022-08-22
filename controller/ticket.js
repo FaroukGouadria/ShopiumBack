@@ -220,7 +220,7 @@ const TicketController = {
                 console.log({tickets})
                 const intersection = tickets.filter(element=>element.etat==='En Cours');
                 res.json({intersection})
-                     const productOfTicket = intersection.map((item)=>item.pname)
+                     const productOfTicket = intersection.map((item)=>item.Product.pname)
                     ////a verifier offer toul ////////////////
                     console.log({productOfTicket})
                     const ProductOffer = await OfferModel.find();
