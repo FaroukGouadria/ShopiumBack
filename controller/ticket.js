@@ -218,7 +218,8 @@ const TicketController = {
                 console.log({user})
                 const tickets = await Ticket.find({idUser:id}) 
                 console.log({tickets})
-                res.json({tickets})
+                const intersection = tickets.filter(element=>element.etat==='En Cours');
+                res.json({intersection})
 
             } catch (error) {
                 console.log({error})
