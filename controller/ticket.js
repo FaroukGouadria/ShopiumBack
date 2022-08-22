@@ -223,7 +223,7 @@ const TicketController = {
                 console.log({user})
                 const tickets = await Ticket.find({idUser:id}) 
                 console.log({tickets})
-                const intersection = tickets.filter(element=>element.etat==='En Cours');
+                const intersection = tickets.filter(element=>element.etat === 'En Cours');
                 intersection.forEach(async(element)=>{
                         prod = element.Product;
                         console.log({prod})
@@ -239,7 +239,10 @@ const TicketController = {
                             console.log({checkProduct: checkProduct})
                             if(checkProduct){
                                 console.log({elemn})
-                                productTicketDetail = prod.filter((elementt)=>elementt.pname === elemn);
+                                productTicketDetail = prod.filter((elementt)=>
+                                {   console.log(elementt)
+                                    elementt.pname === elemn;
+                                });
                             if(productTicketDetail){
                                 console.log({te:productTicketDetail})
                             }else{
