@@ -210,7 +210,10 @@ const TicketController = {
                 console.log({error})
                     res.status(500).json({error:error})
             }
-         }
+         },
+        changeStatusTicket:async(req,res)=>{
+            
+        }
 
 }
 
