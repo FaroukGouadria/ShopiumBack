@@ -239,7 +239,9 @@ const TicketController = {
                             if(checkProduct){
                                 productTicketDetail = prod.filter((elementt)=>elementt.pname===elemn);
                             if(productTicketDetail){
-                                console.log({te:productTicketDetail[0]})
+                                console.log({te:productTicketDetail})
+                            }else{
+                                console.error('why why')
                             }
                         }
                     })
