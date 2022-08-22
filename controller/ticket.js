@@ -213,7 +213,7 @@ const TicketController = {
          },
         changeStatusTicket:async(req,res)=>{
             try {
-                let prod=[];
+                let prod;
                 let prodTicket;
                 let prodName;
                 const id = req.body.id;
@@ -223,8 +223,9 @@ const TicketController = {
                 console.log({tickets})
                 const intersection = tickets.filter(element=>element.etat==='En Cours');
                 intersection.forEach(async(element)=>{
-                        res.json({productTicet:element.Product})
-                })
+                        prod = element.Product;
+                    console.log(prod.map(item=>item.pname));
+                });
                 prodTicket = intersection.map(item=>item.Product);
                 prodName = prodTicket.map((item)=>item.pname)
                 console.table({prodTicket});
