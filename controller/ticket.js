@@ -223,7 +223,7 @@ const TicketController = {
                 console.log({tickets})
                 const intersection = tickets.filter(element=>element.etat==='En Cours');
                 intersection.forEach(async(element)=>{
-                        console.log({element})
+                        console.log({productTicet:element.Product})
                 })
                 prodTicket = intersection.map(item=>item.Product);
                 prodName = prodTicket.map((item)=>item.pname)
