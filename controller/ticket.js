@@ -240,7 +240,7 @@ const TicketController = {
                             if(checkProduct){
                                 console.log({elemn})
                                 productTicketDetail = prod.filter((elementt)=>
-                                {   console.log(elementt)
+                                {   console.log({elementt})
                                     elementt.pname === elemn;
                                 });
                             if(productTicketDetail){
