@@ -257,6 +257,15 @@ const TicketController = {
                     //         }
                     //     }
                     // })
+                        if(inter.length<=0){
+                            res.json('pas de offer in this ticket')
+                        }else{
+                            inter.forEach((elemnt)=>{
+                                console.log('inter boucle to check ')
+                                console.log({elemnt})
+                            });
+
+                        }
 
                 });
                     res.json({product})
