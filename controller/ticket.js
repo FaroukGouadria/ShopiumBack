@@ -212,7 +212,16 @@ const TicketController = {
             }
          },
         changeStatusTicket:async(req,res)=>{
-            
+            try {
+                const id = req.body.id;
+                const user = await User.findById(id);
+                console.log({user})
+                const tickets = await Ticket.find({idUser:id}) 
+                console.log({tickets})
+
+            } catch (error) {
+                console.log({error})
+            }
         }
 
 }
