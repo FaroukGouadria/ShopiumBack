@@ -211,69 +211,87 @@ const TicketController = {
                     res.status(500).json({error:error})
             }
          },
-        changeStatusTicket:async(req,res)=>{
+         changeStatusTicket:async(req,res)=>{
+            setInterval(async() => {
             try {
-                let checkProduct;
-                let prod;
-                let prodTicket;
-                let prodName;
-                let productTicketDetail;
-                const id = req.body.id;
-                const user = await User.findById(id);
-                console.log({user})
-                const tickets = await Ticket.find({idUser:id}) 
-                console.log({tickets})
-                // const product = tickets.map(item=>item.Product);
-                // console.log({product}) 
-                const intersection = tickets.filter(element=>element.etat === 'En Cours');
-                const product = intersection.map(item=>item.Product);
-                console.log({product})
-                product.forEach(async(element)=>{
-                    console.log("product of product")
-                        prod = element;
-                        console.log({prod})
-                         console.log("Nameproduct of product")
-                    const prodName = prod.map(item=>item.pname)
-                    console.log({prodName});
-                    const ProductOffer = await OfferModel.find();
-                     console.log("product Name of productOffer")
-                    const nameProduct =ProductOffer.map(item=>item.productName);
-                    console.log({nameProduct})
-                     console.log("intersection")
-                    const inter = prodName.filter(elem=>nameProduct.includes(elem))
-                    //intersection
-                    console.log({inter})
-                    // inter.forEach(async (elemn)=>{
-                    //      checkProduct = await OfferModel.findOne({productName:elemn});
-                    //         console.log({checkProduct: checkProduct})
-                    //         if(checkProduct){
-                    //             console.log({elemn})
-                    //             console.log({prod})
-                    //             productTicketDetail = prod.filter((elementt)=>
-                    //                 elementt.pname == elemn);
-                    //         if(productTicketDetail){
-                    //             console.log({te:productTicketDetail})
-                    //         }else{
-                    //             console.error('why why')
-                    //         }
-                    //     }
-                    // })
-                        if(inter.length<=0){
-                            res.json('pas de offer in this ticket ')
-                        }else{
-                            inter.forEach(async(elemnt)=>{
-                                console.log('inter boucle to check details of product in ticket')
-                                console.log({elemnt})
-                                checkProduct = element
-                                console.log({checkProduct})
+                    
+                    let checkProduct;
+                    let prod;
+                    let prodTicket;
+                    let prodName;
+                    let productTicketDetail;
+                    let monanatTotal
+                    const idUser = req.body.id;
+                    const user = await User.findById(idUser);
+                    console.log({user})
+                    const tickets = await Ticket.find({idUser}) 
+                    console.log({tickets})
+                    // const product = tickets.map(item=>item.Product);
+                    // console.log({product}) 
+                    const intersection = tickets.filter(element=>element.etat === 'En Cours');
+                    console.log({inter:intersection.map((item)=>item.Product)})
+                    const product = intersection.map(item=>item.Product);
+                    console.log({producut:product})
 
-                            });
-
-                        }
-
-                });
-                    res.json({product,checkProduct})
-                // res.json({prodTicket,prodName})
+  
+                        product.forEach(async(element)=>{
+                            console.log("product of product")
+                                prod = element;
+                                console.log({prod})
+                                console.log("Nameproduct of product")
+                            const prodName = prod.map(item=>item.pname)
+                            console.log({prodName});
+                            const ProductOffer = await OfferModel.find();
+                             console.log("product Name of productOffer")
+                            const nameProduct =ProductOffer.map(item=>item.productName);
+                            console.log({nameProduct})
+                             console.log("intersection")
+                            const inter = prodName.filter(elem=>nameProduct.includes(elem))
+                            //intersection
+                            console.log({inter})
+                            if(inter.length<= 0){
+                                console.log("pas de product with offer")
+                            }else{
+        
+                            }
+                            inter.forEach(async (elemn)=>{
+                                 checkProduct = await OfferModel.findOne({productName:elemn});
+                                    console.log({checkProduct: checkProduct})
+                                    if(checkProduct){
+                                        console.log({elemn})
+                                        console.log({element})
+                                        productTicketDetail = element.filter((elementt)=>
+                                            elementt.pname == elemn);
+                                    if(productTicketDetail){
+                                        console.log({te:productTicketDetail[0]})
+                                         let  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
+                                       console.log({montantARembourser})
+                                       monanatTotal=monanatTotal + montantARembourser;
+                                       console.log({monanatTotal})
+        
+                                    }else{
+                                        console.error('why why')
+                                    }
+                                }else{
+                                    console.log("pas de offereee")
+                                }
+                            })
+                                // if(inter.length<=0){
+                                //     res.json('pas de offer in this ticket ')
+                                // }else{
+                                //     inter.forEach(async(elemnt)=>{
+                                //         console.log('inter boucle to check details of product in ticket')
+                                //         console.log({elemnt})
+                                //         checkProduct = element
+                                //         console.log({checkProduct})
+        
+                                //     });
+        
+                                // }
+                        });
+        
+                    res.json({inter:intersection,product,monanatTotal})
+                    
                     //  const productOfTicket = prod.map((item)=>item.pname);
                     // ////a verifier offer toul ////////////////
                     // console.log({productOfTicket})
@@ -282,14 +300,15 @@ const TicketController = {
                     // console.log({inter:intersections.toString()})
                     // console.log({taille})
                     // intersections.forEach(async (element) => {  
-                           
-                    //     });  
-            } catch (error) {
-                console.log({error})
-                res.json({error})
+                        
+                        //     });  
+                    } catch (error) {
+                        console.log({error})
+                        // res.json({error})
+                    }
+                }, 6000);
+                }
+                
             }
-        }
-
-}
 
 module.exports = TicketController
