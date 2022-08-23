@@ -221,6 +221,7 @@ const TicketController = {
                     let prodName;
                     let productTicketDetail;
                     let monanatTotal
+                    let  montantARembourser=0;
                     const idUser = req.body.id;
                     const user = await User.findById(idUser);
                     console.log({user})
@@ -228,15 +229,20 @@ const TicketController = {
                     console.log({tickets})
                     // const product = tickets.map(item=>item.Product);
                     // console.log({product}) 
+                    // njibou fil les ticket ili etat mta3hom en cours
                     const intersection = tickets.filter(element=>element.etat === 'En Cours');
+                    if (intersection.length<=0){
+                            return;
+                    }else{
                     console.log({inter:intersection.map((item)=>item.Product)})
+                    //nekhdou  minhom les products mta3hom  
                     const product = intersection.map(item=>item.Product);
-                    console.log({producut:product})
+             
 
-  
-                        product.forEach(async(element)=>{
+
+                        intersection.forEach(async(element)=>{
                             console.log("product of product")
-                                prod = element;
+                                prod = element.Product;
                                 console.log({prod})
                                 console.log("Nameproduct of product")
                             const prodName = prod.map(item=>item.pname)
@@ -248,34 +254,45 @@ const TicketController = {
                              console.log("intersection")
                             const inter = prodName.filter(elem=>nameProduct.includes(elem))
                             //intersection
-                            console.log({inter})
+                            console.log(inter)
                             if(inter.length<= 0){
-                                console.log("pas de product with offer")
+                               prodTicket = await Ticket.findById({_id:element._id})
+                                        console.log({prodTicket})
+                                        prodTicket.etat="Refusé"
+                                        await prodTicket.save();
+                                        console.log({prodTicket})
                             }else{
-        
-                            }
-                            inter.forEach(async (elemn)=>{
-                                 checkProduct = await OfferModel.findOne({productName:elemn});
-                                    console.log({checkProduct: checkProduct})
-                                    if(checkProduct){
-                                        console.log({elemn})
-                                        console.log({element})
-                                        productTicketDetail = element.filter((elementt)=>
-                                            elementt.pname == elemn);
-                                    if(productTicketDetail){
-                                        console.log({te:productTicketDetail[0]})
-                                         let  montantARembourser = (checkProduct.percentage/100)*productTicketDetail[0].pquantity*productTicketDetail[0].pupri;
-                                       console.log({montantARembourser})
-                                       monanatTotal=monanatTotal + montantARembourser;
-                                       console.log({monanatTotal})
-        
+                                inter.forEach(async (elemn)=>{
+                                     checkProduct = await OfferModel.findOne({productName:elemn});
+                                        console.log({checkProduct: checkProduct})
+                                        if(checkProduct){
+                                            console.log(" inside inter")
+                                            console.log({elemn})
+                                            console.log(element._id)
+                                            console.log({prod})
+                                            productTicketDetail = prod.filter((elementt)=>
+                                                elementt.pname === elemn);
+                                                console.log(productTicketDetail)
+                                        if(productTicketDetail){
+                                            console.log({te:productTicketDetail})
+                                montantARembourser = (checkProduct.percentage/100)*productTicketDetail.pquantity*productTicketDetail.pupri;
+                                           console.log({montantARembourser})
+                                           monanatTotal=monanatTotal + montantARembourser;
+                                           console.log({monanatTotal})
+                                            prodTicket = await Ticket.findById({_id:element._id})
+                                            console.log({prodTicket})
+                                            prodTicket.etat="Accepté"
+                                            await prodTicket.save();
+                                            console.log({prodTicket})
+                                            
+                                        }else{
+                                            console.error('why why')
+                                        }
                                     }else{
-                                        console.error('why why')
+                                        console.log("pas de offereee")
                                     }
-                                }else{
-                                    console.log("pas de offereee")
-                                }
-                            })
+                                })
+                            }
                                 // if(inter.length<=0){
                                 //     res.json('pas de offer in this ticket ')
                                 // }else{
@@ -290,7 +307,7 @@ const TicketController = {
                                 // }
                         });
         
-                    res.json({inter:intersection,product,monanatTotal})
+                    // res.json({inter:intersection,product})
                     
                     //  const productOfTicket = prod.map((item)=>item.pname);
                     // ////a verifier offer toul ////////////////
@@ -301,7 +318,7 @@ const TicketController = {
                     // console.log({taille})
                     // intersections.forEach(async (element) => {  
                         
-                        //     });  
+                       }  //     });  
                     } catch (error) {
                         console.log({error})
                         // res.json({error})
