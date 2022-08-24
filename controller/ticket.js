@@ -216,17 +216,19 @@ const TicketController = {
             try {
                     
                     let checkProduct;
-                    let prod;
+                    // let prod;
                     let prodTicket;
                     let prodName;
-                    let productTicketDetail;
-                    let monanatTotal
-                    let  montantARembourser=0;
+                    let quantity;
+                    let prixUnitaire;
+                    // let productTicketDetail;
+                    let monanatTotal =0;
+                    // let  montantARembourser=0;
                     const idUser = req.body.id;
                     const user = await User.findById(idUser);
-                    console.log({user})
+                    // console.log({user})
                     const tickets = await Ticket.find({idUser}) 
-                    console.log({tickets})
+                    // console.log({tickets})
                     // const product = tickets.map(item=>item.Product);
                     // console.log({product}) 
                     // njibou fil les ticket ili etat mta3hom en cours
@@ -234,49 +236,52 @@ const TicketController = {
                     if (intersection.length<=0){
                             return;
                     }else{
-                    console.log({inter:intersection.map((item)=>item.Product)})
+                    // console.log({inter:intersection.map((item)=>item.Product)})
                     //nekhdou  minhom les products mta3hom  
                     const product = intersection.map(item=>item.Product);
-             
-
-
+                        
                         intersection.forEach(async(element)=>{
                             console.log("product of product")
-                                prod = element.Product;
+                            const prod = element.Product;
                                 console.log({prod})
-                                console.log("Nameproduct of product")
+                                // console.log("Nameproduct of product")
                             const prodName = prod.map(item=>item.pname)
                             console.log({prodName});
                             const ProductOffer = await OfferModel.find();
-                             console.log("product Name of productOffer")
+                            //  console.log("product Name of productOffer")
                             const nameProduct =ProductOffer.map(item=>item.productName);
-                            console.log({nameProduct})
-                             console.log("intersection")
+                            // console.log({nameProduct})
+                            //  console.log("intersection")
                             const inter = prodName.filter(elem=>nameProduct.includes(elem))
                             //intersection
                             console.log(inter)
                             if(inter.length<= 0){
                                prodTicket = await Ticket.findById({_id:element._id})
-                                        console.log({prodTicket})
+                                        // console.log({prodTicket})
                                         prodTicket.etat="Refusé"
                                         await prodTicket.save();
-                                        console.log({prodTicket})
+                                        // console.log({prodTicket})
                             }else{
                                 inter.forEach(async (elemn)=>{
                                      checkProduct = await OfferModel.findOne({productName:elemn});
-                                        console.log({checkProduct: checkProduct})
+                                        // console.log({checkProduct: checkProduct})
                                         if(checkProduct){
                                             console.log(" inside inter")
                                             console.log({elemn})
-                                            console.log(element._id)
+                                            // console.log(element._id)
                                             console.log({prod})
-                                            productTicketDetail = prod.filter((elementt)=>
-                                                elementt.pname === elemn);
-                                                console.log(productTicketDetail)
-                                        if(productTicketDetail){
-                                            console.log({te:productTicketDetail})
-                                montantARembourser = (checkProduct.percentage/100)*productTicketDetail.pquantity*productTicketDetail.pupri;
-                                           console.log({montantARembourser})
+                                          const  productTicketDetail = prod.filter((elementt)=>
+                                                    elementt.pname===elemn);
+                                                productTicketDetail.map((element)=>
+                                                    {
+                                                       quantity= element.pquantity 
+                                                       prixUnitaire = element.pupri
+                                                    });
+                                        if(productTicketDetail.length>0){
+                                            // console.log(productTicketDetail) 
+                                            console.log({prixUnitaire,quantity})
+                                          const  montantARembourser = (checkProduct.percentage/100) * quantity * prixUnitaire;
+                                            console.log(montantARembourser)
                                            monanatTotal=monanatTotal + montantARembourser;
                                            console.log({monanatTotal})
                                             prodTicket = await Ticket.findById({_id:element._id})
@@ -284,6 +289,19 @@ const TicketController = {
                                             prodTicket.etat="Accepté"
                                             await prodTicket.save();
                                             console.log({prodTicket})
+                                               //update user historique and cagnotte////////:
+                                    userafterUpdate = await User.findByIdAndUpdate({
+                                        _id:idUser
+                                    },{
+                                        cagnotte:user.cagnotte + monanatTotal,
+                                        $push:{
+                                            historique:{
+                                                offerId:checkProduct._id,
+                                                productName:checkProduct.productName,
+                                                montant:montantARembourser
+                                            }
+                                        }
+                                     });
                                             
                                         }else{
                                             console.error('why why')
@@ -319,13 +337,14 @@ const TicketController = {
                     // intersections.forEach(async (element) => {  
                         
                        }  //     });  
+                    //    return res.status(200).json({tickets})
                     } catch (error) {
                         console.log({error})
                         // res.json({error})
                     }
-                }, 6000);
-                }
+                }, 6000);   
+
                 
             }
-
+        }
 module.exports = TicketController
