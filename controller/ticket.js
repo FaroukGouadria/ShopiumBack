@@ -291,6 +291,7 @@ const TicketController = {
                                             await prodTicket.save();
                                             console.log({prodTicket})
                                                //update user historique and cagnotte////////:
+                                               console.log({productNameTohistorique:checkProduct.productName})
                                     userafterUpdate = await User.findByIdAndUpdate({
                                         _id:idUser
                                     },{
