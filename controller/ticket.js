@@ -265,52 +265,45 @@ const TicketController = {
                             }else{
                                 inter.forEach(async (elemn)=>{
                                      checkProduct = await OfferModel.findOne({productName:elemn});
-                                        // console.log({checkProduct: checkProduct})
+                                        console.log({checkProduct: checkProduct})
                                         if(checkProduct){
                                             console.log(" inside inter")
-                                            console.log({elemn})
-                                            // console.log(element._id)
-                                            console.log({prod})
+                                            // console.log({elemn})
+                                            // // console.log(element._id)
+                                            // console.log({prod})
                                           const  productTicketDetail = prod.filter((elementt)=>
                                                     elementt.pname===elemn);
-                                                productTicketDetail.map((element)=>
+                                                productTicketDetail.map(async(element)=>
                                                     {
-                                                       quantity= element.pquantity 
-                                                       prixUnitaire = element.pupri
+                                                       console.log({prixUnitaire,quantity})
+                                                     const  montantARembourser = (checkProduct.percentage/100) * element.pquantity  * element.pupri;
+                                                       console.log(montantARembourser)
+                                                      monanatTotal=monanatTotal + montantARembourser;
+                                                      console.log({monanatTotal})
+                                                       prodTicket = await Ticket.findById({_id:element._id})
+                                                       console.log({prodTicket})
+                                                       prodTicket.etat="Accepté"
+                                                       await prodTicket.save();
+                                                       console.log({prodTicket})
+                                                          //update user historique and cagnotte////////:
+                                                console.log({productNameTohistorique:checkProduct.productName})
+                                               userAfterUpdate = await User.findByIdAndUpdate({
+                                                   _id:idUser
+                                               },{
+                                                   cagnotte:user.cagnotte + monanatTotal,
+                                                   $push:{
+                                                       historique:{
+                                                           offerId:checkProduct._id,
+                                                           productName:checkProduct.productName,
+                                                           montant:montantARembourser
+                                                       }
+                                                   }
+                                                });
                                                     });
-                                        if(productTicketDetail.length>0){
-                                            console.log(productTicketDetail) 
-                                            console.log({prixUnitaire,quantity})
-                                          const  montantARembourser = (checkProduct.percentage/100) * quantity * prixUnitaire;
-                                            console.log(montantARembourser)
-                                           monanatTotal=monanatTotal + montantARembourser;
-                                           console.log({monanatTotal})
-                                            prodTicket = await Ticket.findById({_id:element._id})
-                                            console.log({prodTicket})
-                                            prodTicket.etat="Accepté"
-                                            await prodTicket.save();
-                                            console.log({prodTicket})
-                                               //update user historique and cagnotte////////:
-                                               console.log({productNameTohistorique:checkProduct.productName})
-                                    userafterUpdate = await User.findByIdAndUpdate({
-                                        _id:idUser
-                                    },{
-                                        cagnotte:user.cagnotte + monanatTotal,
-                                        $push:{
-                                            historique:{
-                                                offerId:checkProduct._id,
-                                                productName:checkProduct.productName,
-                                                montant:montantARembourser
-                                            }
-                                        }
-                                     });
                                             
                                         }else{
                                             console.error('why why')
                                         }
-                                    }else{
-                                        console.log("pas de offereee")
-                                    }
                                 })
                             }
                                 // if(inter.length<=0){
@@ -339,7 +332,7 @@ const TicketController = {
                     // intersections.forEach(async (element) => {  
                         
                        }  //     });  
-                    //    return res.status(200).json({tickets})
+                       return res.status(200).json({userAfterUpdate})
                     } catch (error) {
                         console.log({error})
                     res.json({errorStatus:error})
