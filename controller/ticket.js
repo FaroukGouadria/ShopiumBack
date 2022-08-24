@@ -81,9 +81,9 @@ const TicketController = {
                         //         console.log("error")
                         //     }
                         // });  
-                        // return res.status(200).json({ticket,message:"nous aurons repondu dans 24h"});
-                        return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
+                        return res.status(200).json({ticket,message:` vous avez ${taille} offres dans votre ticket.\nproduits: ${intersection.toString()}`});
                     }}
+                        //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                 } catch (error) {
                     console.log({error})
                     res.status(500).json({success:'false',message:error})
@@ -302,7 +302,6 @@ const TicketController = {
                                             }
                                         }
                                      });
-                                            
                                         }else{
                                             console.error('why why')
                                         }
@@ -311,40 +310,14 @@ const TicketController = {
                                     }
                                 })
                             }
-                                // if(inter.length<=0){
-                                //     res.json('pas de offer in this ticket ')
-                                // }else{
-                                //     inter.forEach(async(elemnt)=>{
-                                //         console.log('inter boucle to check details of product in ticket')
-                                //         console.log({elemnt})
-                                //         checkProduct = element
-                                //         console.log({checkProduct})
-        
-                                //     });
-        
-                                // }
-                        });
-        
-                    // res.json({inter:intersection,product})
-                    
-                    //  const productOfTicket = prod.map((item)=>item.pname);
-                    // ////a verifier offer toul ////////////////
-                    // console.log({productOfTicket})
-                    // const intersections = prodTicket.filter(element=>nameProduct.includes(element));
-                    // taille=intersection.length;
-                    // console.log({inter:intersections.toString()})
-                    // console.log({taille})
-                    // intersections.forEach(async (element) => {  
-                        
-                       }  //     });  
+                        });      
+                       }  
                        return res.status(200).json({tickets})
                     } catch (error) {
                         console.log({error})
-                        // res.json({error})
+                   return  res.status(500).json({error})
                     }
-                }, 10000);   
-
-                
+                }, 6000);   
             }
         }
 module.exports = TicketController
