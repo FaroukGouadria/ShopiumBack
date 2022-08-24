@@ -211,6 +211,7 @@ const TicketController = {
                     res.status(500).json({error:error})
             }
          },
+        
          changeStatusTicket:async(req,res)=>{
             setInterval(async() => {
             try {
@@ -340,7 +341,7 @@ const TicketController = {
                     //    return res.status(200).json({tickets})
                     } catch (error) {
                         console.log({error})
-                    res.json({error})
+                    res.json({errorStatus:error})
                     }
                 }, 6000);   
 

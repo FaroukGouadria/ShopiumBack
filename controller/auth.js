@@ -13,6 +13,9 @@ const ProductModel = require("../model/ProductModel");
 const Offer  = require('../model/offresModel');
 const Category = require('../model/category');
 const offresModel = require("../model/offresModel");
+
+
+
 exports.createUSer = async (req, res) => {
   try {
     const {
