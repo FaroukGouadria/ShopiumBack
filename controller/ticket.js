@@ -81,7 +81,7 @@ const TicketController = {
                         //         console.log("error")
                         //     }
                         // });  
-                        return res.status(200).json({ticket,message:` vous avez ${taille} offres dans votre ticket.\nproduits: ${intersection.toString()}`});
+                        return res.status(200).json({ticket,message:"nous aurons repondu dans 24h"});
                     }}
                         //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                 } catch (error) {
@@ -337,12 +337,12 @@ const TicketController = {
                     // intersections.forEach(async (element) => {  
                         
                        }  //     });  
-                    //    return res.status(200).json({tickets})
+                       return res.status(200).json({tickets})
                     } catch (error) {
                         console.log({error})
                         // res.json({error})
                     }
-                }, 6000);   
+                }, 10000);   
 
                 
             }
