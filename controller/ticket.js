@@ -245,14 +245,14 @@ const TicketController = {
                             console.log("product of product")
                             const prod = element.Product;
                                 console.log({prod})
-                                // console.log("Nameproduct of product")
+                                console.log("Nameproduct of product")
                             const prodName = prod.map(item=>item.pname)
                             console.log({prodName});
                             const ProductOffer = await OfferModel.find();
-                            //  console.log("product Name of productOffer")
+                             console.log("product Name of productOffer")
                             const nameProduct =ProductOffer.map(item=>item.productName);
-                            // console.log({nameProduct})
-                            //  console.log("intersection")
+                            console.log({nameProduct})
+                             console.log("intersection")
                             const inter = prodName.filter(elem=>nameProduct.includes(elem))
                             //intersection
                             console.log(inter)
@@ -279,7 +279,7 @@ const TicketController = {
                                                        prixUnitaire = element.pupri
                                                     });
                                         if(productTicketDetail.length>0){
-                                            // console.log(productTicketDetail) 
+                                            console.log(productTicketDetail) 
                                             console.log({prixUnitaire,quantity})
                                           const  montantARembourser = (checkProduct.percentage/100) * quantity * prixUnitaire;
                                             console.log(montantARembourser)
