@@ -273,10 +273,12 @@ const TicketController = {
                                             // console.log({prod})
                                           const  productTicketDetail = prod.filter((elementt)=>
                                                     elementt.pname===elemn);
-                                                productTicketDetail.map(async(element)=>
+                                                productTicketDetail.map(async (element)=>
                                                     {
+                                                       quantity= element.pquantity 
+                                                       prixUnitaire = element.pupri
                                                        console.log({prixUnitaire,quantity})
-                                                     const  montantARembourser = (checkProduct.percentage/100) * element.pquantity  * element.pupri;
+                                                     const  montantARembourser = (checkProduct.percentage/100) * quantity * prixUnitaire;
                                                        console.log(montantARembourser)
                                                       monanatTotal=monanatTotal + montantARembourser;
                                                       console.log({monanatTotal})
@@ -286,7 +288,7 @@ const TicketController = {
                                                        await prodTicket.save();
                                                        console.log({prodTicket})
                                                           //update user historique and cagnotte////////:
-                                                console.log({productNameTohistorique:checkProduct.productName})
+                                                          console.log({productNameTohistorique:checkProduct.productName})
                                                userAfterUpdate = await User.findByIdAndUpdate({
                                                    _id:idUser
                                                },{
@@ -332,7 +334,7 @@ const TicketController = {
                     // intersections.forEach(async (element) => {  
                         
                        }  //     });  
-                       return res.status(200).json({userAfterUpdate})
+                    //    return res.status(200).json({tickets})
                     } catch (error) {
                         console.log({error})
                     res.json({errorStatus:error})
