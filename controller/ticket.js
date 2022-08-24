@@ -278,12 +278,12 @@ const TicketController = {
                                                        quantity= element.pquantity 
                                                        prixUnitaire = element.pupri
                                                        _id=element._id
-                                                       console.log({prixUnitaire,quantity})
+                                                       console.log({prixUnitaire,quantity,_id})
                                                      const  montantARembourser = (checkProduct.percentage/100) * quantity * prixUnitaire;
                                                        console.log(montantARembourser)
                                                       monanatTotal=monanatTotal + montantARembourser;
                                                       console.log({monanatTotal})
-                                                       prodTicket = await Ticket.findById({_id})
+                                                       prodTicket = await Ticket.findById({_id:_id})
                                                        console.log({prodTicket})
                                                        prodTicket.etat="Accepté"
                                                        await prodTicket.save();
