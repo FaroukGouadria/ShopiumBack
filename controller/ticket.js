@@ -44,9 +44,10 @@ const TicketController = {
                     console.log({inter:intersection.toString()})
                     console.log({taille})
                     if(!intersection){
-                        return res.status(404).json({message:"pas de offer dans votre ticket "})
+                       return await res.status(404).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                     }else{
                         console.log({intersection})
+                        return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                         //make this feature automatically after 24 hours
                         
                         // intersection.forEach(async (element) => {  
@@ -81,7 +82,7 @@ const TicketController = {
                         //         console.log("error")
                         //     }
                         // });  
-                        return res.status(200).json({ticket,message:` vous avez ${taille} offres dans votre ticket.\nproduits: ${intersection.toString()}`});
+                        // return res.status(200).json({ticket,message:` vous avez ${taille} offres dans votre ticket.\nproduits: ${intersection.toString()}`});
                     }}
                         //    return await res.status(200).json({ticket,message:"merci de scanner Votre ticket , nous vous répondrons dans les  48 heures au maximum"});
                 } catch (error) {
@@ -346,7 +347,7 @@ const TicketController = {
                         console.log({error})
                     res.json({errorStatus:error})
                     }
-                }, 60000);   
+                }, 60*60*5);   
 
                 
             }
