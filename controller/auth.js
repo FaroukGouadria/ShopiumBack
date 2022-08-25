@@ -452,7 +452,7 @@ console.log({offerId:offer._id})
 const wish=userCheckWishList.wishlist.map(elem=>elem.offerId.includes(offer._id.toString()))
 console.log({wish:wish})
 console.log({wish:wish.toString()})
-  if( wish==false || wish==undefined || wish==null || wish==[] ){
+  if( wish.includes(false)||wish==undefined){
     const user = await User.findOneAndUpdate({
       _id: id
     }, {
