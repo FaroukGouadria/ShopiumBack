@@ -448,26 +448,26 @@ console.log(userCheckWishList.wishlist);
 const wish=userCheckWishList.wishlist.filter((element)=>
 {console.log({element}); console.log({offer:offer._id});element.offerId===offer._id})
   if(wish.length<=0){
+    const user = await User.findOneAndUpdate({
+      _id: id
+    }, {
+      $addToSet: {wishlist:{
+        offerId:offer._id,
+        productName:product.name,
+        photo : product.photo[0],
+        avgReviews :offer.avgReviews,
+        categoryName:category.name,
+        views:offer.views,
+        dateCreation:offer.startDate
+        
+      }}
+    }).exec();
+    console.log(user);
+    return res.status(200).json({ok: true, user: user,color:"red"});
+  }else{  
     console.log(wish)
     return res.status(201).json({message:"deja exist"})
-}else{  
-  const user = await User.findOneAndUpdate({
-    _id: id
-  }, {
-    $addToSet: {wishlist:{
-      offerId:offer._id,
-      productName:product.name,
-      photo : product.photo[0],
-      avgReviews :offer.avgReviews,
-      categoryName:category.name,
-      views:offer.views,
-      dateCreation:offer.startDate
-
-    }}
-  }).exec();
-  console.log(user);
-  return res.status(200).json({ok: true, user: user,color:"red"});
-}
+  }
   } catch (error) {
     console.log(error);
     res.status(500).json({error: error});
