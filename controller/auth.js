@@ -443,23 +443,27 @@ exports.addToWish = async (req, res) => {
     const product = await ProductModel.findById(productId);
     const category = await Category.findById(product.categoryId)
     const offer = await Offer.findById(product.offer);
+const userCheckWishList = await User.findById(id);
+if(userCheckWishList.wishlist.filter((element)=>element.offerId===offer._id)){
+    return res.status(400).json("offer deja exist dans votre liste")
+}else{
+  const user = await User.findOneAndUpdate({
+    _id: id
+  }, {
+    $addToSet: {wishlist:{
+      offerId:offer._id,
+      productName:product.name,
+      photo : product.photo[0],
+      avgReviews :offer.avgReviews,
+      categoryName:category.name,
+      views:offer.views,
+      dateCreation:offer.startDate
 
-    const user = await User.findOneAndUpdate({
-      _id: id
-    }, {
-      $addToSet: {wishlist:{
-        offerId:offer._id,
-        productName:product.name,
-        photo : product.photo[0],
-        avgReviews :offer.avgReviews,
-        categoryName:category.name,
-        views:offer.views,
-        dateCreation:offer.startDate
-
-      }}
-    }).exec();
-    console.log(user);
-    return res.status(200).json({ok: true, user: user,color:"red"});
+    }}
+  }).exec();
+  console.log(user);
+  return res.status(200).json({ok: true, user: user,color:"red"});
+}
   } catch (error) {
     console.log(error);
     res.status(500).json({error: error});
@@ -481,7 +485,7 @@ exports.removeWishlist = async (req, res) => {
     const id = req.body.id;
     const user = await User.findById(id);
     if(user){
-      user.wishlist.splice(((item)=>item.offerId ===! offerIdRemoved),1);
+      user.wishlist.splice(((item)=>item.offerId ===! offerIdRemoved));
       await user.save()
     return  res.status(200).json({ok: true, user: user,color:"grey"});
     }
