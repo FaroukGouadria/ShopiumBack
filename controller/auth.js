@@ -447,6 +447,7 @@ const userCheckWishList = await User.findById(id);
 console.log(userCheckWishList.wishlist);
 const wish=userCheckWishList.wishlist.filter((element)=>
 {console.log({element}); console.log({offer:offer._id});element.offerId===offer._id})
+console.log({wish})
   if(wish.length<=0){
     const user = await User.findOneAndUpdate({
       _id: id

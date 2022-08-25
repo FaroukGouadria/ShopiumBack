@@ -259,7 +259,7 @@ const TicketController = {
                             if(inter.length<= 0){
                                prodTicket = await Ticket.findById({_id:elemente._id})
                                         // console.log({prodTicket})
-                                        prodTicket.etat="Refusé"
+                                        prodTicket.etat="Pas de Offer"
                                         await prodTicket.save();
                                         // console.log({prodTicket})
                             }else{
