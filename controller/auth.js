@@ -265,12 +265,14 @@ exports.updateProfile = async (req, res) => {
       nom = req.body.nom,
       prenom = req.body.prenom,
       ville = req.body.ville,
-      pays = req.body.pays;
+      pays = req.body.pays,
+      photo=req.body.photo;
     console.log(req.body.id);
     console.log(req.body.nom);
     console.log(req.body.prenom);
     console.log(req.body.ville);
     console.log(req.body.pays);
+    console.log(photo)
     const CurrentUser = await User.findOne({id});
     if (!CurrentUser) {
       return res.status(404).json({success: false, message: "User n existe pas"});
@@ -279,7 +281,8 @@ exports.updateProfile = async (req, res) => {
         nom: nom,
         prenom: prenom,
         ville: ville,
-        pays: pays
+        pays: pays,
+        photo:photo
       });
       return await res.status(200).json({success: true, message: "update success for user", data: UserModifier});
     }
