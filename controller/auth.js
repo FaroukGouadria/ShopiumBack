@@ -445,7 +445,7 @@ exports.addToWish = async (req, res) => {
     const offer = await Offer.findById(product.offer);
 const userCheckWishList = await User.findById(id);
 console.log(userCheckWishList.wishlist);
-const wish=userCheckWishList.wishlist.filter((element)=>offer._id === element.offerId)
+const wish=userCheckWishList.wishlist.filter((element)=>offer._id === element)
 console.log({wish})
   if(wish.length<=0){
     const user = await User.findOneAndUpdate({
