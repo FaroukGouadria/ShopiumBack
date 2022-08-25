@@ -445,9 +445,11 @@ exports.addToWish = async (req, res) => {
     const offer = await Offer.findById(product.offer);
 const userCheckWishList = await User.findById(id);
 console.log(userCheckWishList.wishlist);
-const wish=userCheckWishList.wishlist.filter((element)=>{console.log({element}); console.log({offer:offer._id});element.offerId===offer._id})
-  if(wish){
+const wish=userCheckWishList.wishlist.filter((element)=>
+{console.log({element}); console.log({offer:offer._id});element.offerId===offer._id})
+  if(wish.length<=0){
     console.log(wish)
+    return res.satus(201).json({message:"deja exist"})
 }else{  
   const user = await User.findOneAndUpdate({
     _id: id
