@@ -446,7 +446,7 @@ exports.addToWish = async (req, res) => {
 const userCheckWishList = await User.findById(id);
 console.log(userCheckWishList.wishlist);
 console.log({offerId:offer._id})
-const wish=userCheckWishList.wishlist.map((element)=>offer._id === element.offerId)
+const wish=userCheckWishList.wishlist.map((element)=>offer._id.toString() === element.offerId)
 console.log({wish})
   if(wish.length<=0){
     const user = await User.findOneAndUpdate({
