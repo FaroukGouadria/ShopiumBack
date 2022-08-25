@@ -447,7 +447,7 @@ const userCheckWishList = await User.findById(id);
 console.log(userCheckWishList.wishlist);
 const wish=userCheckWishList.wishlist.filter((element)=>{console.log({element}); console.log({offer:offer._id});element.offerId===offer._id})
   if(wish){
-    return res.status(400).json("offer deja exist dans votre liste")
+    console.log(wish)
 }else{  
   const user = await User.findOneAndUpdate({
     _id: id
