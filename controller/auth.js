@@ -459,7 +459,7 @@ exports.addToWish = async (req, res) => {
       }}
     }).exec();
     console.log(user);
-    return res.status(200).json({ok: true, user: user});
+    return res.status(200).json({ok: true, user: user,color:"red"});
   } catch (error) {
     console.log(error);
     res.status(500).json({error: error});
@@ -483,7 +483,7 @@ exports.removeWishlist = async (req, res) => {
     if(user){
       user.wishlist.splice(((item)=>item.offerId ===! offerIdRemoved),1);
       await user.save()
-    return  res.status(200).json({ok: true, user: user});
+    return  res.status(200).json({ok: true, user: user,color:"grey"});
     }
   
   } catch (error) {
