@@ -79,13 +79,18 @@ const userSchema = new mongoose.Schema({
     type:Number
   },
   cagnotte:{
-    type:Number
+    type:Number,
+    default:0,
   },
   historique:[{
     offerId:String,
     montant:Number,
     productName:String
   }],
+  remboursement:{
+    type:Number,
+    default:0,
+  },
   wish:[{type:String, ref:"Offre"}]
 }, {timestamps: true});
 
