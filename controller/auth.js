@@ -547,6 +547,7 @@ exports.likedOffer = async(req,res)=>{
     if(user)
     {
      const check= user.wishlist.filter((elem)=>elem.offerId.includes(offer._id))
+     let cheked = check;
      console.log({check})
       if(check===true){
         res.json({liked:true,color:'red'});
@@ -554,7 +555,8 @@ exports.likedOffer = async(req,res)=>{
         res.json({liked:false,color:'grey'})
       }
     }else{
-      res.json(check)
+      
+      res.json(cheked)
     }
   } catch (error) {
       console.log(error)
