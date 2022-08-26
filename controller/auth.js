@@ -490,13 +490,13 @@ exports.removeWishlist = async (req, res) => {
     const offerIdRemoved = req.body.offerId;
     console.log(offerIdRemoved)
     const id = req.body.id;
-    const user = await User.findByIdAndUpdate(id,
-      {$pull:{wish:offerIdRemoved}},{new:true});
-    // if(user){
-    //   // user.wishlist.splice(((item)=>item.offerId ===! offerIdRemoved),0);
-    //   await user.save()
+    const user = await User.findById(id);
+    //   {$pull:{wish:offerIdRemoved}},{new:true});
+    if(user){
+      user.wishlist.splice(((item)=>item.offerId ===! offerIdRemoved),1);
+      await user.save()
     return  res.status(200).json({ok: true, user: user,color:"grey"});
-    // }
+    }
   
   } catch (error) {
     console.log({error})
