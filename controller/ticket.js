@@ -347,7 +347,7 @@ const TicketController = {
                         console.log({error})
                     res.json({errorStatus:error})
                     }
-                }, 300000);   
+                }, 10000);   
 
                 
             }
