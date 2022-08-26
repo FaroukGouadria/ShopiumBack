@@ -539,6 +539,7 @@ exports.removeFromWishList = async (req, res) => {
 };
 exports.likedOffer = async(req,res)=>{
   try {
+       let cheked 
     const productId = req.body.productId;
     const id = req.body.userId
     const product = await ProductModel.findById(productId);
@@ -547,7 +548,7 @@ exports.likedOffer = async(req,res)=>{
     if(user)
     {
      const check= user.wishlist.filter((elem)=>elem.offerId.includes(offer._id))
-     let cheked = check;
+      cheked = check;
      console.log({check})
       if(check===true){
         res.json({liked:true,color:'red'});
@@ -555,7 +556,6 @@ exports.likedOffer = async(req,res)=>{
         res.json({liked:false,color:'grey'})
       }
     }else{
-      
       res.json(cheked)
     }
   } catch (error) {
