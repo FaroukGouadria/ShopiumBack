@@ -53,7 +53,6 @@ exports.createUSer = async (req, res) => {
       codeParrainage: codepar,
       date,
       genre,
-      reviewsCount: 0
     });
     const OTP = generateOTP();
     console.log(OTP);
@@ -83,7 +82,6 @@ exports.createUSer = async (req, res) => {
         codeParrainage: code,
         date: date,
         genre: genre,
-        reviewsCount
       }
     });
   } catch (error) {

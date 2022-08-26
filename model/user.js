@@ -64,6 +64,7 @@ const userSchema = new mongoose.Schema({
   },
   reviewsCount:{
     type:Number,
+    default:0
   },
   wishlist:[{
    offerId:String,
