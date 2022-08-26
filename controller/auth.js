@@ -554,7 +554,7 @@ exports.likedOffer = async(req,res)=>{
         res.json({liked:false,color:'grey'})
       }
     }else{
-      res.json("error")
+      res.json(check)
     }
   } catch (error) {
       console.log(error)
