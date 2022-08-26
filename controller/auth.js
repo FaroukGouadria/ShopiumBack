@@ -505,3 +505,34 @@ exports.removeWishlist = async (req, res) => {
   }
 
 };
+
+exports.addToWishList=async(req,res)=>{
+   const productId = req.body.productId;
+    const id = req.body.id;
+    const product = await ProductModel.findById(productId);
+    const offer = await Offer.findById(product.offer);
+    const user = User.findByIdAndUpdate(
+      id,
+      {$addToSet:{wish:offer._id}},
+      {new:true}
+      ).exec();
+      res.json({ok:true});
+}
+exports.WishList = async (req, res) => {
+   const id = req.body.id;
+  const list = await User.findOne({_id: id}).select("wish").populate("wish").exec();
+
+  res.json(list);
+};
+exports.removeFromWishList = async (req, res) => {
+    const productId = req.body.productId;
+    const id = req.body.id;
+    const product = await ProductModel.findById(productId);
+    const offer = await Offer.findById(product.offer);
+    const user = User.findByIdAndUpdate(
+      id,
+      {$pull:{wish:offer._id}},
+      {new:true}
+      ).exec();
+      res.json({ok:true});
+};

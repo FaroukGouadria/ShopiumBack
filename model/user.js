@@ -84,7 +84,8 @@ const userSchema = new mongoose.Schema({
     offerId:String,
     montant:Number,
     productName:String
-  }]
+  }],
+  wish:[{type:String, ref:"Offre"}]
 }, {timestamps: true});
 
 userSchema.pre("save", async function (next) {
