@@ -538,18 +538,22 @@ exports.removeFromWishList = async (req, res) => {
       res.json({ok:true});
 };
 exports.likedOffer = async(req,res)=>{
-  const productId = req.body.productId;
-  const id = req.body.userId
-  const product = await ProductModel.findById(productId);
-    const offer = await Offer.findById(product.offer);
-  const user = await User.findById(id);
-  if(user)
-  {
-   const check= user.wishlist.filter((elem)=>elem.offerId.includes(offer._id))
-    if(check===true){
-      res.json({liked:true,color:'red'});
-    }else{
-      res.json({liked:false,color:'grey'})
+  try {
+    const productId = req.body.productId;
+    const id = req.body.userId
+    const product = await ProductModel.findById(productId);
+      const offer = await Offer.findById(product.offer);
+    const user = await User.findById(id);
+    if(user)
+    {
+     const check= user.wishlist.filter((elem)=>elem.offerId.includes(offer._id))
+      if(check===true){
+        res.json({liked:true,color:'red'});
+      }else{
+        res.json({liked:false,color:'grey'})
+      }
     }
+  } catch (error) {
+      console.log(error)
   }
-}
+  }

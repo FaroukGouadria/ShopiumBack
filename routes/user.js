@@ -34,6 +34,7 @@ router.post("/ami", getAmi);
 router.post('/wish',addToWish);
 router.post('/getwish',getWishlist);
 router.post('/delete_Wish',removeWishlist);
+////try2
 router.post("/addwishlist", addToWishList);
 router.post("/getwishlist", WishList);
 router.post("/deleteWish", removeFromWishList);
