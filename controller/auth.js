@@ -490,7 +490,7 @@ exports.removeWishlist = async (req, res) => {
     const offerIdRemoved = req.body.offerId;
     console.log(offerIdRemoved)
     const prod = ProductModel.findById(offerIdRemoved);
-    const offer = prod.offer[0]
+    const offer = prod.offer
     const id = req.body.id;
     const user = await User.findById(id);
     //   {$pull:{wish:offerIdRemoved}},{new:true});
