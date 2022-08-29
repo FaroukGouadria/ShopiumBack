@@ -461,7 +461,8 @@ console.log({wish:wish.toString()})
         avgReviews :offer.avgReviews,
         categoryName:category.name,
         views:offer.views,
-        dateCreation:offer.startDate
+        dateCreation:offer.startDate,
+        isLiked:"red",
         
       }}
     }).exec();
@@ -543,11 +544,11 @@ exports.likedOffer = async(req,res)=>{
     const productId = req.body.productId;
     const id = req.body.userId
     const product = await ProductModel.findById(productId);
-      const offer = await Offer.findById(product.offer);
+    const offer = await Offer.findById(product.offer);
     const user = await User.findById(id);
     if(user)
     {
-     const check= user.wishlist.filter((elem)=>elem.offerId.includes(offer._id))
+     const check= user.wishlist.filter((elem)=>elem.isLiked==="red");
       cheked = check;
      console.log({check})
       if(check===true){

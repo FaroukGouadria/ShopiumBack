@@ -73,7 +73,8 @@ const userSchema = new mongoose.Schema({
    avgReviews:Number,
    categoryName:String,
    views:Number,
-   dateCreation:String
+   dateCreation:String,
+   isLiked:String
   }],
   achat:{
     type:Number
