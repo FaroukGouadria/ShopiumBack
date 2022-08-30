@@ -457,7 +457,7 @@ console.log({wish:wish.toString()})
       $addToSet: {wishlist:{
         offerId:offer._id,
         productName:product.name,
-        photo : product.photo[0],
+        photo : product.photo[0], 
         avgReviews :offer.avgReviews,
         categoryName:category.name,
         views:offer.views,
@@ -496,7 +496,11 @@ exports.removeWishlist = async (req, res) => {
     const user = await User.findById(id);
     //   {$pull:{wish:offerIdRemoved}},{new:true});
     if(user){
-      user.wishlist.splice(((item)=>item.offerId ===! offer),1);
+      //Call the findIndex() method to get the index of the object in the array.
+     const itemRemove= user.wishlist.findIndex(((item)=>{return item.offerId===offer}));
+        console.log({itemRemove})
+        //Use the splice() method to remove the element at that index, the splice method changes the contents of the array by removing or replacing existing elements
+        user.wishlist.splice(itemRemove,1);
       await user.save()
     return  res.status(200).json({ok: true, user: user,color:"grey"});
     }
