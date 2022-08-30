@@ -493,7 +493,7 @@ exports.removeWishlist = async (req, res) => {
     const prod =await ProductModel.findById(offerIdRemoved);
     console.log({prod})
     const offer = prod.offer
-    console.log({offer})
+    console.log({offer:offer.toString()})
     const id = req.body.id;
     const user = await User.findById(id);
     if(user){
@@ -501,7 +501,7 @@ exports.removeWishlist = async (req, res) => {
      const itemRemove= user.wishlist.findIndex(item=>{
       console.log({offerId:item.offerId})
       console.log({offer})
-      return item.offerId === offer
+      return item.offerId === offer.toString();
     });  
         console.log({itemRemove})
         //Use the splice() method to remove the element at that index, the splice method changes the contents of the array by removing or replacing existing elements
