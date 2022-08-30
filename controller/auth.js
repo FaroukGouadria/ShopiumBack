@@ -494,10 +494,13 @@ exports.removeWishlist = async (req, res) => {
     const offer = prod.offer
     const id = req.body.id;
     const user = await User.findById(id);
-    //   {$pull:{wish:offerIdRemoved}},{new:true});
     if(user){
       //Call the findIndex() method to get the index of the object in the array.
-     const itemRemove= user.wishlist.findIndex(((item)=>{return item.offerId===offer}));
+     const itemRemove= user.wishlist.findIndex(item=>{
+      console.log({offerId:item.offerId})
+      console.log({offer})
+      return item.offerId === offer
+    });  
         console.log({itemRemove})
         //Use the splice() method to remove the element at that index, the splice method changes the contents of the array by removing or replacing existing elements
         user.wishlist.splice(itemRemove,1);
